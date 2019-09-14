@@ -1,0 +1,40 @@
+{
+  "name": "PyroGramUserBot",
+  "description": "PyroGram UserBot. Powered by @UserBotTalk",
+  "keywords": [
+    "telegram",
+    "best",
+    "indian",
+    "pyrogram",
+    "userbot",
+    "3"
+  ],
+  "repository": "https://github.com/SpEcHiDe/PyroGram-UserBot",
+  "env": {
+    "ENV": {
+      "description": "Setting this to ANYTHING will enable webhooks when in env mode",
+      "value": "ANYTHING"
+    },
+    "APP_ID": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": ""
+    },
+    "API_HASH": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": ""
+    },
+    "HU_STRING_SESSION": {
+      "description": "Generate this value by running python3 GenerateStringSession.py locally",
+      "value": ""
+    }
+  },
+  "addons": [
+  ],
+  "buildpacks": [{
+    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+  }, {
+    "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+  }, {
+    "url": "heroku/python"
+  }]
+}
