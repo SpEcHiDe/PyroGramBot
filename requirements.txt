@@ -2,4 +2,5 @@ https://github.com/pyrogram/pyrogram/archive/asyncio.zip
 beautifulsoup4
 hachoir
 Pillow
+tgcrypto
 youtube-dl
