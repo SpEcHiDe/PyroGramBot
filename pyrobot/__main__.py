@@ -23,7 +23,7 @@ else:
 
 if __name__ == "__main__":
     plugins = dict(
-        root="plugins"
+        root="./plugins"
     )
     app = pyrogram.Client(
         Config.HU_STRING_SESSION,

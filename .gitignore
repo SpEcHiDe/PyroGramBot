@@ -1,2 +1,5 @@
 venv
 config.py
+__pycache__
+pyrobot/__pycache__
+pyrobot/plugins/__pycache__
