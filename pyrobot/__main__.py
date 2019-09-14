@@ -8,7 +8,6 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-import asyncio
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -17,12 +16,12 @@ import os
 
 # the secret configuration specific things
 if bool(os.environ.get("ENV", False)):
-    from sample_config import Config
+    from .sample_config import Config
 else:
-    from config import Config
+    from .config import Config
 
 
-async def main():
+if __name__ == "__main__":
     plugins = dict(
         root="plugins"
     )
@@ -33,10 +32,3 @@ async def main():
         plugins=plugins
     )
     app.run()
-
-
-if __name__ == "__main__":
-    # Then we need a loop to work with
-    loop = asyncio.get_event_loop()
-    # Then, we need to run the loop with a task
-    loop.run_until_complete(main())
