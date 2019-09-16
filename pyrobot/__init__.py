@@ -8,7 +8,7 @@ import os
 if bool(os.environ.get("ENV", False)):
     from pyrobot.sample_config import Config
 else:
-    from pyrobot.config import Development as Config
+    from pyrobot.sample_config import Development as Config
 
 
 # TODO: is there a better way?
