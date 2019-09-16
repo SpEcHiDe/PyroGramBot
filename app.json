@@ -9,7 +9,7 @@
     "userbot",
     "3"
   ],
-  "repository": "https://github.com/SpEcHiDe/PyroGram-UserBot",
+  "repository": "https://github.com/SpEcHiDe/PyroGramUserBot",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable webhooks when in env mode",
