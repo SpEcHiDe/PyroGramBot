@@ -8,10 +8,10 @@ from pyrogram import Client, Filters
 
 import asyncio
 import io
-import subprocess
+import os
 import time
 
-from pyrobot.Config import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
+from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
 
 
 @Client.on_message(Filters.command("exec", COMMAND_HAND_LER)  & Filters.me)
@@ -41,15 +41,16 @@ async def execution(client, message):
     OUTPUT = f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
 
     if len(OUTPUT) > MAX_MESSAGE_LENGTH:
-        with io.BytesIO(str.encode(OUTPUT)) as out_file:
-            out_file.name = "exec.text"
-            await client.send_document(
-                chat_id=message.chat.id,
-                document=out_file,
-                caption=cmd,
-                disable_notification=True,
-                reply_to_message_id=reply_to_id
-            )
-            await event.delete()
+        with open("exec.text", "w+", encoding="utf8") as out_file:
+            out_file.write(str(OUTPUT))
+        await client.send_document(
+            chat_id=message.chat.id,
+            document="exec.text",
+            caption=cmd,
+            disable_notification=True,
+            reply_to_message_id=reply_to_id
+        )
+        os.remove("exec.text")
+        await message.delete()
     else:
         await message.edit(OUTPUT)

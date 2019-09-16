@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 
 
-from pyrobot.Config import HU_STRING_SESSION, APP_ID, API_HASH
+from pyrobot import HU_STRING_SESSION, APP_ID, API_HASH
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
