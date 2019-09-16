@@ -9,15 +9,14 @@ from pyrogram import Client, Filters
 import asyncio
 import inspect
 import io
+import os
 import sys
 import traceback
 
-
-# maximum message length in Telegram
-MAX_MESSAGE_LENGTH = 4096
+from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
 
 
-@Client.on_message(Filters.command("eval", "{")  & Filters.me)
+@Client.on_message(Filters.command("eval", COMMAND_HAND_LER)  & Filters.me)
 async def eval(client, message):
     await message.edit("Processing ...")
     cmd = message.text.split(" ", maxsplit=1)[1]
@@ -55,16 +54,17 @@ async def eval(client, message):
     final_output = "**EVAL**: `{}` \n\n **OUTPUT**: \n`{}` \n".format(cmd, evaluation)
 
     if len(final_output) > MAX_MESSAGE_LENGTH:
-        with io.BytesIO(str.encode(final_output)) as out_file:
-            out_file.name = "eval.text"
-            await client.send_document(
-                chat_id=message.chat.id,
-                document=out_file,
-                caption=cmd,
-                disable_notification=True,
-                reply_to_message_id=reply_to_id
-            )
-            await message.delete()
+        with open("eval.text", "w+", encoding="utf8") as out_file:
+            out_file.write(str(final_output))
+        await client.send_document(
+            chat_id=message.chat.id,
+            document="eval.text",
+            caption=cmd,
+            disable_notification=True,
+            reply_to_message_id=reply_to_id
+        )
+        os.remove("eval.text")
+        await message.delete()
     else:
         await message.edit(final_output)
 

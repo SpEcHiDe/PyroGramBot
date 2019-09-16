@@ -9,16 +9,10 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 
 
+from pyrobot import HU_STRING_SESSION, APP_ID, API_HASH
+
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
-import os
-
-# the secret configuration specific things
-if bool(os.environ.get("ENV", False)):
-    from .sample_config import Config
-else:
-    from .config import Config
 
 
 if __name__ == "__main__":
@@ -26,9 +20,9 @@ if __name__ == "__main__":
         root="pyrobot/plugins"
     )
     app = pyrogram.Client(
-        Config.HU_STRING_SESSION,
-        api_id=Config.APP_ID,
-        api_hash=Config.API_HASH,
+        HU_STRING_SESSION,
+        api_id=APP_ID,
+        api_hash=API_HASH,
         plugins=plugins
     )
     app.run()
