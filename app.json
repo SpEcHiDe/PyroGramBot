@@ -26,6 +26,10 @@
     "HU_STRING_SESSION": {
       "description": "Generate this value by running python3 GenerateStringSession.py locally",
       "value": ""
+    },
+    "COMMAND_HAND_LER": {
+      "description": "specify command handler that should be used for the plugins",
+      "required": false
     }
   },
   "addons": [

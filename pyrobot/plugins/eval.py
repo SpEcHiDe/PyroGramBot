@@ -12,12 +12,10 @@ import io
 import sys
 import traceback
 
-
-# maximum message length in Telegram
-MAX_MESSAGE_LENGTH = 4096
+from pyrobot.Config import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
 
 
-@Client.on_message(Filters.command("eval", "{")  & Filters.me)
+@Client.on_message(Filters.command("eval", COMMAND_HAND_LER)  & Filters.me)
 async def eval(client, message):
     await message.edit("Processing ...")
     cmd = message.text.split(" ", maxsplit=1)[1]

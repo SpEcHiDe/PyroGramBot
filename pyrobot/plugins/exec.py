@@ -11,11 +11,10 @@ import io
 import subprocess
 import time
 
-# maximum message length in Telegram
-MAX_MESSAGE_LENGTH = 4096
+from pyrobot.Config import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
 
 
-@Client.on_message(Filters.command("exec", "{")  & Filters.me)
+@Client.on_message(Filters.command("exec", COMMAND_HAND_LER)  & Filters.me)
 async def execution(client, message):
     DELAY_BETWEEN_EDITS = 0.3
     PROCESS_RUN_TIME = 100
