@@ -12,22 +12,18 @@ logger = logging.getLogger(__name__)
 import asyncio
 import os
 
-# the secret configuration specific things
-if bool(os.environ.get("ENV", False)):
-    from sample_config import Config
-else:
-    from config import Config
 
+from pyrobot import APP_ID, API_HASH
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 
-async def main():
+async def main(APP_ID, API_HASH):
     async with pyrogram.Client(
         ":memory:",
-        api_id=Config.APP_ID,
-        api_hash=Config.API_HASH
+        api_id=APP_ID,
+        api_hash=API_HASH
     ) as app:
         print(app.export_session_string())
 
@@ -36,4 +32,4 @@ if __name__ == "__main__":
     # Then we need a loop to work with
     loop = asyncio.get_event_loop()
     # Then, we need to run the loop with a task
-    loop.run_until_complete(main())
+    loop.run_until_complete(main(APP_ID, API_HASH))
