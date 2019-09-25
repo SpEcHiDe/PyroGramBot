@@ -12,8 +12,12 @@ logger = logging.getLogger(__name__)
 import asyncio
 import os
 
+try:
+    from pyrobot import APP_ID, API_HASH
+except ModuleNotFoundError:
+    APP_ID = int(input("enter Telegram APP ID: "))
+    API_HASH = input("enter Telegram API HASH: "))
 
-from pyrobot import APP_ID, API_HASH
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
