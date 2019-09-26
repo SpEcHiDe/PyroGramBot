@@ -23,7 +23,7 @@ async def down_load_media(client, message):
             file_name=download_location,
             progress=progress_for_pyrogram,
             progress_args=(
-                "trying to download", message.message_id, message.chat.id, c_time
+                "trying to download", message, c_time
             )
         )
         end_t = datetime.now()

@@ -11,6 +11,7 @@ import time
 from datetime import datetime
 
 from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY
+from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -34,7 +35,7 @@ async def save_thumb_nail(client, message):
             file_name=download_location,
             progress=progress_for_pyrogram,
             progress_args=(
-                "trying to download", message.message_id, message.chat.id, c_time
+                "trying to download", message, c_time
             )
         )
         end_t = datetime.now()
@@ -62,7 +63,7 @@ async def save_thumb_nail(client, message):
 
 
 @Client.on_message(Filters.command("clearthumbnail", COMMAND_HAND_LER)  & Filters.me)
-async def save_thumb_nail(client, message):
+async def clear_thumb_nail(client, message):
     await message.edit("processing ...")
     if os.path.exists(thumb_image_path):
         os.remove(thumb_image_path)
@@ -70,27 +71,43 @@ async def save_thumb_nail(client, message):
 
 
 @Client.on_message(Filters.command("getthumbnail", COMMAND_HAND_LER)  & Filters.me)
-async def save_thumb_nail(client, message):
+async def get_thumb_nail(client, message):
     await message.edit("processing ...")
-    """if message.reply_to_message is not None:
-        reply_to_message = message.reply_to_message
+    if message.reply_to_message is not None:
+        """reply_to_message = message.reply_to_message
+        thumb_image_file_id = None
+        file_di_ref = None
         if reply_to_message.document is not None:
-            await client.send_document(
-                chat_id=message.chat.id,
-                document=reply_to_message.document.thumbs[0].file_id,
-                disable_notification=True,
-                reply_to_message_id=message.message_id
-            )
+            thumb_image_file_id = reply_to_message.document.thumbs[0].file_id
+            file_di_ref = reply_to_message.document.file_ref
         if reply_to_message.video is not None:
+            thumb_image_file_id = reply_to_message.video.thumbs[0].file_id
+            file_di_ref = reply_to_message.video.file_ref
+        if thumb_image_file_id is not None:
+            print(thumb_image_file_id)
+            print(file_di_ref)
+            download_location = TMP_DOWNLOAD_DIRECTORY + "/"
+            c_time = time.time()
+            downloaded_file_name = await client.download_media(
+                message=thumb_image_file_id,
+                file_ref=file_di_ref,
+                file_name=download_location,
+                progress=progress_for_pyrogram,
+                progress_args=(
+                    "trying to download", message, c_time
+                )
+            )
+            print(downloaded_file_name)
             await client.send_document(
                 chat_id=message.chat.id,
-                document=reply_to_message.video.thumbs[0].file_id,
+                document=downloaded_file_name,
                 disable_notification=True,
                 reply_to_message_id=message.message_id
             )
-        await message.delete()
-    el"""
-    if os.path.exists(thumb_image_path):
+            os.remove(downloaded_file_name)
+        await message.delete()"""
+        await message.edit("issues")
+    elif os.path.exists(thumb_image_path):
         caption_str = "Currently Saved Thumbnail. Clear with `.clearthumbnail`"
         await client.send_document(
             chat_id=message.chat.id,
