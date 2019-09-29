@@ -28,7 +28,7 @@ An example `config.py` file could be:
 
 **Not All of the variables are mandatory**
 
-__The UniBorg should work by setting only these variables__
+__The UserBot should work by setting only these variables__
 
 ```python3
 from sample_config import Config
@@ -48,7 +48,7 @@ class Development(Config):
 - This is because of `pyrogram.errors.API_ID_PUBLISHED_FLOOD`
     - `APP_ID`:   You can get this value from https://my.telegram.org
     - `API_HASH`:   You can get this value from https://my.telegram.org
-- The userbot will work without setting the non-mandatory environment variables.
+- The userbot should work without setting the non-mandatory environment variables.
 - Please report any issues to the support group: [@SpEcHlDe](https://t.me/joinchat/AHAujEjG4FBO-TH-NrVVbg)
 
 
