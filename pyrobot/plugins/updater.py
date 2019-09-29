@@ -29,7 +29,7 @@ NEW_UP_DATE_FOUND = (
 )
 REPO_REMOTE_NAME = "tmp_upstream_remote"
 IFFUCI_ACTIVE_BRANCH_NAME = "master"
-DIFF_MARKER = "HEAD..upstream/{branch_name}"
+DIFF_MARKER = "HEAD..{remote_name}/{branch_name}"
 NO_HEROKU_APP_CFGD = "no heroku application found, but a key given? 😕 "
 HEROKU_GIT_REF_SPEC = "HEAD:refs/heads/master"
 RESTARTING_APP = "re-starting heroku application"
@@ -67,7 +67,10 @@ async def updater(client, message):
 
     changelog = generate_change_log(
         repo,
-        DIFF_MARKER.format(branch_name=active_branch_name)
+        DIFF_MARKER.format(
+            remote_name=REPO_REMOTE_NAME,
+            branch_name=active_branch_name
+        )
     )
 
     if not changelog:
