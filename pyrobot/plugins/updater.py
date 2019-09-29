@@ -20,7 +20,7 @@ OFFICIAL_UPSTREAM_REPO = "https://github.com/SpEcHiDe/PyroGramUserBot"
 BOT_IS_UP_TO_DATE = "the userbot is up-to-date."
 NEW_BOT_UP_DATE_FOUND = (
     "new update found for {branch_name}\n"
-    "chagelog: {changelog}\n"
+    "chagelog: \n\n{changelog}\n"
     "updating ..."
 )
 NEW_UP_DATE_FOUND = (
