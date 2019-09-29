@@ -65,7 +65,10 @@ async def updater(client, message):
     tmp_upstream_remote = repo.remote(REPO_REMOTE_NAME)
     tmp_upstream_remote.fetch(active_branch_name)
 
-    changelog = generate_change_log(repo, DIFF_MARKER)
+    changelog = generate_change_log(
+        repo,
+        DIFF_MARKER.format(branch_name=active_branch_name)
+    )
 
     if not changelog:
         await message.edit(BOT_IS_UP_TO_DATE)
