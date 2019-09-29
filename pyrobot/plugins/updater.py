@@ -42,13 +42,14 @@ async def updater(client, message):
         repo = git.Repo()
     except git.exc.InvalidGitRepositoryError as e:
         print(e)
-        repo = Repo.init()
+        repo = git.Repo.init()
         origin = repo.create_remote(REPO_REMOTE_NAME, OFFICIAL_UPSTREAM_REPO)
         origin.fetch()
         repo.create_head(IFFUCI_ACTIVE_BRANCH_NAME, origin.refs.master)
         repo.heads.master.checkout(True)
 
     active_branch_name = repo.active_branch.name
+    print(active_branch_name)
     if active_branch_name != IFFUCI_ACTIVE_BRANCH_NAME:
         await message.edit(IS_SELECTED_DIFFERENT_BRANCH.format(
             branch_name=active_branch_name
