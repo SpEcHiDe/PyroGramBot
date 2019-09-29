@@ -45,7 +45,7 @@ class Development(Config):
 ## [@SpEcHlDe](https://telegram.dog/ThankTelegram)
 
 - Only three of the configuration / environment variables are mandatory.
-- This is because of `telethon.errors.rpc_error_list.ApiIdPublishedFloodError`
+- This is because of `pyrogram.errors.API_ID_PUBLISHED_FLOOD`
     - `APP_ID`:   You can get this value from https://my.telegram.org
     - `API_HASH`:   You can get this value from https://my.telegram.org
 - The userbot will work without setting the non-mandatory environment variables.
