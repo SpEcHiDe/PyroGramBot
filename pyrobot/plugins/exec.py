@@ -7,7 +7,6 @@ Syntax: .exec Code"""
 from pyrogram import Client, Filters
 
 import asyncio
-import io
 import os
 import time
 

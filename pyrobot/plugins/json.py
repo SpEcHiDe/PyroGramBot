@@ -3,7 +3,6 @@ Syntax: .json"""
 
 from pyrogram import Client, Filters
 
-import io
 import os
 
 from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
