@@ -1,6 +1,8 @@
 https://github.com/pyrogram/pyrogram/archive/asyncio.zip
 beautifulsoup4
+gitpython
 hachoir
+heroku3
 Pillow
 tgcrypto
 youtube-dl
