@@ -113,7 +113,7 @@ async def updater(client, message):
             heroku_app = heroku_applications[0]
             heroku_git_url = heroku_app.git_url.replace(
                 "https://",
-                "https://api:" + key + "@"
+                "https://api:" + HEROKU_API_KEY + "@"
             )
             if "heroku" in repo.remotes:
                 remote = repo.remote("heroku")
