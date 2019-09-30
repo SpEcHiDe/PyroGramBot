@@ -38,6 +38,10 @@
     "HEROKU_API_KEY": {
       "description": "get a Heroku API key from http://dashboard.heroku.com/account",
       "required": false
+    },
+    "OFFICIAL_UPSTREAM_REPO": {
+      "description": "set this to your fork link on GitHub, not setting anything is RECOMMENDED, nevertheless, keeping this in the hope that it 'might' be useful",
+      "required": false
     }
   },
   "addons": [

@@ -7,7 +7,7 @@ import asyncio
 import git
 import os
 
-from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER, HEROKU_API_KEY
+from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER, HEROKU_API_KEY, OFFICIAL_UPSTREAM_REPO
 
 
 # -- Constants -- #
@@ -17,7 +17,6 @@ IS_SELECTED_DIFFERENT_BRANCH = (
     "in this case, Updater is unable to identify the branch to be updated."
     "please check out to an official branch, and re-start the updater."
 )
-OFFICIAL_UPSTREAM_REPO = "https://github.com/SpEcHiDe/PyroGramUserBot"
 BOT_IS_UP_TO_DATE = "the userbot is up-to-date."
 NEW_BOT_UP_DATE_FOUND = (
     "new update found for {branch_name}\n"
