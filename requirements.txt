@@ -4,5 +4,6 @@ gitpython
 hachoir
 heroku3
 Pillow
+pySmartDL
 tgcrypto
 youtube-dl
