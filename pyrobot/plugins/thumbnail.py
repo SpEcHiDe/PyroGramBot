@@ -39,14 +39,14 @@ async def save_thumb_nail(client, message):
             )
         )
         end_t = datetime.now()
+        # https://stackoverflow.com/a/21669827/4723940
+        Image.open(downloaded_file_name).convert("RGB").save(downloaded_file_name)
         metadata = extractMetadata(createParser(downloaded_file_name))
         height = 0
         if metadata.has("height"):
             height = metadata.get("height")
         # resize image
         # ref: https://t.me/PyrogramChat/44663
-        # https://stackoverflow.com/a/21669827/4723940
-        Image.open(downloaded_file_name).convert("RGB").save(downloaded_file_name)
         img = Image.open(downloaded_file_name)
         # https://stackoverflow.com/a/37631799/4723940
         # img.thumbnail((320, 320))
