@@ -4,6 +4,7 @@ Syntax: .download"""
 from pyrogram import Client, Filters
 
 import asyncio
+import math
 import os
 import time
 from datetime import datetime
@@ -79,6 +80,6 @@ async def down_load_media(client, message):
         if os.path.exists(download_file_path):
             end_t = datetime.now()
             ms = (end_t - start_t).seconds
-            await message.edit(f"Downloaded to `{the_real_download_location}` in {ms} seconds")
+            await message.edit(f"Downloaded to `{download_file_path}` in {ms} seconds")
     else:
         await message.edit("Reply to a Telegram Media, to download it to local server.")
