@@ -42,6 +42,14 @@
     "OFFICIAL_UPSTREAM_REPO": {
       "description": "set this to your fork link on GitHub, not setting anything is RECOMMENDED, nevertheless, keeping this in the hope that it 'might' be useful",
       "required": false
+    },
+    "DB_CHAT_ID": {
+      "description": "this is required for the plugins that need DataBase. Send as Copy this file https://t.me/c/1220993104/327640 to your PRIVATE GROUP, (not creating a group automatically, because of Telegram limitations https://t.me/UniBorg/69) and enter the chat_id with the -100 in this field.",
+      "required": false
+    },
+    "DB_MESG_ID": {
+      "description": "this is required for the plugins that need DataBase. Send as Copy this file https://t.me/c/1220993104/327640 to your PRIVATE GROUP, (not creating a group automatically, because of Telegram limitations https://t.me/UniBorg/69) and enter the message_id in this field.",
+      "required": false
     }
   },
   "addons": [

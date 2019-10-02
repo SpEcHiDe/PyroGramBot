@@ -22,6 +22,9 @@ class Config(object):
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     # set this to your fork on GitHub (if you want)
     OFFICIAL_UPSTREAM_REPO = os.environ.get("OFFICIAL_UPSTREAM_REPO", "https://github.com/SpEcHiDe/PyroGramUserBot")
+    # for the database functionalities
+    DB_CHAT_ID = os.environ.get("DB_CHAT_ID", None)
+    DB_MESG_ID = os.environ.get("DB_MESG_ID", None)
 
 
 class Production(Config):

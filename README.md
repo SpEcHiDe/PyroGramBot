@@ -31,7 +31,7 @@ An example `config.py` file could be:
 __The UserBot should work by setting only these variables__
 
 ```python3
-from sample_config import Config
+from pyrobot.sample_config import Config
 
 class Development(Config):
   APP_ID = 6
