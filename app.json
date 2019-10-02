@@ -10,6 +10,8 @@
     "3"
   ],
   "repository": "https://github.com/SpEcHiDe/PyroGramUserBot",
+  "success_url": "https://telegram.dog/UserBotTalk",
+  "website": "https://github.com/SpEcHiDe/PyroGramUserBot",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable webhooks when in env mode",
@@ -60,5 +62,11 @@
     "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
   }, {
     "url": "heroku/python"
-  }]
+  }],
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  }
 }
