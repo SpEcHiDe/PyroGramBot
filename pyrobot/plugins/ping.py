@@ -18,7 +18,7 @@ REPO = ("Userbot is available on GitHub:\n"
 
 
 @Client.on_message(Filters.command("alive", COMMAND_HAND_LER)  & Filters.me)
-async def help_me(client, message):
+async def check_alive(client, message):
     await message.edit(ALIVE)
 
 
@@ -33,7 +33,7 @@ async def ping(client, message):
     await message.edit("Pong!")
     end_t = datetime.now()
     time_taken_s = (end_t - start_t).microseconds / 1000
-    await message.edit(f"Ping Pong Speed\n{time_taken_s} milli-seconds")
+    await message.edit(f"Pong!\n{time_taken_s}μs")
 
 
 @Client.on_message(Filters.command("repo", COMMAND_HAND_LER)  & Filters.me)
