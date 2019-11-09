@@ -11,6 +11,8 @@ if DB_URI is not None:
     CHAT_FLOOD = sql.__load_flood_settings()
 
 
+from pyrobot.helper_functions.admin_check import AdminCheck
+
 @Client.on_message(group=1)
 async def check_flood(client, message):
     if DB_URI is None:
@@ -20,7 +22,13 @@ async def check_flood(client, message):
         return
     if not (str(message.chat.id) in CHAT_FLOOD):
         return
-    # TODO: exempt admins from this
+    is_admin = await AdminCheck(
+        client,
+        message.chat.id,
+        message.from_user.id
+    )
+    if is_admin:
+        return
     should_ban = sql.update_flood(message.chat.id, message.from_user.id)
     if not should_ban:
         return
