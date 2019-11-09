@@ -7,7 +7,10 @@
     "indian",
     "pyrogram",
     "userbot",
-    "3"
+    "3",
+    "plugin",
+    "modular",
+    "productivity"
   ],
   "repository": "https://github.com/SpEcHiDe/PyroGramUserBot",
   "success_url": "https://telegram.dog/UserBotTalk",
@@ -43,6 +46,14 @@
     },
     "OFFICIAL_UPSTREAM_REPO": {
       "description": "set this to your fork link on GitHub, not setting anything is RECOMMENDED, nevertheless, keeping this in the hope that it 'might' be useful",
+      "required": false
+    },
+    "G_DRIVE_CLIENT_ID": {
+      "description": "Get your credentials from https://da.gd/so63O",
+      "required": false
+    },
+    "G_DRIVE_CLIENT_SECRET": {
+      "description": "Get your credentials from https://da.gd/so63O",
       "required": false
     }
   },

@@ -26,6 +26,9 @@ class Config(object):
     # can be None in which case plugins requiring
     # DataBase would not work
     DB_URI = os.environ.get("DATABASE_URL", None)
+    # gDrive variables
+    G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
+    G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
 
 
 class Production(Config):
