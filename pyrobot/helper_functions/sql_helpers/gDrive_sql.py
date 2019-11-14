@@ -1,7 +1,7 @@
 import pickle
 import threading
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, LargeBinary
 
 from pyrobot.helper_functions.sql_helpers import BASE, SESSION
 
@@ -9,7 +9,7 @@ from pyrobot.helper_functions.sql_helpers import BASE, SESSION
 class gDriveCreds(BASE):
     __tablename__ = "gDrive"
     chat_id = Column(Integer, primary_key=True)
-    credential_string = Column(String)
+    credential_string = Column(LargeBinary)
 
 
     def __init__(self, chat_id):
