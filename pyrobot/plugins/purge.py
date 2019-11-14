@@ -16,7 +16,7 @@ async def purge(client, message):
             from_user = await client.get_users(user_id)
         list_of_messages = await client.get_history(
             chat_id=message.chat.id,
-            limit=message.reply_to_message.message_id
+            offset=message.reply_to_message.message_id
         )
         list_of_messages_to_delete = []
         for a_message in list_of_messages:
