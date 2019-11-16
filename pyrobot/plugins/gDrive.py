@@ -6,6 +6,7 @@ import io
 import json
 import math
 import os
+import time
 from mimetypes import guess_type
 
 
@@ -14,7 +15,8 @@ from pyrobot import (
     DB_URI,
     G_DRIVE_CLIENT_ID,
     G_DRIVE_CLIENT_SECRET,
-    MAX_MESSAGE_LENGTH
+    MAX_MESSAGE_LENGTH,
+    TMP_DOWNLOAD_DIRECTORY
 )
 from pyrogram import Client, Filters
 
@@ -113,6 +115,40 @@ async def g_drive_commands(client, message):
                         gDrive_file_id = await gDrive_upload_file(
                             creds,
                             upload_file_name,
+                            message
+                        )
+                        reply_message_text = ""
+                        if gDrive_file_id is not None:
+                            reply_message_text += "Uploaded to <a href='"
+                            reply_message_text += "https://drive.google.com/open?id="
+                            reply_message_text += gDrive_file_id
+                            reply_message_text += "'>" + gDrive_file_id + "</a>"
+                        else:
+                            reply_message_text += "failed to upload.. check logs?"
+                        await message.edit_text(
+                            text=reply_message_text,
+                            disable_web_page_preview=True
+                        )
+                    elif message.reply_to_message is not None:
+                        if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
+                            os.makedirs(TMP_DOWNLOAD_DIRECTORY)
+                        download_location = TMP_DOWNLOAD_DIRECTORY + "/"
+                        c_time = time.time()
+                        the_real_download_location = await client.download_media(
+                            message=message.reply_to_message,
+                            file_name=download_location,
+                            progress=progress_for_pyrogram,
+                            progress_args=(
+                                "trying to download", message, c_time
+                            )
+                        )
+                        await message.edit(f"Downloaded to `{the_real_download_location}`")
+                        if not os.path.exists(the_real_download_location):
+                            await message.edit_text("invalid file path provided?")
+                            return
+                        gDrive_file_id = await gDrive_upload_file(
+                            creds,
+                            the_real_download_location,
                             message
                         )
                         reply_message_text = ""
