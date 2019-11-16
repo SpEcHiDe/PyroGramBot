@@ -159,6 +159,7 @@ async def g_drive_commands(client, message):
                             reply_message_text += "'>" + gDrive_file_id + "</a>"
                         else:
                             reply_message_text += "failed to upload.. check logs?"
+                        os.remove(the_real_download_location)
                         await message.edit_text(
                             text=reply_message_text,
                             disable_web_page_preview=True
