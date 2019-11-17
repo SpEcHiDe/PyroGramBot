@@ -79,7 +79,7 @@ async def upload_as_video(client, message):
 
 
 @Client.on_message(Filters.command("uploadasphoto", COMMAND_HAND_LER)  & Filters.me)
-async def upload_as_video(client, message):
+async def upload_as_photo(client, message):
     thumb_image_path = is_thumb_image_exists()
     if " " in message.text:
         recvd_command, local_file_name = message.text.split(" ")
