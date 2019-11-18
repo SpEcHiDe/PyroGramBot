@@ -108,7 +108,6 @@ async def show_all(client, event):
 			chat_id=event.chat_id,
 			document=output,
 			caption="`Output is huge. Sending as a file...`", 
-			reply_to=event.message.id,
 			)				
 
 async def check_metadata(gid):
