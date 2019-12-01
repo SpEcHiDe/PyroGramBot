@@ -1,5 +1,5 @@
 """Upload Local Media to Telegram
-Syntax: .download"""
+Syntax: .upload* *"""
 
 from pyrogram import Client, Filters
 
@@ -16,7 +16,7 @@ from pyrobot.helper_functions.check_if_thumb_exists import is_thumb_image_exists
 async def upload_as_document(client, message):
     thumb_image_path = is_thumb_image_exists()
     if " " in message.text:
-        recvd_command, local_file_name = message.text.split(" ")
+        recvd_command, local_file_name = message.text.split(" ", 1)
         if os.path.exists(local_file_name):
             start_t = datetime.now()
             c_time = time.time()
@@ -47,7 +47,7 @@ async def upload_as_document(client, message):
 async def upload_as_video(client, message):
     thumb_image_path = is_thumb_image_exists()
     if " " in message.text:
-        recvd_command, local_file_name = message.text.split(" ")
+        recvd_command, local_file_name = message.text.split(" ", 1)
         if os.path.exists(local_file_name):
             start_t = datetime.now()
             c_time = time.time()
@@ -82,7 +82,7 @@ async def upload_as_video(client, message):
 async def upload_as_photo(client, message):
     thumb_image_path = is_thumb_image_exists()
     if " " in message.text:
-        recvd_command, local_file_name = message.text.split(" ")
+        recvd_command, local_file_name = message.text.split(" ", 1)
         if os.path.exists(local_file_name):
             start_t = datetime.now()
             c_time = time.time()
