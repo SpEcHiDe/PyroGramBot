@@ -36,7 +36,7 @@ aria2 = aria2p.API(
 @Client.on_message(Filters.command("addmag", COMMAND_HAND_LER)  & Filters.me)
 async def magnet_download(client, event):
 	var = event.text
-	var = var[6:]	
+	var = var[8:]	
 	magnet_uri = var
 	magnet_uri = magnet_uri.replace("`","")
 	logger.info(magnet_uri)
@@ -54,7 +54,7 @@ async def magnet_download(client, event):
 	
 @Client.on_message(Filters.command("addtor", COMMAND_HAND_LER)  & Filters.me)
 async def torrent_download(client, event):
-	var = event.text[6:]
+	var = event.text[8:]
 	torrent_file_path = var	
 	torrent_file_path = torrent_file_path.replace("`","")
 	logger.info(torrent_file_path)
