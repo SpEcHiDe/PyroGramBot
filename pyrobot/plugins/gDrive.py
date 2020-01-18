@@ -293,6 +293,7 @@ async def gDrive_upload_file(creds, file_path, message):
     media_body = MediaFileUpload(
         file_path,
         mimetype=mime_type,
+        chunksize=150*1024*1024,
         resumable=True
     )
     file_name = os.path.basename(file_path)
@@ -307,7 +308,7 @@ async def gDrive_upload_file(creds, file_path, message):
     display_message = ""
     while response is None:
         status, response = u_file_obj.next_chunk()
-        await asyncio.sleep(5)
+        #await asyncio.sleep(5)
         if status:
             percentage = int(status.progress() * 100)
             progress_str = "[{0}{1}]\nProgress: {2}%\n".format(
