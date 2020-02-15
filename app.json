@@ -68,8 +68,6 @@
   }, {
     "url": "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
   }, {
-    "url": "https://github.com/amivin/aria2-heroku"
-  }, {
     "url": "heroku/python"
   }],
   "formation": {
