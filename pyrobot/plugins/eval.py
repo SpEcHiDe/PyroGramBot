@@ -16,7 +16,7 @@ import traceback
 from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
 
 
-@Client.on_message(Filters.command("eval", COMMAND_HAND_LER)  & Filters.me)
+@Client.on_message(Filters.command("eval", COMMAND_HAND_LER)  & Filters.me & ~Filters.via_bot)
 async def eval(client, message):
     await message.edit("Processing ...")
     cmd = message.text.split(" ", maxsplit=1)[1]
