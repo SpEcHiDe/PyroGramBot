@@ -113,7 +113,7 @@ async def RestrictFailed(message):
     await message.edit(f"I can't {message.command[0]} this user.")
 
 
-@Client.on_message(Filters.command(r"setgic", ".")  & Filters.me)
+@Client.on_message(Filters.command("setgic", COMMAND_HAND_LER)  & Filters.me)
 async def set_gic(client: Client, message):
     peer = await client.resolve_peer(message.chat.id)
     if not message.text.isalpha() and message.text not in ("/", "!"):
