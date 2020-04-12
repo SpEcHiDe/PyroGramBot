@@ -8,6 +8,7 @@ import git
 import os
 
 from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER, HEROKU_API_KEY, OFFICIAL_UPSTREAM_REPO
+from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
 # -- Constants -- #
@@ -36,8 +37,9 @@ RESTARTING_APP = "re-starting heroku application"
 # -- Constants End -- #
 
 
-@Client.on_message(Filters.command("update", COMMAND_HAND_LER)  & Filters.me)
+@Client.on_message(Filters.command("update", COMMAND_HAND_LER)  & sudo_filter)
 async def updater(client, message):
+    status_message = await message.reply_text("🤔😳😳🙄")
     try:
         repo = git.Repo()
     except git.exc.InvalidGitRepositoryError as e:
@@ -51,7 +53,7 @@ async def updater(client, message):
     active_branch_name = repo.active_branch.name
     print(active_branch_name)
     if active_branch_name != IFFUCI_ACTIVE_BRANCH_NAME:
-        await message.edit(IS_SELECTED_DIFFERENT_BRANCH.format(
+        await status_message.edit(IS_SELECTED_DIFFERENT_BRANCH.format(
             branch_name=active_branch_name
         ))
         return False
@@ -74,7 +76,7 @@ async def updater(client, message):
     )
 
     if not changelog:
-        await message.edit(BOT_IS_UP_TO_DATE)
+        await status_message.edit(BOT_IS_UP_TO_DATE)
         return False
 
     message_one = NEW_BOT_UP_DATE_FOUND.format(
@@ -88,8 +90,7 @@ async def updater(client, message):
     if len(message_one) > MAX_MESSAGE_LENGTH:
         with open("change.log", "w+", encoding="utf8") as out_file:
             out_file.write(str(message_one))
-        await client.send_document(
-            chat_id=message.chat.id,
+        await message.reply_document(
             document="change.log",
             caption=message_two,
             disable_notification=True,
@@ -124,9 +125,9 @@ async def updater(client, message):
         else:
             await message.reply(NO_HEROKU_APP_CFGD)
 
-    await message.edit(RESTARTING_APP)
+    await status_message.edit(RESTARTING_APP)
     # https://t.me/c/1387666944/94908
-    asyncio.get_event_loop().create_task(restart(client, message))
+    asyncio.get_event_loop().create_task(restart(client, status_message))
 
 
 def generate_change_log(git_repo, diff_marker):

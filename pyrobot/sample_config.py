@@ -11,6 +11,7 @@ class Config(object):
     # websites, this might prevent the un-authorized use of the
     # confidential session files
     HU_STRING_SESSION = os.environ.get("HU_STRING_SESSION", None)
+    TG_COMPANION_BOT = os.environ.get("TG_BOT_TOKEN_BF_HER", None)
     # maximum message length in Telegram
     MAX_MESSAGE_LENGTH = 4096
     # specify command handler that should be used for the plugins
@@ -29,6 +30,9 @@ class Config(object):
     # gDrive variables
     G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
     G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
+    # SuDo User
+    # Array to store users who are authorized to use the bot
+    SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
 
 
 class Production(Config):

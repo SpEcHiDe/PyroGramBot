@@ -11,9 +11,10 @@ import os
 import time
 
 from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
+from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
-@Client.on_message(Filters.command("exec", COMMAND_HAND_LER)  & Filters.me & ~Filters.via_bot)
+@Client.on_message(Filters.command("exec", COMMAND_HAND_LER)  & sudo_filter)
 async def execution(client, message):
     DELAY_BETWEEN_EDITS = 0.3
     PROCESS_RUN_TIME = 100
@@ -42,7 +43,7 @@ async def execution(client, message):
     if len(OUTPUT) > MAX_MESSAGE_LENGTH:
         with open("exec.text", "w+", encoding="utf8") as out_file:
             out_file.write(str(OUTPUT))
-        await client.send_document(
+        await message.reply_document(
             chat_id=message.chat.id,
             document="exec.text",
             caption=cmd,
@@ -50,6 +51,5 @@ async def execution(client, message):
             reply_to_message_id=reply_to_id
         )
         os.remove("exec.text")
-        await message.delete()
     else:
-        await message.edit(OUTPUT)
+        await message.reply_text(OUTPUT)

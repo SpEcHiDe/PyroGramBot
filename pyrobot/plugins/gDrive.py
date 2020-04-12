@@ -26,6 +26,7 @@ from googleapiclient.http import MediaFileUpload
 from oauth2client.client import OAuth2WebServerFlow
 import httplib2
 from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
+from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.gDrive_sql as sql
@@ -40,7 +41,7 @@ G_DRIVE_DIR_MIME_TYPE = "application/vnd.google-apps.folder"
 flow = None
 
 
-@Client.on_message(Filters.command("gdrive", COMMAND_HAND_LER)  & Filters.me)
+@Client.on_message(Filters.command("gdrive", COMMAND_HAND_LER)  & sudo_filter)
 async def g_drive_commands(client, message):
     if len(message.command) > 1:
         current_recvd_command = message.command[1]
