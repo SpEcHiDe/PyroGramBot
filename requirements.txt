@@ -1,5 +1,6 @@
 https://github.com/pyrogram/pyrogram/archive/asyncio.zip
 beautifulsoup4
+emoji
 gitpython
 hachoir
 heroku3
@@ -15,3 +16,4 @@ tgcrypto
 youtube-dl
 aria2p
 asyncio
+tinydb
