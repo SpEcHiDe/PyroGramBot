@@ -35,17 +35,20 @@ def button_markdown_parser(msg: Message) -> (str, List):
     # set correct offset relative to command + notename
     markdown_note = None
     if msg.media:
-        markdown_note = msg.caption.markdown
+        if msg.caption:
+            markdown_note = msg.caption.markdown
     else:
         markdown_note = msg.text.markdown
-    
+    note_data = ""
+    buttons = []
+    if markdown_note is None:
+        return note_data, buttons
+    #
     if markdown_note.startswith(COMMAND_HAND_LER):
         args = markdown_note.split(None, 2)
         # use python's maxsplit to separate cmd and args
         markdown_note = args[2]
     prev = 0
-    note_data = ""
-    buttons = []
     for match in BTN_URL_REGEX.finditer(markdown_note):
         # Check if btnurl is escaped
         n_escapes = 0

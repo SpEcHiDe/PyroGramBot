@@ -20,6 +20,8 @@ from pyrobot.helper_functions.msg_types import (
 
 async def get_note_with_command(message, note_name):
     note_d = sql.get_note(message.chat.id, note_name)
+    if not note_d:
+        return
     note_message_id = note_d.d_message_id
     note_message = await message._client.get_messages(
         chat_id=TG_URI,
@@ -32,16 +34,24 @@ async def get_note_with_command(message, note_name):
     # 🥺 check two conditions 🤔🤔
     if note_message.media:
         _, file_id = get_file_id(note_message)
+        caption = note_message.caption
+        if caption:
+            caption = caption.html
         await n_m.reply_cached_media(
             file_id=file_id,
-            caption=note_message.caption.html,
+            caption=caption,
             parse_mode="html",
             reply_markup=note_message.reply_markup
         )
     else:
+        caption = note_message.text
+        if caption:
+            caption = caption.html
         disable_web_page_preview = True
+        if "gra.ph" in caption or "youtu" in caption:
+            disable_web_page_preview = False
         await n_m.reply_text(
-            text=note_message.text.html,
+            text=caption,
             disable_web_page_preview=disable_web_page_preview,
             parse_mode="html",
             reply_markup=note_message.reply_markup
@@ -51,4 +61,10 @@ async def get_note_with_command(message, note_name):
 @Client.on_message(Filters.command("getnote", COMMAND_HAND_LER))
 async def get_note(client, message):
     note_name = " ".join(message.command[1:])
+    await get_note_with_command(message, note_name)
+
+
+@Client.on_message(Filters.regex(pattern="#(\w+)"))
+async def get_hash_tag_note(client, message):
+    note_name = message.matches[0].group(1)
     await get_note_with_command(message, note_name)

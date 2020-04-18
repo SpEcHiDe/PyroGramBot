@@ -67,6 +67,9 @@ async def save_note(client, message):
 
         # construct message using the above parameters
         fwded_mesg = None
+        reply_markup = None
+        if len(buttons) > 0:
+            reply_markup = InlineKeyboardMarkup(buttons)
         if data_type in (Types.BUTTON_TEXT, Types.TEXT):
             fwded_mesg = await client.send_message(
                 chat_id=TG_URI,
@@ -75,7 +78,7 @@ async def save_note(client, message):
                 disable_web_page_preview=True,
                 disable_notification=True,
                 reply_to_message_id=1,
-                reply_markup=InlineKeyboardMarkup(buttons)
+                reply_markup=reply_markup
             )
         elif data_type is not None:
             fwded_mesg = await client.send_cached_media(
@@ -85,7 +88,7 @@ async def save_note(client, message):
                 parse_mode="md",
                 disable_notification=True,
                 reply_to_message_id=1,
-                reply_markup=InlineKeyboardMarkup(buttons)
+                reply_markup=reply_markup
             )
 
         # save to db 🤔
