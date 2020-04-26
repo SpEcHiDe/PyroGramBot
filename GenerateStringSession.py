@@ -15,8 +15,8 @@ import os
 try:
     from pyrobot import APP_ID, API_HASH
 except ModuleNotFoundError:
-    APP_ID = int(input("enter Telegram APP ID: "))
-    API_HASH = input("enter Telegram API HASH: ")
+    APP_ID = int(input("enter Telegram APP ID:1219909 "))
+    API_HASH = input("enter Telegram API HASH:12d9968d5baf06fbf8c48c6574254131 ")
 
 
 import pyrogram
