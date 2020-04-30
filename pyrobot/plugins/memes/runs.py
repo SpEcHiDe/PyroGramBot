@@ -43,6 +43,6 @@ RUN_STRINGS = (
 async def runs(client, message):
     effective_string = random.choice(RUN_STRINGS)
     if message.reply_to_message:
-        message.reply_to_message.reply_text(effective_string)
+        await message.reply_to_message.reply_text(effective_string)
     else:
-        message.reply_text(effective_string)
+        await message.reply_text(effective_string)
