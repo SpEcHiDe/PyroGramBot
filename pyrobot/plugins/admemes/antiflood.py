@@ -13,6 +13,7 @@ if DB_URI is not None:
 
 from pyrobot.helper_functions.admin_check import AdminCheck
 
+
 @Client.on_message(group=1)
 async def check_flood(client, message):
     if DB_URI is None:
@@ -49,7 +50,7 @@ async def check_flood(client, message):
         )
         await asyncio.sleep(10)
         await no_admin_privilege_message.edit_text(
-            text="https://t.me/keralagram/724970",
+            text="https://t.me/c/1092696260/724970",
             disable_web_page_preview=True
         )
     else:
@@ -62,8 +63,15 @@ because he reached the defined flood limit.""".format(message.from_user.id),
         )
 
 
-@Client.on_message(Filters.command("setflood", COMMAND_HAND_LER)  & Filters.me)
+@Client.on_message(Filters.command("setflood", COMMAND_HAND_LER))
 async def set_flood(client, message):
+    is_admin = await AdminCheck(
+        client,
+        message.chat.id,
+        message.from_user.id
+    )
+    if not is_admin:
+        return
     if len(message.command) == 2:
         input_str = message.command[1]
     try:

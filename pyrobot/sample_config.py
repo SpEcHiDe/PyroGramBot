@@ -33,6 +33,7 @@ class Config(object):
     G_DRIVE_CLIENT_ID = os.environ.get("G_DRIVE_CLIENT_ID", None)
     G_DRIVE_CLIENT_SECRET = os.environ.get("G_DRIVE_CLIENT_SECRET", None)
     # SuDo User
+    OWNER_ID = int(os.environ.get("OWNER_ID", "7351948"))
     # Array to store users who are authorized to use the bot
     SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
 

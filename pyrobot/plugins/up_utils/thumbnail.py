@@ -17,13 +17,15 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
 
+from pyrobot.helper_functions.cust_p_filters import sudo_filter
+
 
 thumb_image_path = TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
 
-@Client.on_message(Filters.command("savethumbnail", COMMAND_HAND_LER)  & Filters.me)
+@Client.on_message(Filters.command("savethumbnail", COMMAND_HAND_LER)  & sudo_filter)
 async def save_thumb_nail(client, message):
-    await message.edit("processing ...")
+    status_message = await message.reply_text("...")
     if message.reply_to_message is not None:
         if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
             os.makedirs(TMP_DOWNLOAD_DIRECTORY)
@@ -35,7 +37,7 @@ async def save_thumb_nail(client, message):
             file_name=download_location,
             progress=progress_for_pyrogram,
             progress_args=(
-                "trying to download", message, c_time
+                "trying to download", status_message, c_time
             )
         )
         end_t = datetime.now()
@@ -54,25 +56,25 @@ async def save_thumb_nail(client, message):
         img.save(thumb_image_path, "JPEG")
         # https://pillow.readthedocs.io/en/3.1.x/reference/Image.html#create-thumbnails
         os.remove(downloaded_file_name)
-        await message.edit(
+        await status_message.edit(
             "Custom video / file thumbnail saved. " + \
             "This image will be used in the upload, till `.clearthumbnail`."
         )
     else:
-        await message.edit("Reply to a photo to save custom thumbnail")
+        await status_message.edit("Reply to a photo to save custom thumbnail")
 
 
-@Client.on_message(Filters.command("clearthumbnail", COMMAND_HAND_LER)  & Filters.me)
+@Client.on_message(Filters.command("clearthumbnail", COMMAND_HAND_LER)  & sudo_filter)
 async def clear_thumb_nail(client, message):
-    await message.edit("processing ...")
+    status_message = await message.reply_text("...")
     if os.path.exists(thumb_image_path):
         os.remove(thumb_image_path)
-    await message.edit("✅ Custom thumbnail cleared succesfully.")
+    await status_message.edit("✅ Custom thumbnail cleared succesfully.")
 
 
-@Client.on_message(Filters.command("getthumbnail", COMMAND_HAND_LER)  & Filters.me)
+@Client.on_message(Filters.command("getthumbnail", COMMAND_HAND_LER)  & sudo_filter)
 async def get_thumb_nail(client, message):
-    await message.edit("processing ...")
+    status_message = await message.reply_text("...")
     if message.reply_to_message is not None:
         """reply_to_message = message.reply_to_message
         thumb_image_file_id = None
@@ -106,16 +108,14 @@ async def get_thumb_nail(client, message):
             )
             os.remove(downloaded_file_name)
         await message.delete()"""
-        await message.edit("issues")
+        await status_message.edit("issues")
     elif os.path.exists(thumb_image_path):
         caption_str = "Currently Saved Thumbnail. Clear with `.clearthumbnail`"
-        await client.send_document(
-            chat_id=message.chat.id,
+        await message.reply_document(
             document=thumb_image_path,
             caption=caption_str,
-            disable_notification=True,
-            reply_to_message_id=message.message_id
+            disable_notification=True
         )
-        await message.edit(caption_str)
+        await status_message.delete()
     else:
-        await message.edit("Reply `.gethumbnail` as a reply to a media")
+        await status_message.edit("Reply `.gethumbnail` as a reply to a media")

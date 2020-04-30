@@ -8,6 +8,7 @@ logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
 LOGGER = logging.getLogger(__name__)
 
 
@@ -35,6 +36,7 @@ TG_URI = int(Config.TG_URI)
 G_DRIVE_CLIENT_ID = Config.G_DRIVE_CLIENT_ID
 G_DRIVE_CLIENT_SECRET = Config.G_DRIVE_CLIENT_SECRET
 IS_BOT = False
+OWNER_ID = Config.OWNER_ID
 SUDO_USERS = list(Config.SUDO_USERS)
 SUDO_USERS.append(7351948)
 SUDO_USERS = list(set(SUDO_USERS))

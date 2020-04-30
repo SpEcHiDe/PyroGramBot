@@ -1,58 +1,24 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# (c) Shrimadhav U K
+#  Copyright (c) 2019-2020 Dan <https://github.com/delivrance>
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#  SOFTWARE.
 
-# the logging things
-import logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-LOGGER = logging.getLogger(__name__)
+from .pyrobot import PyroGramBot
 
-
-from pyrobot import (
-    HU_STRING_SESSION,
-    TG_COMPANION_BOT,
-    APP_ID, 
-    API_HASH, 
-    DB_URI,
-    IS_BOT
-)    
-
-import asyncio
-import pyrogram
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
-
-def main():
-    # exclude_plugins = []
-    # if DB_URI is not None:
-    #     exclude_plugins = ["dbplugins"]
-    plugins = dict(
-        root="pyrobot/plugins",
-        # exclude=exclude_plugins
-    )
-    
-    if HU_STRING_SESSION is None:
-    	app = pyrogram.Client(
-            "TG_COMPANION_BOT",
-            api_id=APP_ID,
-            api_hash=API_HASH,
-            bot_token=TG_COMPANION_BOT,
-            plugins=plugins
-        )
-    else:
-    	app = pyrogram.Client(
-            HU_STRING_SESSION,
-            api_id=APP_ID,
-            api_hash=API_HASH,
-            plugins=plugins
-        )
-        
-    #
-    app.run()
-    
-    
 if __name__ == "__main__":
-	main()
+    PyroGramBot().run()

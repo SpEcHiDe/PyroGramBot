@@ -11,19 +11,24 @@ from datetime import datetime
 from pySmartDL import SmartDL
 
 from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY
-from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram, humanbytes
+from pyrobot.helper_functions.display_progress_dl_up import (
+    progress_for_pyrogram,
+    humanbytes
+)
+from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
-@Client.on_message(Filters.command("download", COMMAND_HAND_LER)  & Filters.me)
-async def down_load_media(client, message):
+@Client.on_message(Filters.command("download", COMMAND_HAND_LER)  & sudo_filter)
+async def down_load_media(client, sms):
+    message = await sms.reply_text("...", quote=True)
     if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TMP_DOWNLOAD_DIRECTORY)
-    if message.reply_to_message is not None:
+    if sms.reply_to_message is not None:
         start_t = datetime.now()
         download_location = TMP_DOWNLOAD_DIRECTORY + "/"
         c_time = time.time()
         the_real_download_location = await client.download_media(
-            message=message.reply_to_message,
+            message=sms.reply_to_message,
             file_name=download_location,
             progress=progress_for_pyrogram,
             progress_args=(
@@ -33,9 +38,9 @@ async def down_load_media(client, message):
         end_t = datetime.now()
         ms = (end_t - start_t).seconds
         await message.edit(f"Downloaded to `{the_real_download_location}` in {ms} seconds")
-    elif len(message.command) > 1:
+    elif len(sms.command) > 1:
         start_t = datetime.now()
-        the_url_parts = " ".join(message.command[1:])
+        the_url_parts = " ".join(sms.command[1:])
         url = the_url_parts.strip()
         custom_file_name = os.path.basename(url)
         if "|" in the_url_parts:
