@@ -27,7 +27,6 @@ class PyroGramBot(Client):
         if HU_STRING_SESSION is None:
             super().__init__(
                 name,
-                workers=16,
                 plugins=dict(root=f"{name}/plugins"),  
                 workdir=".",      
                 api_id=APP_ID,
@@ -37,7 +36,6 @@ class PyroGramBot(Client):
         else:
             super().__init__(
                 name,
-                workers=16,
                 plugins=dict(root=f"{name}/plugins"),
                 workdir=".",
                 api_id=APP_ID,
