@@ -15,15 +15,13 @@ async def jsonify(client, message):
     reply_to_id =  None
 
     if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
         the_real_message = message.reply_to_message
     else:
         the_real_message = message
-        reply_to_id = message.message_id
 
-    try:
-        await message.reply_text(the_real_message)
-    except Exception as e:
+    if len(the_real_message) <= MAX_MESSAGE_LENGTH:
+        await message.reply_text(f"<code>{the_real_message}</code>")
+    else:
         with open("json.text", "w+", encoding="utf8") as out_file:
             out_file.write(str(the_real_message))
         await message.reply_document(
