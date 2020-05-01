@@ -9,7 +9,11 @@ from datetime import datetime
 from pySmartDL import SmartDL
 from pyrogram import Client, Filters
 
-from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY
+from pyrobot import (
+    COMMAND_HAND_LER,
+    LOGGER,
+    TMP_DOWNLOAD_DIRECTORY
+)
 from pyrobot.helper_functions.display_progress_dl_up import (
     progress_for_pyrogram,
     humanbytes
@@ -79,7 +83,7 @@ async def down_load_media(client, sms):
                     display_message = current_message
                     await asyncio.sleep(10)
             except Exception as e:
-                logger.info(str(e))
+                LOGGER.info(str(e))
                 pass
         if os.path.exists(download_file_path):
             end_t = datetime.now()
