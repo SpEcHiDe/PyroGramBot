@@ -81,6 +81,9 @@ def get_note_type(msg: Message, split: int):
             text, buttons = button_markdown_parser(msg)
             data_type = Types.VIDEO_NOTE
 
+    if split == 1 and note_name == "False":
+        note_name = False
+
     return note_name, text, data_type, content, buttons
 
 
