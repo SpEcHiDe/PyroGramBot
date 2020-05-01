@@ -46,6 +46,7 @@ class PyroGramBot(Client):
         await super().start()
 
         me = await self.get_me()
+        self.set_parse_mode("html")
         IS_BOT = me.is_bot
         LOGGER.info(f"PyroGramBot based on Pyrogram v{__version__} (Layer {layer}) started on @{me.username}. Hi.")
 

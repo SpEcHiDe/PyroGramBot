@@ -8,7 +8,7 @@ from pyrobot import COMMAND_HAND_LER
 
 
 @Client.on_message(Filters.command("roll", COMMAND_HAND_LER))
-async def jsonify(client, message):
+async def roll_dice(client, message):
     rep_mesg_id = message.message_id
     if message.reply_to_message:
         rep_mesg_id = message.reply_to_message.message_id
