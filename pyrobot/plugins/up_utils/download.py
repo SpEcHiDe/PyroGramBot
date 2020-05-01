@@ -1,14 +1,13 @@
 """Download Telegram Media
 Syntax: .download"""
 
-from pyrogram import Client, Filters
-
 import asyncio
 import math
 import os
 import time
 from datetime import datetime
 from pySmartDL import SmartDL
+from pyrogram import Client, Filters
 
 from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY
 from pyrobot.helper_functions.display_progress_dl_up import (

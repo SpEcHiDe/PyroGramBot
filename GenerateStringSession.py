@@ -2,15 +2,9 @@
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
 
-# the logging things
-import logging
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-
 import asyncio
-import os
+from pyrogram import Client
+
 
 try:
     from pyrobot import APP_ID, API_HASH
@@ -19,15 +13,12 @@ except ModuleNotFoundError:
     API_HASH = input("enter Telegram API HASH: ")
 
 
-import pyrogram
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
-
-async def main(APP_ID, API_HASH):
-    async with pyrogram.Client(
-        ":memory:",
-        api_id=APP_ID,
-        api_hash=API_HASH
+async def main(api_id, api_hash):
+    """ generate StringSession for the current MemorySession"""
+    async with Client(
+            ":memory:",
+            api_id=api_id,
+            api_hash=api_hash
     ) as app:
         print(app.export_session_string())
 

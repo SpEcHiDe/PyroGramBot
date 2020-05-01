@@ -1,6 +1,6 @@
 # PyroGramUserBot 🔥🤖
 
-A Telegram Userbot based on [Pyrogram](https://github.com/pyrogram/pyrogram)
+A Telegram User / Bot based on [Pyrogram](https://github.com/pyrogram/pyrogram)
 
 ## installing
 
@@ -12,7 +12,7 @@ A Telegram Userbot based on [Pyrogram](https://github.com/pyrogram/pyrogram)
 Simply clone the repository and run the main file:
 
 ```sh
-git clone https://github.com/SpEcHiDe/PyroGramUserBot.git
+git clone https://github.com/SpEcHiDe/PyroGramBot.git
 cd PyroGramUserBot
 virtualenv -p /usr/bin/python3 venv
 . ./venv/bin/activate
@@ -49,7 +49,7 @@ class Development(Config):
     - `APP_ID`:   You can get this value from https://my.telegram.org
     - `API_HASH`:   You can get this value from https://my.telegram.org
 - The userbot should work without setting the non-mandatory environment variables.
-- Please report any issues to the support group: [@SpEcHlDe](https://t.me/joinchat/AHAujEjG4FBO-TH-NrVVbg)
+- Please report any issues to the support group: [@SpEcHlDe](https://t.me/ThankTelegram)
 
 
 ## Credits, and Thanks to

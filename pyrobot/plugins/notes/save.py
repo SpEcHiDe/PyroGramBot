@@ -1,36 +1,27 @@
 from pyrogram import (
     Client,
     Filters,
-    InlineKeyboardMarkup,
-    InlineKeyboardButton
+    InlineKeyboardMarkup
 )
 
 from pyrobot import (
-    LOGGER,
     COMMAND_HAND_LER,
     DB_URI,
     TG_URI
 )
 
+from pyrobot.helper_functions.admin_check import admin_check
+from pyrobot.helper_functions.msg_types import (
+    get_note_type,
+    Types
+)
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.notes_sql as sql
 
 
-from pyrobot.helper_functions.admin_check import AdminCheck
-from pyrobot.helper_functions.msg_types import (
-    get_note_type,
-    get_file_id,
-    Types
-)
-
-
 @Client.on_message(Filters.command("savenote", COMMAND_HAND_LER))
 async def save_note(client, message):
-    is_admin = await AdminCheck(
-        client,
-        message.chat.id,
-        message.from_user.id
-    )
+    is_admin = await admin_check(message)
     if not is_admin:
         return
     status_message = await message.reply_text(

@@ -2,33 +2,32 @@
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
 
-from pyrobot import (
-    HU_STRING_SESSION,
-    TG_COMPANION_BOT,
-    APP_ID, 
-    API_HASH, 
-    DB_URI,
-    LOGGER,
-    IS_BOT,
-    OWNER_ID,
-    SUDO_USERS
-)    
-
-from pyrogram import Client, Message
+from pyrogram import Client
 from pyrogram import __version__
 from pyrogram.api.all import layer
 
+from pyrobot import (
+    APP_ID,
+    API_HASH,
+    HU_STRING_SESSION,
+    LOGGER,
+    # OWNER_ID,
+    # SUDO_USERS,
+    TG_COMPANION_BOT,
+    TMP_DOWNLOAD_DIRECTORY
+)
 
-class PyroGramBot(Client):
-    
+
+class PyroBot(Client):
+
     def __init__(self):
-        name = "pyrobot"
+        name = self.__class__.__name__.lower()
 
         if HU_STRING_SESSION is None:
             super().__init__(
                 name,
-                plugins=dict(root=f"{name}/plugins"),  
-                workdir=".",      
+                plugins=dict(root=f"{name}/plugins"),
+                workdir=TMP_DOWNLOAD_DIRECTORY,
                 api_id=APP_ID,
                 api_hash=API_HASH,
                 bot_token=TG_COMPANION_BOT
@@ -37,18 +36,22 @@ class PyroGramBot(Client):
             super().__init__(
                 name,
                 plugins=dict(root=f"{name}/plugins"),
-                workdir=".",
+                workdir=TMP_DOWNLOAD_DIRECTORY,
                 api_id=APP_ID,
                 api_hash=API_HASH,
             )
 
+
     async def start(self):
         await super().start()
 
-        me = await self.get_me()
+        usr_bot_me = await self.get_me()
         self.set_parse_mode("html")
-        IS_BOT = me.is_bot
-        LOGGER.info(f"PyroGramBot based on Pyrogram v{__version__} (Layer {layer}) started on @{me.username}. Hi.")
+        LOGGER.info(
+            f"PyroGramBot based on Pyrogram v{__version__} "
+            f"(Layer {layer}) started on @{usr_bot_me.username}. "
+            "Hi."
+        )
 
 
     async def stop(self, *args):

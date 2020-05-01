@@ -4,18 +4,16 @@ from pyrogram import (
 )
 
 from pyrobot import (
-    LOGGER,
     COMMAND_HAND_LER,
     DB_URI,
     TG_URI
 )
 
-if DB_URI is not None:
-    import pyrobot.helper_functions.sql_helpers.notes_sql as sql
-
 from pyrobot.helper_functions.msg_types import (
     get_file_id
 )
+if DB_URI is not None:
+    import pyrobot.helper_functions.sql_helpers.notes_sql as sql
 
 
 async def get_note_with_command(message, note_name):
@@ -59,12 +57,12 @@ async def get_note_with_command(message, note_name):
 
 
 @Client.on_message(Filters.command("getnote", COMMAND_HAND_LER))
-async def get_note(client, message):
+async def get_note(_, message):
     note_name = " ".join(message.command[1:])
     await get_note_with_command(message, note_name)
 
 
-@Client.on_message(Filters.regex(pattern="#(\w+)"))
-async def get_hash_tag_note(client, message):
+@Client.on_message(Filters.regex(pattern=r"#(\w+)"))
+async def get_hash_tag_note(_, message):
     note_name = message.matches[0].group(1)
     await get_note_with_command(message, note_name)

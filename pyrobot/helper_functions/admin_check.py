@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from pyrogram import Message
 
-async def AdminCheck(client, chat_id, user_id):
-    SELF = await client.get_chat_member(
+
+async def admin_check(message: Message) -> bool:
+    client = message._client
+    chat_id = message.chat.id
+    user_id = message.from_user.id
+
+    check_status = await client.get_chat_member(
         chat_id=chat_id,
         user_id=user_id
     )
@@ -12,7 +18,7 @@ async def AdminCheck(client, chat_id, user_id):
         "administrator"
     ]
     # https://git.colinshark.de/PyroBot/PyroBot/src/branch/master/pyrobot/modules/admin.py#L69
-    if SELF.status not in admin_strings:
+    if check_status.status not in admin_strings:
         return False
     else:
         return True

@@ -1,10 +1,9 @@
 import re
 import time
-from typing import Dict, List
+from typing import List
 
 from pyrogram import (
     Message,
-    MessageEntity,
     InlineKeyboardButton
 )
 
@@ -82,12 +81,12 @@ def button_markdown_parser(msg: Message) -> (str, List):
     return note_data, buttons
 
 
-def extract_time(message, time_val):
+async def extract_time(message, time_val):
     if any(time_val.endswith(unit) for unit in ('m', 'h', 'd')):
         unit = time_val[-1]
         time_num = time_val[:-1]  # type: str
         if not time_num.isdigit():
-            message.reply_text("അസാധുവായ സമയ തുക വ്യക്തമാക്കി.")
+            await message.reply_text("അസാധുവായ സമയ തുക വ്യക്തമാക്കി.")
             return ""
 
         if unit == 'm':
@@ -101,5 +100,9 @@ def extract_time(message, time_val):
             return ""
         return bantime
     else:
-        message.reply_text("അസാധുവായ സമയ തരം വ്യക്തമാക്കി. പ്രതീക്ഷിച്ചതു m,h, or d, കിട്ടിയത്: {}".format(time_val[-1]))
+        await message.reply_text(
+            "അസാധുവായ സമയ തരം വ്യക്തമാക്കി. പ്രതീക്ഷിച്ചതു m, h, or d, കിട്ടിയത്: {}".format(
+                time_val[-1]
+            )
+        )
         return ""

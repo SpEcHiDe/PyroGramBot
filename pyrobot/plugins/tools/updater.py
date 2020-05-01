@@ -1,13 +1,18 @@
 """Update UserBot code
 Syntax: .update"""
 
+import asyncio
+import os
+import git
+
 from pyrogram import Client, Filters
 
-import asyncio
-import git
-import os
-
-from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER, HEROKU_API_KEY, OFFICIAL_UPSTREAM_REPO
+from pyrobot import (
+    COMMAND_HAND_LER,
+    HEROKU_API_KEY,
+    MAX_MESSAGE_LENGTH,
+    OFFICIAL_UPSTREAM_REPO
+)
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
@@ -134,7 +139,8 @@ def generate_change_log(git_repo, diff_marker):
     out_put_str = ""
     d_form = "%d/%m/%y"
     for repo_change in git_repo.iter_commits(diff_marker):
-        out_put_str += f"•[{repo_change.committed_datetime.strftime(d_form)}]: {repo_change.summary} <{repo_change.author}>\n"
+        out_put_str += f"•[{repo_change.committed_datetime.strftime(d_form)}]: "
+        out_put_str += f"{repo_change.summary} <{repo_change.author}>\n"
     return out_put_str
 
 

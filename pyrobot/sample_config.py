@@ -1,6 +1,6 @@
 import os
 
-class Config(object):
+class Config():
     LOGGER = True
     # The Telegram API things
     APP_ID = int(os.environ.get("APP_ID", 12345))
@@ -22,7 +22,10 @@ class Config(object):
     # get a Heroku API key from http://dashboard.heroku.com/account
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     # set this to your fork on GitHub (if you want)
-    OFFICIAL_UPSTREAM_REPO = os.environ.get("OFFICIAL_UPSTREAM_REPO", "https://github.com/SpEcHiDe/PyroGramUserBot")
+    OFFICIAL_UPSTREAM_REPO = os.environ.get(
+        "OFFICIAL_UPSTREAM_REPO",
+        "https://github.com/SpEcHiDe/PyroGramUserBot"
+    )
     # For Databases
     # can be None in which case plugins requiring
     # DataBase would not work

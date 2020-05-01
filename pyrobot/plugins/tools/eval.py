@@ -4,14 +4,12 @@ Syntax: .eval PythonCode"""
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-from pyrogram import Client, Filters
-
-import asyncio
-import inspect
 import io
 import os
 import sys
 import traceback
+
+from pyrogram import Client, Filters
 
 from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
 from pyrobot.helper_functions.cust_p_filters import sudo_filter

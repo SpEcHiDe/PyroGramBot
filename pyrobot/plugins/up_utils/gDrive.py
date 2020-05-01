@@ -5,26 +5,25 @@ import asyncio
 import io
 import json
 import math
+import httplib2
 import os
 import time
-from mimetypes import guess_type
 
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
+from mimetypes import guess_type
+from oauth2client.client import OAuth2WebServerFlow
+from pyrogram import Client, Filters
 
 from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI,
     G_DRIVE_CLIENT_ID,
     G_DRIVE_CLIENT_SECRET,
-    MAX_MESSAGE_LENGTH,
+    LOGGER,
     TMP_DOWNLOAD_DIRECTORY
 )
-from pyrogram import Client, Filters
 
-
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
-from oauth2client.client import OAuth2WebServerFlow
-import httplib2
 from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
@@ -324,7 +323,7 @@ async def gDrive_upload_file(creds, file_path, message):
                     await message.edit_text(current_message)
                     display_message = current_message
                 except Exception as e:
-                    logger.info(str(e))
+                    LOGGER.info(str(e))
                     pass
     # Permissions body description: anyone who has link can upload
     # Other permissions can be found at https://developers.google.com/drive/v3/reference/permissions
@@ -346,8 +345,8 @@ async def gDrive_upload_file(creds, file_path, message):
 # https://github.com/googleapis/google-api-python-client/blob/master/docs/thread_safety.md
 # Create a new Http() object for every request
 def build_request(http, *args, **kwargs):
-  new_http = httplib2.Http()
-  return apiclient.http.HttpRequest(new_http, *args, **kwargs)
+    new_http = httplib2.Http()
+    return apiclient.http.HttpRequest(new_http, *args, **kwargs)
 
 
 def get_new_http_instance():

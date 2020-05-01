@@ -1,22 +1,20 @@
 """ The core 'pyrobot' module"""
 
-from importlib import import_module, reload
 import os
+from importlib import import_module, reload
 from pathlib import Path
 from pyrogram import Client, Filters
 from pyrogram.client.handlers.handler import Handler
-from pyrobot.helper_functions.cust_p_filters import sudo_filter
-
-
 from pyrobot import (
-    MAX_MESSAGE_LENGTH,
     COMMAND_HAND_LER,
     LOGGER
 )
+from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
 @Client.on_message(Filters.command("load", COMMAND_HAND_LER)  & sudo_filter)
 async def load_plugin(client, message):
+    """ load TG Plugins """
     status_message = await message.reply("Processing ...")
     try:
         if message.reply_to_message is not None:
@@ -42,7 +40,7 @@ async def load_plugin(client, message):
                     # noinspection PyBroadException
                     try:
                         handler, group = getattr(module, name).handler
-    
+
                         if isinstance(handler, Handler) and isinstance(group, int):
                             client.add_handler(handler, group)
                             LOGGER.info(
@@ -54,15 +52,14 @@ async def load_plugin(client, message):
                                     module_path
                                 )
                             )
-    
+
                             lded_count += 1
-                    except Exception as e:
-                        # LOGGER.info(str(e))
+                    except Exception:
                         pass
                 await status_message.edit(
                     f"installed {lded_count} commands / plugins"
                 )
     except Exception as error:
         await status_message.edit(
-             f"ERROR: <code>{error}</code>"
+            f"ERROR: <code>{error}</code>"
         )

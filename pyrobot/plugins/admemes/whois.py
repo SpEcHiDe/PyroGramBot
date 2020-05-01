@@ -1,16 +1,17 @@
 """Get info about the replied user
 Syntax: .whois"""
 
-from pyrogram import Client, Filters
-
 import os
 
-from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
+from pyrogram import Client, Filters
+
+from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.extract_user import extract_user
 
 
 @Client.on_message(Filters.command("whois", COMMAND_HAND_LER))
 async def who_is(client, message):
+    """ extract user information """
     status_message = await message.reply_text(
         "🤔😳😳🙄"
     )
@@ -18,21 +19,20 @@ async def who_is(client, message):
     from_user_id, _ = extract_user(message)
     try:
         user_id = from_user_id
-        if not user_id.startswith("@"):
+        if not str(user_id).startswith("@"):
             user_id = int(user_id)
         from_user = await client.get_users(user_id)
-    except Exception as e:
-        await status_message.edit(str(e))
+    except Exception as error:
+        await status_message.edit(str(error))
         return
     if from_user is None:
         await status_message.edit("no valid user_id / message specified")
     else:
         message_out_str = ""
-        message_out_str += f"ID: <code>{from_user.id}</code>`\n"
-        message_out_str += f"First Name: \
-            <a href='tg://user?id={from_user.id}'>\
-            {from_user.first_name}\
-            </a>\n"
+        message_out_str += f"ID: <code>{from_user.id}</code>\n"
+        message_out_str += f"First Name: <a href='tg://user?id={from_user.id}'>"
+        message_out_str += from_user.first_name
+        message_out_str += "</a>\n"
         message_out_str += f"Last Name: {from_user.last_name}\n"
         message_out_str += f"DC ID: <code>{from_user.dc_id}</code>\n"
         chat_photo = from_user.photo

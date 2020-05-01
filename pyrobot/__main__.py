@@ -18,7 +18,7 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 #  SOFTWARE.
 
-from .pyrobot import PyroGramBot
+from .pyrobot import PyroBot
 
 if __name__ == "__main__":
-    PyroGramBot().run()
+    PyroBot().run()

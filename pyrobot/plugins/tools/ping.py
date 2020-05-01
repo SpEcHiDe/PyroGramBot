@@ -20,17 +20,17 @@ REPO = ("User / Bot is available on GitHub:\n"
 
 
 @Client.on_message(Filters.command("alive", COMMAND_HAND_LER))
-async def check_alive(client, message):
+async def check_alive(_, message):
     await message.reply_text(ALIVE)
 
 
 @Client.on_message(Filters.command("help", COMMAND_HAND_LER))
-async def help_me(client, message):
+async def help_me(_, message):
     await message.reply_sticker(HELP)
 
 
 @Client.on_message(Filters.command("ping", COMMAND_HAND_LER))
-async def ping(client, message):
+async def ping(_, message):
     start_t = time.time()
     rm = await message.reply_text("...")
     end_t = time.time()
@@ -39,5 +39,5 @@ async def ping(client, message):
 
 
 @Client.on_message(Filters.command("repo", COMMAND_HAND_LER))
-async def repo(client, message):
+async def repo(_, message):
     await message.reply_text(REPO)

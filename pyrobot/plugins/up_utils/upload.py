@@ -1,16 +1,22 @@
 """Upload Local Media to Telegram
 Syntax: .upload* *"""
 
-from pyrogram import Client, Filters
-
 import os
 import time
 from datetime import datetime
 
-from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY
-from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
+from pyrogram import (
+    Client,
+    Filters
+)
+
+from pyrobot import (
+    COMMAND_HAND_LER,
+    TMP_DOWNLOAD_DIRECTORY
+)
 from pyrobot.helper_functions.check_if_thumb_exists import is_thumb_image_exists
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
+from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 
 
 @Client.on_message(Filters.command("uploadasdoc", COMMAND_HAND_LER)  & sudo_filter)
