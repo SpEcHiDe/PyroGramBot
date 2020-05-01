@@ -16,10 +16,10 @@ from pyrobot.helper_functions.msg_types import (
     Types
 )
 if DB_URI is not None:
-    import pyrobot.helper_functions.sql_helpers.notes_sql as sql
+    import pyrobot.helper_functions.sql_helpers.welcome_sql as sql
 
 
-@Client.on_message(Filters.command("savenote", COMMAND_HAND_LER))
+@Client.on_message(Filters.command("savewelcome", COMMAND_HAND_LER))
 async def save_note(client, message):
     is_admin = await admin_check(message)
     if not is_admin:
@@ -28,32 +28,39 @@ async def save_note(client, message):
         "checking 🤔🙄🙄",
         quote=True
     )
-    if message.reply_to_message and message.reply_to_message.reply_markup is not None:
+    if len(message.command) == 2:
+        chat_id = message.chat.id
+        note_message_id = int(message.command[1])
+        sql.add_welcome_setting(
+            chat_id,
+            True,
+            0,
+            note_message_id
+        )
+        await status_message.edit_text(
+            "welcome message saved"
+        )
+    elif message.reply_to_message and message.reply_to_message.reply_markup is not None:
         fwded_mesg = await message.reply_to_message.forward(
             chat_id=TG_URI,
             disable_notification=True
         )
         chat_id = message.chat.id
-        note_name = " ".join(message.command[1:])
         note_message_id = fwded_mesg.message_id
-        sql.add_note_to_db(
+        sql.add_welcome_setting(
             chat_id,
-            note_name,
+            True,
+            0,
             note_message_id
         )
         await status_message.edit_text(
-            f"note <u>{note_name}</u> added"
-            # f"<a href='https://'>{message.chat.title}</a>"
+            "welcome message saved"
         )
     else:
-        note_name, text, data_type, content, buttons = get_note_type(message, 2)
+        note_name, text, data_type, content, buttons = get_note_type(message, 1)
 
         if data_type is None:
-            await status_message.edit_text("🤔 maybe note text is empty")
-            return
-
-        if not note_name:
-            await status_message.edit_text("എന്തിന്ന് ഉള്ള മറുപടി ആണ് എന്ന് വ്യക്തം ആക്കിയില്ല 🤔")
+            await status_message.edit_text("🤔 maybe welcome text is empty")
             return
 
         # construct message using the above parameters
@@ -86,14 +93,14 @@ async def save_note(client, message):
         if fwded_mesg is not None:
             chat_id = message.chat.id
             note_message_id = fwded_mesg.message_id
-            sql.add_note_to_db(
+            sql.add_welcome_setting(
                 chat_id,
-                note_name,
+                bool(note_name),
+                0,
                 note_message_id
             )
             await status_message.edit_text(
-                f"note <u>{note_name}</u> added"
-                # f"<a href='https://'>{message.chat.title}</a>"
+                "welcome message saved"
             )
         else:
             await status_message.edit_text("🥺 this might be an error 🤔")

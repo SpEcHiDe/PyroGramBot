@@ -18,18 +18,18 @@ class Types(IntEnum):
     VIDEO_NOTE = 8
 
 
-def get_note_type(msg: Message):
+def get_note_type(msg: Message, split: int):
     data_type = None
     content = None
     text = ""
     raw_text = msg.text or msg.caption
-    args = raw_text.split(None, 2)
+    args = raw_text.split(None, split)
     # use python's maxsplit to separate cmd and args
     note_name = args[1]
 
     buttons = []
     # determine what the contents of the filter are - text, image, sticker, etc
-    if len(args) >= 3:
+    if len(args) >= (split + 1) and not msg.reply_to_message:
         text, buttons = button_markdown_parser(msg)
         if buttons:
             data_type = Types.BUTTON_TEXT
@@ -37,7 +37,7 @@ def get_note_type(msg: Message):
             data_type = Types.TEXT
 
     elif msg.reply_to_message:
-        if len(args) >= 2 and msg.reply_to_message.text:  # not caption, text
+        if len(args) >= split and msg.reply_to_message.text:  # not caption, text
             text, buttons = button_markdown_parser(msg.reply_to_message)
             if buttons:
                 data_type = Types.BUTTON_TEXT
