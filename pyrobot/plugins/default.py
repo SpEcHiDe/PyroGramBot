@@ -64,5 +64,5 @@ async def load_plugin(client, message):
                 )
     except Exception as error:
         await status_message.edit(
-             f"ERROR: `{error}`"
+             f"ERROR: <code>{error}</code>"
         )

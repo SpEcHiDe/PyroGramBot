@@ -144,7 +144,7 @@ async def g_drive_commands(client, message):
                                 "trying to download", status_message, c_time
                             )
                         )
-                        await status_message.edit(f"Downloaded to `{the_real_download_location}`")
+                        await status_message.edit(f"Downloaded to <code>{the_real_download_location}</code>")
                         if not os.path.exists(the_real_download_location):
                             await message.edit_text("invalid file path provided?")
                             return

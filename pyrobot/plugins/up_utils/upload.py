@@ -42,7 +42,7 @@ async def upload_as_document(client, message):
         else:
             await status_message.edit("404: media not found")
     else:
-        await status_message.edit(f"`{COMMAND_HAND_LER}uploadasdoc FILE_PATH` to upload to current Telegram chat")
+        await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasdoc FILE_PATH</code> to upload to current Telegram chat")
 
 
 
@@ -79,7 +79,7 @@ async def upload_as_video(client, message):
         else:
             await status_message.edit("404: media not found")
     else:
-        await status_message.edit(f"`{COMMAND_HAND_LER}uploadasvideo FILE_PATH` to upload to current Telegram chat")
+        await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasvideo FILE_PATH</code> to upload to current Telegram chat")
 
 
 
@@ -112,4 +112,4 @@ async def upload_as_photo(client, message):
         else:
             await status_message.edit("404: media not found")
     else:
-        await status_message.edit(f"`{COMMAND_HAND_LER}uploadasphoto FILE_PATH` to upload to current Telegram chat")
+        await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasphoto FILE_PATH</code> to upload to current Telegram chat")

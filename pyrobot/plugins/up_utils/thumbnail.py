@@ -58,7 +58,7 @@ async def save_thumb_nail(client, message):
         os.remove(downloaded_file_name)
         await status_message.edit(
             "Custom video / file thumbnail saved. " + \
-            "This image will be used in the upload, till `.clearthumbnail`."
+            "This image will be used in the upload, till <code>.clearthumbnail</code>."
         )
     else:
         await status_message.edit("Reply to a photo to save custom thumbnail")
@@ -110,7 +110,7 @@ async def get_thumb_nail(client, message):
         await message.delete()"""
         await status_message.edit("issues")
     elif os.path.exists(thumb_image_path):
-        caption_str = "Currently Saved Thumbnail. Clear with `.clearthumbnail`"
+        caption_str = "Currently Saved Thumbnail. Clear with <code>.clearthumbnail</code>"
         await message.reply_document(
             document=thumb_image_path,
             caption=caption_str,
@@ -118,4 +118,4 @@ async def get_thumb_nail(client, message):
         )
         await status_message.delete()
     else:
-        await status_message.edit("Reply `.gethumbnail` as a reply to a media")
+        await status_message.edit("Reply <code>.gethumbnail</code> as a reply to a media")

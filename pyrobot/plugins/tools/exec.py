@@ -34,11 +34,9 @@ async def execution(client, message):
         e = "No Error"
     o = stdout.decode()
     if not o:
-        o = "**Tip**: \n`If you want to see the results of your code, I suggest printing them to stdout.`"
-    else:
-        _o = o.split("\n")
-        o = "`\n".join(_o)
-    OUTPUT = f"**QUERY:**\n__Command:__\n`{cmd}` \n__PID:__\n`{process.pid}`\n\n**stderr:** \n`{e}`\n**Output:**\n{o}"
+        o = "<b>Tip</b>: \n<code>If you want to see the results of your code, I suggest printing them to stdout.</code>"
+    
+    OUTPUT = f"<b>QUERY:</b>\n<u>Command:</u>\n<code>{cmd}</code> \n<u>PID</u>: <code>{process.pid}</code>\n\n<b>stderr</b>: \n<code>{e}</code>\n\n<b>stdout</b>: \n<code>{o}</code>"
 
     if len(OUTPUT) > MAX_MESSAGE_LENGTH:
         with open("exec.text", "w+", encoding="utf8") as out_file:
