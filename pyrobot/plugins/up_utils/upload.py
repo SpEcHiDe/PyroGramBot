@@ -22,15 +22,14 @@ from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogra
 @Client.on_message(Filters.command("uploadasdoc", COMMAND_HAND_LER)  & sudo_filter)
 async def upload_as_document(client, message):
     status_message = await message.reply_text("...")
-    thumb_image_path = is_thumb_image_exists()
     if " " in message.text:
         recvd_command, local_file_name = message.text.split(" ", 1)
         if os.path.exists(local_file_name):
+            thumb_image_path = await is_thumb_image_exists(local_file_name)
             start_t = datetime.now()
             c_time = time.time()
             doc_caption = os.path.basename(local_file_name)
-            the_real_download_location = await client.send_document(
-                chat_id=message.chat.id,
+            await message.reply_document(
                 document=local_file_name,
                 thumb=thumb_image_path,
                 caption=doc_caption,
@@ -55,15 +54,14 @@ async def upload_as_document(client, message):
 @Client.on_message(Filters.command("uploadasvideo", COMMAND_HAND_LER)  & sudo_filter)
 async def upload_as_video(client, message):
     status_message = await message.reply_text("...")
-    thumb_image_path = is_thumb_image_exists()
     if " " in message.text:
         recvd_command, local_file_name = message.text.split(" ", 1)
         if os.path.exists(local_file_name):
+            thumb_image_path = await is_thumb_image_exists(local_file_name)
             start_t = datetime.now()
             c_time = time.time()
             doc_caption = os.path.basename(local_file_name)
-            the_real_download_location = await client.send_video(
-                chat_id=message.chat.id,
+            await message.reply_video(
                 video=local_file_name,
                 caption=doc_caption,
                 parse_mode="html",
@@ -92,15 +90,14 @@ async def upload_as_video(client, message):
 @Client.on_message(Filters.command("uploadasphoto", COMMAND_HAND_LER)  & sudo_filter)
 async def upload_as_photo(client, message):
     status_message = await message.reply_text("...")
-    thumb_image_path = is_thumb_image_exists()
     if " " in message.text:
         recvd_command, local_file_name = message.text.split(" ", 1)
+        thumb_image_path = await is_thumb_image_exists(local_file_name)
         if os.path.exists(local_file_name):
             start_t = datetime.now()
             c_time = time.time()
             doc_caption = os.path.basename(local_file_name)
-            the_real_download_location = await client.send_photo(
-                chat_id=message.chat.id,
+            await message.reply_photo(
                 photo=local_file_name,
                 caption=doc_caption,
                 parse_mode="html",

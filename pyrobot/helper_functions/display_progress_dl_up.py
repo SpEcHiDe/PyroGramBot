@@ -42,7 +42,7 @@ async def progress_for_pyrogram(
         )
         try:
             await message.edit(
-                text="{}\n {}".format(
+                "{}\n {}".format(
                     ud_type,
                     tmp
                 )
