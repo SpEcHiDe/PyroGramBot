@@ -68,7 +68,6 @@ async def updater(client, message):
         repo.create_remote(REPO_REMOTE_NAME, OFFICIAL_UPSTREAM_REPO)
     except Exception as error_two:
         LOGGER.info(str(error_two))
-        pass
 
     tmp_upstream_remote = repo.remote(REPO_REMOTE_NAME)
     tmp_upstream_remote.fetch(active_branch_name)
@@ -80,6 +79,7 @@ async def updater(client, message):
             branch_name=active_branch_name
         )
     )
+    LOGGER.info(changelog)
 
     if not changelog:
         await status_message.edit(BOT_IS_UP_TO_DATE)
