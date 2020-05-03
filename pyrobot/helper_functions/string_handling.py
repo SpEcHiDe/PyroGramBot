@@ -102,16 +102,12 @@ def extract_time(time_val):
         return None
 
 
-def format_welcome_caption(html_string, chat_member):
-    mention_string = "<a href='tg://user?id={}'>{}</a>".format(
-        chat_member.id,
-        chat_member.first_name
-    )
+def format_welcome_caption(html_string, chat_member): 
     return html_string.format(
         dc_id=chat_member.dc_id,
         first_name=chat_member.first_name,
         id=chat_member.id,
         last_name=chat_member.last_name,
-        mention=mention_string,
+        mention=f"{chat_member:mention}",
         username=chat_member.username
     )
