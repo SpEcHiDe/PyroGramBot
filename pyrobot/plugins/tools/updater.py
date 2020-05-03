@@ -1,4 +1,4 @@
-"""Update UserBot code
+"""Update User / Bot code
 Syntax: .update"""
 
 import asyncio
@@ -10,6 +10,7 @@ from pyrogram import Client, Filters
 from pyrobot import (
     COMMAND_HAND_LER,
     HEROKU_API_KEY,
+    LOGGER,
     MAX_MESSAGE_LENGTH,
     OFFICIAL_UPSTREAM_REPO
 )
@@ -19,11 +20,11 @@ from pyrobot.helper_functions.cust_p_filters import sudo_filter
 # -- Constants -- #
 IS_SELECTED_DIFFERENT_BRANCH = (
     "looks like a custom branch {branch_name} "
-    "is being used:\n"
+    "is being used \n"
     "in this case, Updater is unable to identify the branch to be updated."
     "please check out to an official branch, and re-start the updater."
 )
-BOT_IS_UP_TO_DATE = "the userbot is up-to-date."
+BOT_IS_UP_TO_DATE = "the user / bot is up-to-date."
 NEW_BOT_UP_DATE_FOUND = (
     "new update found for {branch_name}\n"
     "chagelog: \n\n{changelog}\n"
@@ -47,8 +48,8 @@ async def updater(client, message):
     status_message = await message.reply_text("🤔😳😳🙄")
     try:
         repo = git.Repo()
-    except git.exc.InvalidGitRepositoryError as e:
-        print(e)
+    except git.exc.InvalidGitRepositoryError as error_one:
+        LOGGER.info(str(error_one))
         repo = git.Repo.init()
         origin = repo.create_remote(REPO_REMOTE_NAME, OFFICIAL_UPSTREAM_REPO)
         origin.fetch()
@@ -56,7 +57,7 @@ async def updater(client, message):
         repo.heads.master.checkout(True)
 
     active_branch_name = repo.active_branch.name
-    print(active_branch_name)
+    LOGGER.info(active_branch_name)
     if active_branch_name != IFFUCI_ACTIVE_BRANCH_NAME:
         await status_message.edit(IS_SELECTED_DIFFERENT_BRANCH.format(
             branch_name=active_branch_name
@@ -65,8 +66,8 @@ async def updater(client, message):
 
     try:
         repo.create_remote(REPO_REMOTE_NAME, OFFICIAL_UPSTREAM_REPO)
-    except Exception as e:
-        print(e)
+    except Exception as error_two:
+        LOGGER.info(str(error_two))
         pass
 
     tmp_upstream_remote = repo.remote(REPO_REMOTE_NAME)
@@ -146,4 +147,7 @@ def generate_change_log(git_repo, diff_marker):
 
 async def restart(client, message):
     await client.restart()
-    await message.edit("restarted! do `.alive` to check if I am online?")
+    await message.edit(
+        "restarted! "
+        f"do `{COMMAND_HAND_LER}alive` to check if I am online?"
+    )
