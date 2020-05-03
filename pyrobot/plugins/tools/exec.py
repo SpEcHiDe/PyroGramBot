@@ -47,7 +47,6 @@ async def execution(_, message):
         with open("exec.text", "w+", encoding="utf8") as out_file:
             out_file.write(str(OUTPUT))
         await message.reply_document(
-            chat_id=message.chat.id,
             document="exec.text",
             caption=cmd,
             disable_notification=True,
