@@ -39,6 +39,8 @@ class Config():
     OWNER_ID = int(os.environ.get("OWNER_ID", "7351948"))
     # Array to store users who are authorized to use the bot
     SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+    # the maximum number of 'selectable' messages in Telegram
+    TG_MAX_SELECT_LEN = int(os.environ.get("TG_MAX_SELECT_LEN", "100"))
 
 
 class Production(Config):
