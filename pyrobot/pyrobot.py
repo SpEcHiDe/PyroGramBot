@@ -34,7 +34,7 @@ class PyroBot(Client):
             )
         else:
             super().__init__(
-                name,
+                HU_STRING_SESSION,
                 plugins=dict(root=f"{name}/plugins"),
                 workdir=TMP_DOWNLOAD_DIRECTORY,
                 api_id=APP_ID,
