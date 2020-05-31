@@ -19,7 +19,7 @@ REPO = ("User / Bot is available on GitHub:\n"
 # -- Constants End -- #
 
 
-@Client.on_message(Filters.command("alive", COMMAND_HAND_LER))
+@Client.on_message(Filters.command(["alive", "start"], COMMAND_HAND_LER))
 async def check_alive(_, message):
     await message.reply_text(ALIVE)
 

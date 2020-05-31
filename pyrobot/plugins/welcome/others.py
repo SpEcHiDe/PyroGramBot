@@ -15,7 +15,7 @@ if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.welcome_sql as sql
 
 
-@Client.on_message(Filters.command("clearwelcome", COMMAND_HAND_LER))
+@Client.on_message(Filters.command(["clearwelcome", "resetwelcome"], COMMAND_HAND_LER))
 async def clear_note(_, message):
     is_admin = await admin_check(message)
     if not is_admin:

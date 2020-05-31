@@ -12,7 +12,7 @@ from pyrobot import (
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
-@Client.on_message(Filters.command("load", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(Filters.command(["load", "install"], COMMAND_HAND_LER)  & sudo_filter)
 async def load_plugin(client, message):
     """ load TG Plugins """
     status_message = await message.reply("Processing ...")

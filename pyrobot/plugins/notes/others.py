@@ -15,7 +15,7 @@ if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.notes_sql as sql
 
 
-@Client.on_message(Filters.command("clearnote", COMMAND_HAND_LER))
+@Client.on_message(Filters.command(["clearnote", "clear"], COMMAND_HAND_LER))
 async def clear_note(_, message):
     is_admin = await admin_check(message)
     if not is_admin:
@@ -31,7 +31,7 @@ async def clear_note(_, message):
     )
 
 
-@Client.on_message(Filters.command("listnotes", COMMAND_HAND_LER))
+@Client.on_message(Filters.command(["listnotes", "notes"], COMMAND_HAND_LER))
 async def list_note(_, message):
     status_message = await message.reply_text(
         "checking 🤔🙄🙄",

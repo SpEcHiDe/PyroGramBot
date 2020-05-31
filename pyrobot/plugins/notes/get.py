@@ -56,7 +56,7 @@ async def get_note_with_command(message, note_name):
         )
 
 
-@Client.on_message(Filters.command("getnote", COMMAND_HAND_LER))
+@Client.on_message(Filters.command(["getnote", "get"], COMMAND_HAND_LER))
 async def get_note(_, message):
     note_name = " ".join(message.command[1:])
     await get_note_with_command(message, note_name)
