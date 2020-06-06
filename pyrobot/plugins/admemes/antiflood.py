@@ -90,10 +90,15 @@ async def set_flood(_, message):
 @Client.on_message(Filters.command("flood", COMMAND_HAND_LER))
 async def get_flood_settings(_, message):
     flood_limit = sql.get_flood_limit(message.chat.id)
-    await message.reply_text(
-        "<b>This chat is</b> currently "
-        "enforcing <i>flood control</i> after "
-        f"<code>{flood_limit}</code> messages. "
-        "⚠️⚠️ <u><i>Any users sending more than that amount of messages "
-        "will be muted.</i></u>"
-    )
+    if flood_limit == 0:
+        await message.reply_text(
+            "This chat is not currently enforcing flood control."
+        )
+    else:
+        await message.reply_text(
+            "<b>This chat is</b> currently "
+            "enforcing <i>flood control</i> after "
+            f"<code>{flood_limit}</code> messages. \n"
+            "⚠️⚠️ <u><i>Any users sending more than that amount of messages "
+            "will be muted.</i></u>"
+        )
