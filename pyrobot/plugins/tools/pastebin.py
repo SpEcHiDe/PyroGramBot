@@ -83,11 +83,14 @@ async def paste_bin(_, message):
 def bleck_megick(dict_rspns):
     # first, try getting "key", dirctly
     first_key_r = dict_rspns.get("key")
+    # this is for the "del.dog" site
     if first_key_r is not None:
         return first_key_r
     check_if_result_ests = dict_rspns.get("result")
     if check_if_result_ests is not None:
+        # this is for the "nekobin.com" site
         second_key_a = check_if_result_ests.get("key")
         if second_key_a is not None:
             return second_key_a
+    # TODO: is there a better way?
     return None
