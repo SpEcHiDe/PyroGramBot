@@ -89,7 +89,7 @@ async def set_flood(_, message):
 
 @Client.on_message(Filters.command("flood", COMMAND_HAND_LER))
 async def get_flood_settings(_, message):
-    flood_limit = get_flood_limit(message.chat.id)
+    flood_limit = sql.get_flood_limit(message.chat.id)
     await message.reply_text(
         "<b>This chat is</b> currently "
         "enforcing <i>flood control</i> after "
