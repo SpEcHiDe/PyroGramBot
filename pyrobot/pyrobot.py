@@ -56,4 +56,4 @@ class PyroBot(Client):
 
     async def stop(self, *args):
         await super().stop()
-        print("PyroGramBot stopped. Bye.")
+        LOGGER.info("PyroGramBot stopped. Bye.")

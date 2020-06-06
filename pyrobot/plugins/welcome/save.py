@@ -102,5 +102,3 @@ async def save_note(client, message):
             await status_message.edit_text(
                 "welcome message saved"
             )
-        else:
-            await status_message.edit_text("🥺 this might be an error 🤔")
