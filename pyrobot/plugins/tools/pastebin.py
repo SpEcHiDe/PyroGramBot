@@ -27,9 +27,17 @@ async def paste_bin(_, message):
 
     # first we need to get the data to be pasted
     if message.reply_to_message and message.reply_to_message.media:
-        downloaded_file_name = await message.reply_to_message.download(
+        downloaded_file_name_res = await message.reply_to_message.download(
             file_name=TMP_DOWNLOAD_DIRECTORY
         )
+        m_list = None
+        with open(downloaded_file_name_res, "rb") as fd:
+            m_list = fd.readlines()
+        downloaded_file_name = ""
+        for m in m_list:
+            downloaded_file_name += m.decode("UTF-8")
+            downloaded_file_name += "\n"
+        os.remove(downloaded_file_name_res)
     elif message.reply_to_message:
         downloaded_file_name = message.reply_to_message.text.html
     # elif len(message.command) > 1:
