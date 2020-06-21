@@ -2,6 +2,8 @@
 Syntax: .whois"""
 
 import os
+import time
+from datetime import datetime
 
 from pyrogram import Client, Filters
 
@@ -38,7 +40,10 @@ async def who_is(client, message):
         message_out_str += f"DC ID: <code>{from_user.dc_id}</code>\n"
         if message.chat.type in (("supergroup", "channel")):
             chat_member_p = await message.chat.get_member(from_user.id)
-            message_out_str += f"<b>Joined On</b>: <code>{chat_member_p.joined_date}</code>\n"
+            joined_date = datetime.fromtimestamp(
+                chat_member_p.joined_date or time.time()
+            ).strftime("%Y-%m-%d_%H-%M-%S")
+            message_out_str += f"<b>Joined On</b>: <code>{joined_date}</code>\n"
         chat_photo = from_user.photo
         if chat_photo:
             local_user_photo = await client.download_media(
