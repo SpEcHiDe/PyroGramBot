@@ -24,7 +24,7 @@ sudo_filter = Filters.create(
     name="SudoFilter"
 )
 
-def f_onw_fliter(f, m: Message):
+def onw_filter(f, m: Message):
     if USE_AS_BOT:
         return bool(
             m.from_user.id in SUDO_USERS
@@ -36,7 +36,7 @@ def f_onw_fliter(f, m: Message):
         )
 
 
-onw_filter = Filters.create(
+f_onw_fliter = Filters.create(
     func=f_onw_fliter,
     name="OnwFilter"
 )
