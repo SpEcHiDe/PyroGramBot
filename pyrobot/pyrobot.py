@@ -14,7 +14,8 @@ from pyrobot import (
     # OWNER_ID,
     # SUDO_USERS,
     TG_COMPANION_BOT,
-    TMP_DOWNLOAD_DIRECTORY
+    TMP_DOWNLOAD_DIRECTORY,
+    USE_AS_BOT
 )
 
 
@@ -23,7 +24,7 @@ class PyroBot(Client):
     def __init__(self):
         name = self.__class__.__name__.lower()
 
-        if HU_STRING_SESSION is None:
+        if USE_AS_BOT:
             super().__init__(
                 name,
                 plugins=dict(root=f"{name}/plugins"),

@@ -2,14 +2,18 @@
 # -*- coding: utf-8 -*-
 
 
-from pyrogram import Filters
+from pyrogram import (
+    Filters,
+    Message
+)
 
 from pyrobot import (
-    SUDO_USERS
+    SUDO_USERS,
+    USE_AS_BOT
 )
 
 
-def f_sudo_filter(f, m):
+def f_sudo_filter(f, m: Message):
     return bool(
         m.from_user.id in SUDO_USERS
     )
@@ -18,4 +22,21 @@ def f_sudo_filter(f, m):
 sudo_filter = Filters.create(
     func=f_sudo_filter,
     name="SudoFilter"
+)
+
+def f_onw_fliter(f, m: Message):
+    if USE_AS_BOT:
+        return bool(
+            m.from_user.id in SUDO_USERS
+        )
+    else:
+        return bool(
+            m.from_user and 
+            m.from_user.is_self
+        )
+
+
+onw_filter = Filters.create(
+    func=f_onw_fliter,
+    name="OnwFilter"
 )

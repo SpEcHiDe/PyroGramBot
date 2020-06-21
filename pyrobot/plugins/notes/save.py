@@ -11,6 +11,7 @@ from pyrobot import (
 )
 
 from pyrobot.helper_functions.admin_check import admin_check
+from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 from pyrobot.helper_functions.msg_types import (
     get_note_type,
     Types
@@ -19,7 +20,7 @@ if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.notes_sql as sql
 
 
-@Client.on_message(Filters.command(["savenote", "save"], COMMAND_HAND_LER))
+@Client.on_message(Filters.command(["savenote", "save"], COMMAND_HAND_LER) & f_onw_fliter)
 async def save_note(client, message):
     is_admin = await admin_check(message)
     if not is_admin:
