@@ -37,6 +37,6 @@ def onw_filter(f, m: Message):
 
 
 f_onw_fliter = Filters.create(
-    func=f_onw_fliter,
+    func=onw_filter,
     name="OnwFilter"
 )
