@@ -41,7 +41,6 @@ class PyroBot(Client):
                 api_hash=API_HASH,
             )
 
-
     async def start(self):
         await super().start()
 
@@ -52,7 +51,6 @@ class PyroBot(Client):
             f"(Layer {layer}) started on @{usr_bot_me.username}. "
             "Hi."
         )
-
 
     async def stop(self, *args):
         await super().stop()
