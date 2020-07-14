@@ -11,7 +11,7 @@ class Config():
     # websites, this might prevent the un-authorized use of the
     # confidential session files
     HU_STRING_SESSION = os.environ.get("HU_STRING_SESSION", None)
-    TG_COMPANION_BOT = os.environ.get("TG_BOT_TOKEN_BF_HER", None)
+    TG_COMPANION_BOT = os.environ.get("TG_COMPANION_BOT", None)
     #
     USE_AS_BOT = bool(os.environ.get("USE_AS_BOT", False))
     # maximum message length in Telegram
