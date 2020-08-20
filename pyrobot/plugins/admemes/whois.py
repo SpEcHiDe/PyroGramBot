@@ -36,7 +36,8 @@ async def who_is(client, message):
         message_out_str += f"First Name: <a href='tg://user?id={from_user.id}'>"
         message_out_str += from_user.first_name or ""
         message_out_str += "</a>\n"
-        message_out_str += f"Last Name: {from_user.last_name or ""}\n"
+        last_name = from_user.last_name or ""
+        message_out_str += f"Last Name: {last_name}\n"
         message_out_str += f"DC ID: <code>{from_user.dc_id or ""}</code>\n"
         if message.chat.type in (("supergroup", "channel")):
             chat_member_p = await message.chat.get_member(from_user.id)
