@@ -14,7 +14,7 @@ Simply clone the repository and run the main file:
 ```sh
 git clone https://github.com/SpEcHiDe/PyroGramBot.git
 cd PyroGramUserBot
-virtualenv -p /usr/bin/python3 venv
+python3 -m venv venv
 . ./venv/bin/activate
 pip install -r requirements.txt
 # <Create config.py with variables as given below>

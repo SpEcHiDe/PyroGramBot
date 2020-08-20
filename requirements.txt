@@ -1,4 +1,4 @@
-https://github.com/pyrogram/pyrogram/archive/asyncio-dev.zip
+git+git://github.com/pyrogram/pyrogram@asyncio#pyrogram
 tgcrypto
 
 asyncio

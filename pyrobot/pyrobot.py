@@ -26,7 +26,7 @@ class PyroBot(Client):
 
         if USE_AS_BOT:
             super().__init__(
-                name,
+                ":memory:",
                 plugins=dict(root=f"{name}/plugins"),
                 workdir=TMP_DOWNLOAD_DIRECTORY,
                 api_id=APP_ID,
