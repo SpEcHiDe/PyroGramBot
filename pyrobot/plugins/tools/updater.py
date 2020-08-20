@@ -75,7 +75,7 @@ async def updater(client, message):
     changelog = generate_change_log(
         repo,
         DIFF_MARKER.format(
-            remote_name=REPO_REMOTE_NAME,
+            remote_name=OFFICIAL_UPSTREAM_REPO,
             branch_name=active_branch_name
         )
     )
