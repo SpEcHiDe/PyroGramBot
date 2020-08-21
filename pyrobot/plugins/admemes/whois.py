@@ -38,12 +38,13 @@ async def who_is(client, message):
         message_out_str += "</a>\n"
         last_name = from_user.last_name or ""
         message_out_str += f"Last Name: {last_name}\n"
-        message_out_str += f"DC ID: <code>{from_user.dc_id or ""}</code>\n"
+        dc_id = from_user.dc_id or "[🙏 no profile photo 👀]"
+        message_out_str += f"DC ID: <code>{dc_id}</code>\n"
         if message.chat.type in (("supergroup", "channel")):
             chat_member_p = await message.chat.get_member(from_user.id)
             joined_date = datetime.fromtimestamp(
                 chat_member_p.joined_date or time.time()
-            ).strftime("%Y-%m-%d_%H-%M-%S")
+            ).strftime("%Y.%m.%d %H:%M:%S")
             message_out_str += f"<b>Joined On</b>: <code>{joined_date}</code>\n"
         chat_photo = from_user.photo
         if chat_photo:
