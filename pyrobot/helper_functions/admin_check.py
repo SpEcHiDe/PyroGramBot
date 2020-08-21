@@ -7,6 +7,9 @@ from pyrogram import Message
 async def admin_check(message: Message) -> bool:
     if not message.from_user:
         return False
+    
+    if message.chat.type not in ["supergroup", "channel"]:
+        return False
 
     client = message._client
     chat_id = message.chat.id

@@ -82,13 +82,15 @@ def button_markdown_parser(msg: Message) -> (str, List):
 
 
 def extract_time(time_val):
-    if any(time_val.endswith(unit) for unit in ('m', 'h', 'd')):
+    if any(time_val.endswith(unit) for unit in ('s', 'm', 'h', 'd')):
         unit = time_val[-1]
         time_num = time_val[:-1]  # type: str
         if not time_num.isdigit():
             return None
 
-        if unit == 'm':
+        if unit == 's':
+            bantime = int(time.time() + int(time_num))
+        elif unit == 'm':
             bantime = int(time.time() + int(time_num) * 60)
         elif unit == 'h':
             bantime = int(time.time() + int(time_num) * 60 * 60)
