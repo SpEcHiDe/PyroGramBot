@@ -75,7 +75,7 @@ async def updater(client, message):
     changelog = generate_change_log(
         repo,
         DIFF_MARKER.format(
-            remote_name=OFFICIAL_UPSTREAM_REPO,
+            remote_name=REPO_REMOTE_NAME,
             branch_name=active_branch_name
         )
     )
@@ -127,7 +127,7 @@ async def updater(client, message):
                 remote.set_url(heroku_git_url)
             else:
                 remote = repo.create_remote("heroku", heroku_git_url)
-            remote.push(refspec=HEROKU_GIT_REF_SPEC)
+            remote.push(refspec=HEROKU_GIT_REF_SPEC, force=True)
         else:
             await message.reply(NO_HEROKU_APP_CFGD)
 
