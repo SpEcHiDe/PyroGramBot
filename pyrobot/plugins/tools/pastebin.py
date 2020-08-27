@@ -11,16 +11,14 @@ import aiohttp
 import json
 import os
 from urllib.parse import urlparse
-
-from pyrogram import Client, Filters
-
+from pyrogram import Client, filters
 from pyrobot import (
     COMMAND_HAND_LER,
     TMP_DOWNLOAD_DIRECTORY
 )
 
 
-@Client.on_message(Filters.command("paste", COMMAND_HAND_LER))
+@Client.on_message(filters.command("paste", COMMAND_HAND_LER))
 async def paste_bin(_, message):
     status_message = await message.reply_text("...")
     downloaded_file_name = None

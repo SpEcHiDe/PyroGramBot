@@ -4,12 +4,10 @@ Syntax: .upload* *"""
 import os
 import time
 from datetime import datetime
-
 from pyrogram import (
     Client,
-    Filters
+    filters
 )
-
 from pyrobot import (
     COMMAND_HAND_LER,
     TMP_DOWNLOAD_DIRECTORY
@@ -19,7 +17,10 @@ from pyrobot.helper_functions.cust_p_filters import sudo_filter
 from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 
 
-@Client.on_message(Filters.command("uploadasdoc", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(
+    filters.command("uploadasdoc", COMMAND_HAND_LER) &
+    sudo_filter
+)
 async def upload_as_document(client, message):
     status_message = await message.reply_text("...")
     if " " in message.text:
@@ -51,7 +52,10 @@ async def upload_as_document(client, message):
 
 
 
-@Client.on_message(Filters.command("uploadasvideo", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(
+    filters.command("uploadasvideo", COMMAND_HAND_LER) &
+    sudo_filter
+)
 async def upload_as_video(client, message):
     status_message = await message.reply_text("...")
     if " " in message.text:
@@ -87,7 +91,10 @@ async def upload_as_video(client, message):
 
 
 
-@Client.on_message(Filters.command("uploadasphoto", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(
+    filters.command("uploadasphoto", COMMAND_HAND_LER) &
+    sudo_filter
+)
 async def upload_as_photo(client, message):
     status_message = await message.reply_text("...")
     if " " in message.text:

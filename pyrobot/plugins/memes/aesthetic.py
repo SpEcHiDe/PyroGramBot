@@ -1,7 +1,5 @@
-from pyrogram import Client, Filters
-
+from pyrogram import Client, filters
 from pyrobot import COMMAND_HAND_LER
-
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 
 
@@ -16,7 +14,10 @@ def aesthetify(string):
         yield chr(c)
 
 
-@Client.on_message(Filters.command(["ae"], COMMAND_HAND_LER)  & f_onw_fliter)
+@Client.on_message(
+    filters.command(["ae"], COMMAND_HAND_LER) &
+    f_onw_fliter
+)
 async def aesthetic(client, message):
     status_message = await message.reply_text("...")
     text = "".join(str(e) for e in message.command[1:])

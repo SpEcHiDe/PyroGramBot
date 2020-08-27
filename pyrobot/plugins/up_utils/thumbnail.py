@@ -10,16 +10,21 @@ from datetime import datetime
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
-from pyrogram import Client, Filters
+from pyrogram import Client, filters
 from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
-from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
+from pyrobot.helper_functions.display_progress_dl_up import (
+    progress_for_pyrogram
+)
 
 
 thumb_image_path = TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
 
 
-@Client.on_message(Filters.command("savethumbnail", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(
+    filters.command("savethumbnail", COMMAND_HAND_LER) &
+    sudo_filter
+)
 async def save_thumb_nail(client, message):
     status_message = await message.reply_text("...")
     if message.reply_to_message is not None:
@@ -60,7 +65,10 @@ async def save_thumb_nail(client, message):
         await status_message.edit("Reply to a photo to save custom thumbnail")
 
 
-@Client.on_message(Filters.command("clearthumbnail", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(
+    filters.command("clearthumbnail", COMMAND_HAND_LER) &
+    sudo_filter
+)
 async def clear_thumb_nail(client, message):
     status_message = await message.reply_text("...")
     if os.path.exists(thumb_image_path):
@@ -68,7 +76,10 @@ async def clear_thumb_nail(client, message):
     await status_message.edit("✅ Custom thumbnail cleared succesfully.")
 
 
-@Client.on_message(Filters.command("getthumbnail", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(
+    filters.command("getthumbnail", COMMAND_HAND_LER) &
+    sudo_filter
+)
 async def get_thumb_nail(client, message):
     status_message = await message.reply_text("...")
     if message.reply_to_message is not None:

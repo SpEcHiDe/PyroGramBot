@@ -1,15 +1,15 @@
 from pyrogram import (
     Client,
-    Filters,
+    filters
+)
+from pyrogram.types import (
     InlineKeyboardMarkup
 )
-
 from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI,
     TG_URI
 )
-
 from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.msg_types import (
     get_note_type,
@@ -19,7 +19,9 @@ if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.welcome_sql as sql
 
 
-@Client.on_message(Filters.command(["savewelcome", "setwelcome"], COMMAND_HAND_LER))
+@Client.on_message(
+    filters.command(["savewelcome", "setwelcome"], COMMAND_HAND_LER)
+)
 async def save_note(client, message):
     is_admin = await admin_check(message)
     if not is_admin:

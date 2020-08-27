@@ -1,15 +1,15 @@
 from pyrogram import (
     Client,
-    Filters,
+    filters
+)
+from pyrogram.types import (
     InlineKeyboardMarkup
 )
-
 from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI,
     TG_URI
 )
-
 from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 from pyrobot.helper_functions.msg_types import (
@@ -20,7 +20,10 @@ if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.notes_sql as sql
 
 
-@Client.on_message(Filters.command(["savenote", "save"], COMMAND_HAND_LER) & f_onw_fliter)
+@Client.on_message(
+    filters.command(["savenote", "save"], COMMAND_HAND_LER) &
+    f_onw_fliter
+)
 async def save_note(client, message):
     is_admin = await admin_check(message)
     if not is_admin:
@@ -29,7 +32,8 @@ async def save_note(client, message):
         "checking 🤔🙄🙄",
         quote=True
     )
-    if message.reply_to_message and message.reply_to_message.reply_markup is not None:
+    if message.reply_to_message and \
+        message.reply_to_message.reply_markup is not None:
         fwded_mesg = await message.reply_to_message.forward(
             chat_id=TG_URI,
             disable_notification=True

@@ -1,12 +1,11 @@
-from pyrogram import Client, Filters
-
+from pyrogram import Client, filters
 from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.extract_user import extract_user
 from pyrobot.helper_functions.string_handling import extract_time
 
 
-@Client.on_message(Filters.command("ban", COMMAND_HAND_LER))
+@Client.on_message(filters.command("ban", COMMAND_HAND_LER))
 async def ban_user(_, message):
     is_admin = await admin_check(message)
     if not is_admin:
@@ -39,7 +38,7 @@ async def ban_user(_, message):
             )
 
 
-@Client.on_message(Filters.command("tban", COMMAND_HAND_LER))
+@Client.on_message(filters.command("tban", COMMAND_HAND_LER))
 async def temp_ban_user(_, message):
     is_admin = await admin_check(message)
     if not is_admin:

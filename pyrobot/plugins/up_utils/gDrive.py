@@ -8,13 +8,11 @@ import math
 import httplib2
 import os
 import time
-
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from mimetypes import guess_type
 from oauth2client.client import OAuth2WebServerFlow
-from pyrogram import Client, Filters
-
+from pyrogram import Client, filters
 from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI,
@@ -23,10 +21,8 @@ from pyrobot import (
     LOGGER,
     TMP_DOWNLOAD_DIRECTORY
 )
-
 from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
-
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.gDrive_sql as sql
 
@@ -40,7 +36,10 @@ G_DRIVE_DIR_MIME_TYPE = "application/vnd.google-apps.folder"
 flow = None
 
 
-@Client.on_message(Filters.command("gdrive", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(
+    filters.command("gdrive", COMMAND_HAND_LER) &
+    sudo_filter
+)
 async def g_drive_commands(client, message):
     status_message = await message.reply_text("...")
     if len(message.command) > 1:

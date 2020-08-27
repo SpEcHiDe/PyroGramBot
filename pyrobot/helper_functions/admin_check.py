@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pyrogram import Message
+from pyrogram.types import Message
 
 
 async def admin_check(message: Message) -> bool:

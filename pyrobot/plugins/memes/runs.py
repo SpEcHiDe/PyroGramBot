@@ -1,10 +1,8 @@
 import random
-
-from pyrogram import Client, Filters
-
+from pyrogram import Client, filters
 from pyrobot import COMMAND_HAND_LER
-
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
+
 
 RUN_STRINGS = (
     "ഇരുട്ട് നിറഞ്ഞ എന്റെ ഈ ജീവിതത്തിലേക്ക് ഒരു തകർച്ചയെ \
@@ -42,7 +40,10 @@ RUN_STRINGS = (
 )
 
 
-@Client.on_message(Filters.command("runs", COMMAND_HAND_LER) & f_onw_fliter)
+@Client.on_message(
+    filters.command("runs", COMMAND_HAND_LER) &
+    f_onw_fliter
+)
 async def runs(_, message):
     """ /runs strings """
     effective_string = random.choice(RUN_STRINGS)

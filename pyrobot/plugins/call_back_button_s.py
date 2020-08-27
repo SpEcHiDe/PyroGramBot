@@ -4,19 +4,19 @@
 
 from pyrogram import (
     Client,
-    Filters,
-    CallbackQueryHandler
+    filters
 )
-
+from pyrogram.types import (
+    CallbackQuery
+)
 from pyrobot import (
     LOGGER
 )
-
 from pyrobot.helper_functions.you_tube_dl_button import youtube_dl_call_back
 
 
 @Client.on_callback_query()
-async def button(client, callback_query):
+async def button(client, callback_query: CallbackQuery):
     # NOTE: You should always answer,
     # but we want different conditionals to
     # be able to answer to differnetly

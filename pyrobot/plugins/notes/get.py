@@ -1,14 +1,12 @@
 from pyrogram import (
     Client,
-    Filters
+    filters
 )
-
 from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI,
     TG_URI
 )
-
 from pyrobot.helper_functions.msg_types import (
     get_file_id
 )
@@ -56,13 +54,17 @@ async def get_note_with_command(message, note_name):
         )
 
 
-@Client.on_message(Filters.command(["getnote", "get"], COMMAND_HAND_LER))
+@Client.on_message(
+    filters.command(["getnote", "get"], COMMAND_HAND_LER)
+)
 async def get_note(_, message):
     note_name = " ".join(message.command[1:])
     await get_note_with_command(message, note_name)
 
 
-@Client.on_message(Filters.regex(pattern=r"#(\w+)"))
+@Client.on_message(
+    filters.regex(pattern=r"#(\w+)")
+)
 async def get_hash_tag_note(_, message):
     note_name = message.matches[0].group(1)
     await get_note_with_command(message, note_name)

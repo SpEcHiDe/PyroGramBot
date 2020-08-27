@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from pyrogram import Message
+from pyrogram.types import Message
 
 
 def extract_user(message: Message) -> (int, str):

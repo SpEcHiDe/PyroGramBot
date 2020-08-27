@@ -3,8 +3,9 @@
 import os
 from importlib import import_module, reload
 from pathlib import Path
-from pyrogram import Client, Filters
-from pyrogram.client.handlers.handler import Handler
+from pyrogram import Client, filters
+from pyrogram.types import Message
+from pyrogram.handlers.handler import Handler
 from pyrobot import (
     COMMAND_HAND_LER,
     LOGGER
@@ -12,10 +13,13 @@ from pyrobot import (
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
-@Client.on_message(Filters.command(["load", "install"], COMMAND_HAND_LER)  & sudo_filter)
-async def load_plugin(client, message):
+@Client.on_message(
+    filters.command(["load", "install"], COMMAND_HAND_LER)  &
+    sudo_filter
+)
+async def load_plugin(client: Client, message: Message):
     """ load TG Plugins """
-    status_message = await message.reply("Processing ...")
+    status_message = await message.reply("...")
     try:
         if message.reply_to_message is not None:
             down_loaded_plugin_name = await message.reply_to_message.download(

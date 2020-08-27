@@ -6,13 +6,11 @@
 import asyncio
 import json
 import os
-
-from pyrogram import (
+from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup
 )
 from pyrobot.helper_functions.display_progress_dl_up import humanbytes
-
 from pyrobot import (
     LOGGER
 )

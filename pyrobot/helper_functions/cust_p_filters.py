@@ -3,40 +3,38 @@
 
 
 from pyrogram import (
-    Filters,
-    Message
+    filters
 )
-
 from pyrobot import (
     SUDO_USERS,
     USE_AS_BOT
 )
 
 
-def f_sudo_filter(f, m: Message):
+def f_sudo_filter(filt, client, message):
     return bool(
-        m.from_user.id in SUDO_USERS
+        message.from_user.id in SUDO_USERS
     )
 
 
-sudo_filter = Filters.create(
+sudo_filter = filters.create(
     func=f_sudo_filter,
     name="SudoFilter"
 )
 
-def onw_filter(f, m: Message):
+def onw_filter(filt, client, message):
     if USE_AS_BOT:
         return bool(
-            m.from_user.id in SUDO_USERS
+            message.from_user.id in SUDO_USERS
         )
     else:
         return bool(
-            m.from_user and 
-            m.from_user.is_self
+            message.from_user and 
+            message.from_user.is_self
         )
 
 
-f_onw_fliter = Filters.create(
+f_onw_fliter = filters.create(
     func=onw_filter,
     name="OnwFilter"
 )

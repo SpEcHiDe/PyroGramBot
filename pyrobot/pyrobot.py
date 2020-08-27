@@ -4,7 +4,7 @@
 
 from pyrogram import Client
 from pyrogram import __version__
-from pyrogram.api.all import layer
+from pyrogram.raw.all import layer
 
 from pyrobot import (
     APP_ID,

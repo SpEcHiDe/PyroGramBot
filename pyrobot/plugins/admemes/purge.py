@@ -2,19 +2,19 @@
 Syntax: .purge"""
 
 import asyncio
-
-from pyrogram import Client, Filters
-
+from pyrogram import Client, filters
 from pyrobot import (
     COMMAND_HAND_LER,
     TG_MAX_SELECT_LEN
 )
-
 from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 
 
-@Client.on_message(Filters.command("purge", COMMAND_HAND_LER) & f_onw_fliter)
+@Client.on_message(
+    filters.command("purge", COMMAND_HAND_LER) &
+    f_onw_fliter
+)
 async def purge(client, message):
     """ purge upto the replied message """
     if message.chat.type not in (("supergroup", "channel")):
@@ -32,7 +32,10 @@ async def purge(client, message):
     count_del_etion_s = 0
 
     if message.reply_to_message:
-        for a_s_message_id in range(message.reply_to_message.message_id, message.message_id):
+        for a_s_message_id in range(
+            message.reply_to_message.message_id,
+            message.message_id
+        ):
             message_ids.append(a_s_message_id)
             if len(message_ids) == TG_MAX_SELECT_LEN:
                 await client.delete_messages(

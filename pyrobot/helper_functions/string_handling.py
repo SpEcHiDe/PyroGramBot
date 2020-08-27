@@ -1,12 +1,10 @@
 import re
 import time
 from typing import List
-
-from pyrogram import (
+from pyrogram.types import (
     Message,
     InlineKeyboardButton
 )
-
 from pyrobot import (
     COMMAND_HAND_LER
 )

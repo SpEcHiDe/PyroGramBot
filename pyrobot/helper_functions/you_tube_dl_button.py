@@ -6,16 +6,14 @@ import asyncio
 import json
 import os
 import shutil
-
 from datetime import datetime
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
-from pyrogram import (
+from pyrogram.types import (
     InputMediaDocument,
     InputMediaVideo,
     InputMediaAudio
 )
-
 from pyrobot import (
     LOGGER,
     TMP_DOWNLOAD_DIRECTORY

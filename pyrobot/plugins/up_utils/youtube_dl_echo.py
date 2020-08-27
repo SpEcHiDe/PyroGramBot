@@ -2,12 +2,10 @@
 /ytdl"""
 
 import os
-
 from pyrogram import (
     Client,
-    Filters
+    filters
 )
-
 from pyrobot import (
     COMMAND_HAND_LER,
     LOGGER,
@@ -17,7 +15,7 @@ from pyrobot.helper_functions.cust_p_filters import sudo_filter
 from pyrobot.helper_functions.you_tube_dl_extractor import extract_youtube_dl_formats
 
 
-@Client.on_message(Filters.command("ytdl", COMMAND_HAND_LER)  & sudo_filter)
+@Client.on_message(filters.command("ytdl", COMMAND_HAND_LER) & sudo_filter)
 async def down_load_media(client, message):
     status_message = await message.reply_text("...", quote=True)
 
