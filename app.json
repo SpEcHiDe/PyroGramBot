@@ -1,6 +1,6 @@
 {
-  "name": "PyroGramUserBot",
-  "description": "PyroGram UserBot. Powered by @UserBotTalk",
+  "name": "PyroGramBot",
+  "description": "PyroGram Telegram User / Bot. Powered by @UserBotTalk",
   "keywords": [
     "telegram",
     "best",
@@ -12,25 +12,22 @@
     "modular",
     "productivity"
   ],
-  "repository": "https://github.com/SpEcHiDe/PyroGramUserBot",
+  "repository": "https://github.com/SpEcHiDe/PyroGramBot",
   "success_url": "https://telegram.dog/UserBotTalk",
-  "website": "https://github.com/SpEcHiDe/PyroGramUserBot",
+  "website": "https://github.com/SpEcHiDe/PyroGramBot",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable webhooks when in env mode",
       "value": "ANYTHING"
     },
     "APP_ID": {
-      "description": "Get this value from https://my.telegram.org",
-      "value": ""
+      "description": "Get this value from https://my.telegram.org"
     },
     "API_HASH": {
-      "description": "Get this value from https://my.telegram.org",
-      "value": ""
+      "description": "Get this value from https://my.telegram.org"
     },
-    "HU_STRING_SESSION": {
-      "description": "Generate this value by running python3 GenerateStringSession.py locally",
-      "value": ""
+    "TG_BOT_TOKEN_BF_HER": {
+      "description": "Get this value from @BotFather"
     },
     "COMMAND_HAND_LER": {
       "description": "specify command handler that should be used for the plugins",

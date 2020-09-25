@@ -1,6 +1,6 @@
-# PyroGramUserBot 🔥🤖
+# Bot 🔥🤖
 
-A Telegram User / Bot ~~[still WIP, not stable]~~ based on [Pyrogram](https://github.com/pyrogram/pyrogram)
+A Telegram Bot ~~[still WIP, not stable]~~ based on [Pyrogram](https://github.com/pyrogram/pyrogram)
 
 ## installing
 
