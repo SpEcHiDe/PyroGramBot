@@ -1,6 +1,4 @@
-import json
 from pyrogram import filters
-from pyrogram.errors import MessageNotModified
 from pyrobot import (
     COMMAND_HAND_LER,
     LOGGER,
