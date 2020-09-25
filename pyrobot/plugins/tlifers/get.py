@@ -35,6 +35,8 @@ async def watch_all_messages(client: PyroBot, message: Message):
                 caption = flt_message.caption
                 if caption:
                     caption = caption.html
+                if not caption:
+                    caption = ""
                 await n_m.reply_cached_media(
                     file_id=file_id,
                     caption=caption,
@@ -45,6 +47,8 @@ async def watch_all_messages(client: PyroBot, message: Message):
                 caption = flt_message.text
                 if caption:
                     caption = caption.html
+                if not caption:
+                    caption = ""
                 disable_web_page_preview = True
                 if "gra.ph" in caption or "youtu" in caption:
                     disable_web_page_preview = False
