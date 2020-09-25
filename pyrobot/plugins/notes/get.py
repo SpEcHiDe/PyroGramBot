@@ -55,7 +55,8 @@ async def get_note_with_command(message, note_name):
 
 
 @Client.on_message(
-    filters.command(["getnote", "get"], COMMAND_HAND_LER)
+    filters.command(["getnote", "get"], COMMAND_HAND_LER) &
+    filters.incoming
 )
 async def get_note(_, message):
     note_name = " ".join(message.command[1:])
@@ -63,7 +64,8 @@ async def get_note(_, message):
 
 
 @Client.on_message(
-    filters.regex(pattern=r"#(\w+)")
+    filters.regex(pattern=r"#(\w+)") &
+    filters.incoming
 )
 async def get_hash_tag_note(_, message):
     note_name = message.matches[0].group(1)
