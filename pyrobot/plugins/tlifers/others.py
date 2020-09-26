@@ -27,6 +27,7 @@ async def clear_filter(client: PyroBot, message):
     flt_name = " ".join(message.command[1:])
     flt_list = client.publicstore.get(str(message.chat.id), [])
     flt_list.pop(flt_name)
+    await client.save_public_store()
     await status_message.edit_text(
         f"filter <u>{flt_name}</u> deleted from current chat."
     )

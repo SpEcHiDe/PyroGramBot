@@ -53,16 +53,7 @@ class PyroBot(Client):
 
 
     async def stop(self, *args):
-        LOGGER.info(self.publicstore)
-        try:
-            await self.edit_message_text(
-                chat_id=TG_URI,
-                message_id=TG_IRU_S_M_ID,
-                text=json.dumps(self.publicstore),
-                disable_web_page_preview=True
-            )
-        except MessageNotModified:
-            pass
+        await self.save_public_store()
         await super().stop()
         LOGGER.info("PyroGramBot stopped. Bye.")
 
@@ -76,3 +67,16 @@ class PyroBot(Client):
             )
             if _check_message:
                 return json.loads(_check_message.text)
+    
+
+    async def save_public_store(self):
+        if TG_IRU_S_M_ID != 0:
+            try:
+                await self.edit_message_text(
+                    chat_id=TG_URI,
+                    message_id=TG_IRU_S_M_ID,
+                    text=json.dumps(self.publicstore),
+                    disable_web_page_preview=True
+                )
+            except MessageNotModified:
+                pass

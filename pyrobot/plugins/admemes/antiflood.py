@@ -20,7 +20,10 @@ if DB_URI is not None:
     CHAT_FLOOD = sql.__load_flood_settings()
 
 
-@Client.on_message(group=1)
+@Client.on_message(
+    filters.incoming,
+    group=1
+)
 async def check_flood(client, message):
     """ check all messages """
     if DB_URI is None:
