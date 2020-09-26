@@ -1,12 +1,18 @@
 from pyrogram import (
-    Client,
     filters
+)
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup
 )
 from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI,
-    TG_URI
+    TG_COMPANION_BOT,
+    TG_URI,
+    WELCOME_VERIFICATION_API
 )
+from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.msg_types import (
     get_file_id
 )
@@ -65,10 +71,33 @@ async def get_note_with_command(message):
                 parse_mode="html",
                 reply_markup=note_message.reply_markup
             )
+        if WELCOME_VERIFICATION_API:
+            await n_m.edit_reply_markup(
+                reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
+                    text="LogIn to UnMute",
+                    login_url=LoginUrl(
+                        url=WELCOME_VERIFICATION_API.format(
+                            u=c_m.id,
+                            m=message.message_id,
+                            c=message.chat.id
+                        ),
+                        forward_text="👉 @ThankTelegram 👈",
+                        bot_username=(await message._client.get_me()).username,
+                        request_write_access=True
+                    )
+                )]])
+            )
         #
         sql.update_previous_welcome(message.chat.id, n_m.message_id)
 
 
-@Client.on_message(filters.new_chat_members)
+@PyroBot.on_message(filters.new_chat_members)
 async def new_welcome(_, message):
     await get_note_with_command(message)
+
+
+from pyrogram.types import Object
+
+
+class LoginUrl(Object):
+    pass
