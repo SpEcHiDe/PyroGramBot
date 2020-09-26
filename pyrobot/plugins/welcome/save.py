@@ -35,7 +35,7 @@ async def save_note(client, message):
         note_message_id = int(message.command[1])
         sql.add_welcome_setting(
             chat_id,
-            True,
+            False,
             0,
             note_message_id
         )

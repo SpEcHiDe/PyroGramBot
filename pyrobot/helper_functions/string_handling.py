@@ -108,6 +108,6 @@ def format_welcome_caption(html_string, chat_member):
         first_name=chat_member.first_name,
         id=chat_member.id,
         last_name=chat_member.last_name,
-        mention=f"{chat_member:mention}",
+        mention=chat_member.mention,
         username=chat_member.username
     )
