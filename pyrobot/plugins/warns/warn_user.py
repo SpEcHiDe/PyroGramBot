@@ -24,7 +24,7 @@ from pyrobot.helper_functions.cust_p_filters import (
     f_onw_fliter
 )
 async def warn_user(client: PyroBot, msg: Message):
-    chat_id = msg.chat.id
+    chat_id = str(msg.chat.id)
 
     replied = msg.reply_to_message
     if not replied:

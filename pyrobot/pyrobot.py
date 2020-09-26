@@ -29,7 +29,7 @@ from pyrobot import (
 
 class PyroBot(Client):
     filterstore: Dict[str, Dict[str, str]] = defaultdict(dict)
-    warndatastore: Dict[int, Dict[str, Union[str, int, List[str]]]] = defaultdict(dict)
+    warndatastore: Dict[str, Dict[str, Union[str, int, List[str]]]] = defaultdict(dict)
     warnsettingsstore: Dict[str, str] = defaultdict(dict)
 
     def __init__(self):
@@ -92,7 +92,7 @@ class PyroBot(Client):
                 await self.edit_message_text(
                     chat_id=TG_URI,
                     message_id=message_id,
-                    text=text,
+                    text=f"<code>{text}</code>",
                     disable_web_page_preview=True
                 )
             except MessageNotModified:

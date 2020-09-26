@@ -29,7 +29,7 @@ async def reset_all_warns(client: PyroBot, msg: Message):
     user_id = replied.from_user.id
     if replied.from_user.is_self:
         return
-    chat_id = msg.chat.id
+    chat_id = str(msg.chat.id)
     if chat_id not in client.warndatastore:
         client.warndatastore[chat_id] = {}
     DATA = client.warndatastore[chat_id]
@@ -43,4 +43,3 @@ async def reset_all_warns(client: PyroBot, msg: Message):
         WARN_DATA_ID,
         json.dumps(client.warndatastore)
     )
-

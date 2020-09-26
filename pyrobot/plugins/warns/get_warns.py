@@ -27,7 +27,7 @@ async def check_warns_of_user(client: PyroBot, msg: Message):
     if not replied:
         return
 
-    chat_id = msg.chat.id
+    chat_id = str(msg.chat.id)
     if chat_id not in client.warndatastore:
         client.warndatastore[chat_id] = {}
     DATA = client.warndatastore[chat_id]

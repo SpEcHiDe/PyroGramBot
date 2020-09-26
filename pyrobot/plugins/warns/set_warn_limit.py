@@ -27,7 +27,7 @@ async def set_warn_mode_and_limit(client: PyroBot, msg: Message):
     if len(msg.command) <= 1:
         await msg.reply("Input not found!")
         return
-    chat_id = msg.chat.id
+    chat_id = str(msg.chat.id)
     WARN_MODE = "kick"
     WARN_LIMIT = 5
     _, args = msg.text.split(maxsplit=1)
