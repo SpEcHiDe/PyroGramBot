@@ -41,9 +41,6 @@ class Config:
     TG_IRU_S_M_ID = int(os.environ.get("TG_IRU_S_M_ID", "0"))
     WARN_DATA_ID = int(os.environ.get("WARN_DATA_ID", "0"))
     WARN_SETTINGS_ID = int(os.environ.get("WARN_SETTINGS_ID", "0"))
-    # for protecting groups against bots, floods, and lifeless losers
-    # കോപ്പി അടി അല്ല! കോപിടിയേ അല്ല!! ©️ @chathelp_bot
-    WELCOME_VERIFICATION_API = os.environ.get("WELCOME_VERIFICATION_API", None)
 
 
 class Production(Config):
