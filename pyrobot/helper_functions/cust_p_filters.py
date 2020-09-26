@@ -9,6 +9,7 @@ from pyrobot import (
     SUDO_USERS,
     USE_AS_BOT
 )
+from pyrobot.helper_functions.admin_check import admin_check
 
 
 def f_sudo_filter(filt, client, message):
@@ -37,4 +38,14 @@ def onw_filter(filt, client, message):
 f_onw_fliter = filters.create(
     func=onw_filter,
     name="OnwFilter"
+)
+
+
+async def admin_filter_f(filt, client, message):
+    return await admin_check(message)
+
+
+admin_fliter = filters.create(
+    func=admin_filter_f,
+    name="AdminFilter"
 )

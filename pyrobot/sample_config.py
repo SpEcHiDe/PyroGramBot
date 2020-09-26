@@ -39,6 +39,8 @@ class Config:
     TG_MAX_SELECT_LEN = int(os.environ.get("TG_MAX_SELECT_LEN", "100"))
     # for bakanup purposes
     TG_IRU_S_M_ID = int(os.environ.get("TG_IRU_S_M_ID", "0"))
+    WARN_DATA_ID = int(os.environ.get("WARN_DATA_ID", "0"))
+    WARN_SETTINGS_ID = int(os.environ.get("WARN_SETTINGS_ID", "0"))
 
 
 class Production(Config):

@@ -2,21 +2,19 @@
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
 
-from pyrogram import (
-    Client,
-    filters
-)
 from pyrogram.types import (
     CallbackQuery
 )
 from pyrobot import (
     LOGGER
 )
+from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.you_tube_dl_button import youtube_dl_call_back
+from pyrobot.helper_functions.warn_hlprs.remove_warn import remove_warn
 
 
-@Client.on_callback_query()
-async def button(client, callback_query: CallbackQuery):
+@PyroBot.on_callback_query()
+async def button(client: PyroBot, callback_query: CallbackQuery):
     # NOTE: You should always answer,
     # but we want different conditionals to
     # be able to answer to differnetly
@@ -32,3 +30,7 @@ async def button(client, callback_query: CallbackQuery):
         )
         _, call_back_data = cb_data.split("_")
         await youtube_dl_call_back(client, callback_query, call_back_data)
+
+    elif cb_data.startswith("rmwarn_"):
+        _c, first_i, second_i = cb_data.split("_")
+        await remove_warn(client, callback_query, int(first_i), int(second_i))
