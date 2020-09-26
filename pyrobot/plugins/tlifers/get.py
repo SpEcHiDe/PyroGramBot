@@ -17,7 +17,7 @@ from pyrobot.helper_functions.msg_types import (
 )
 async def watch_all_messages(client: PyroBot, message: Message):
     to_match = message.text or message.caption or ""
-    flt_list = client.publicstore.get(str(message.chat.id), [])
+    flt_list = client.filterstore.get(str(message.chat.id), [])
     for flt in flt_list:
         pattern = r"( |^|[^\w])" + re.escape(flt) + r"( |$|[^\w])"
         if re.search(pattern, to_match, flags=re.IGNORECASE):

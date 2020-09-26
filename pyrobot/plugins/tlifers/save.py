@@ -40,8 +40,11 @@ async def save_filter(client: PyroBot, message):
         filter_kw = " ".join(message.command[1:])
         fm_id = fwded_mesg.message_id
 
-        client.publicstore[str(chat_id)][filter_kw] = fm_id
-        await client.save_public_store()
+        client.filterstore[str(chat_id)][filter_kw] = fm_id
+        await client.save_public_store(
+            TG_IRU_S_M_ID,
+            json.dumps(client.filterstore)
+        )
 
         await status_message.edit_text(
             f"filter <u>{filter_kw}</u> added"
@@ -90,8 +93,11 @@ async def save_filter(client: PyroBot, message):
             chat_id = message.chat.id
             fm_id = fwded_mesg.message_id
 
-            client.publicstore[str(chat_id)][filter_kw] = fm_id
-            await client.save_public_store()
+            client.filterstore[str(chat_id)][filter_kw] = fm_id
+            await client.save_public_store(
+                TG_IRU_S_M_ID,
+                json.dumps(client.filterstore)
+            )
 
             await status_message.edit_text(
                 f"filter <u>{filter_kw}</u> added"
