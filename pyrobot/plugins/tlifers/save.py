@@ -41,6 +41,7 @@ async def save_filter(client: PyroBot, message):
         fm_id = fwded_mesg.message_id
 
         client.publicstore[str(chat_id)][filter_kw] = fm_id
+        await client.save_public_store()
 
         await status_message.edit_text(
             f"filter <u>{filter_kw}</u> added"
