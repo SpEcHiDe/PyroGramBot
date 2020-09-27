@@ -32,26 +32,6 @@
     "COMMAND_HAND_LER": {
       "description": "specify command handler that should be used for the plugins",
       "required": false
-    },
-    "TMP_DOWNLOAD_DIRECTORY": {
-      "description": "This is required for the plugins involving the file system.",
-      "required": false
-    },
-    "HEROKU_API_KEY": {
-      "description": "get a Heroku API key from http://dashboard.heroku.com/account",
-      "required": false
-    },
-    "OFFICIAL_UPSTREAM_REPO": {
-      "description": "set this to your fork link on GitHub, not setting anything is RECOMMENDED, nevertheless, keeping this in the hope that it 'might' be useful",
-      "required": false
-    },
-    "G_DRIVE_CLIENT_ID": {
-      "description": "Get your credentials from https://da.gd/so63O",
-      "required": false
-    },
-    "G_DRIVE_CLIENT_SECRET": {
-      "description": "Get your credentials from https://da.gd/so63O",
-      "required": false
     }
   },
   "addons": [{

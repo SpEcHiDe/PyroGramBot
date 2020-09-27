@@ -36,7 +36,7 @@ class Config:
     # Array to store users who are authorized to use the bot
     SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
     # the maximum number of 'selectable' messages in Telegram
-    TG_MAX_SELECT_LEN = int(os.environ.get("TG_MAX_SELECT_LEN", "100"))
+    TG_MAX_SELECT_LEN = 100
     # for bakanup purposes
     TG_IRU_S_M_ID = int(os.environ.get("TG_IRU_S_M_ID", "0"))
     WARN_DATA_ID = int(os.environ.get("WARN_DATA_ID", "0"))
