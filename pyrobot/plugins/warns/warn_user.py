@@ -46,7 +46,7 @@ async def warn_user(client: PyroBot, msg: Message):
         return
 
     if len(msg.command) < 2:
-        await msg.reply("`Give a reason to warn him.`")
+        await msg.reply("Give a reason to warn him.")
         return
 
     _, reason = msg.text.split(maxsplit=1)
