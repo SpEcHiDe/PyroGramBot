@@ -13,6 +13,7 @@ from pyrobot import (
 )
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
 from pyrobot.helper_functions.you_tube_dl_extractor import extract_youtube_dl_formats
+from pyrobot.helper_functions.extract_link import extract_link
 
 
 @Client.on_message(filters.command("ytdl", COMMAND_HAND_LER) & sudo_filter)
@@ -26,9 +27,11 @@ async def down_load_media(client, message):
     if not os.path.isdir(user_working_dir):
         os.makedirs(user_working_dir)
     
+    assumed_url, _, _, _ = extract_link(message.reply_to_message)
+
     # list the formats, and display in button markup formats
     thumb_image, text_message, reply_markup = await extract_youtube_dl_formats(
-        message.reply_to_message.text,
+        assumed_url,
         user_working_dir
     )
     if thumb_image is not None:

@@ -4,8 +4,10 @@
 
 
 import asyncio
+import aiohttp
 import json
 import os
+from PIL import Image
 from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup
@@ -14,6 +16,26 @@ from pyrobot.helper_functions.display_progress_dl_up import humanbytes
 from pyrobot import (
     LOGGER
 )
+
+
+async def proc_ess_image_aqon(image_url: str, output_dir: str) -> str:
+    async with aiohttp.ClientSession() as session:
+        noqa_read = await session.get(image_url)
+        image_content = await noqa_read.read()
+        thumb_img_path = os.path.join(
+            output_dir,
+            "thumb_image.jpg"
+        )
+        with open(thumb_img_path, "wb") as f_d:
+            f_d.write(image_content)
+    # image might be downloaded in the previous step
+    # https://stackoverflow.com/a/21669827/4723940
+    Image.open(thumb_img_path).convert(
+        "RGB"
+    ).save(thumb_img_path, "JPEG")
+    # ref: https://t.me/PyrogramChat/44663
+    # return the downloaded image path
+    return thumb_img_path
 
 
 async def extract_youtube_dl_formats(url, user_working_dir):
@@ -147,6 +169,11 @@ async def extract_youtube_dl_formats(url, user_working_dir):
                 ])
             break
         reply_markup = InlineKeyboardMarkup(inline_keyboard)
+        # YouTubeDL hot-patching: #397
+        thumb_image = await proc_ess_image_aqon(
+            thumb_image,
+            user_working_dir
+        )
         # LOGGER.info(reply_markup)
         succss_mesg = """Select the desired format: 👇
 <u>mentioned</u> <i>file size might be approximate</i>"""
