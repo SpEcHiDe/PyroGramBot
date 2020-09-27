@@ -31,7 +31,7 @@ async def check_warns_of_user(client: PyroBot, msg: Message):
     W_S = client.warnsettingsstore[chat_id]
     WARN_LIMIT = W_S["WARN_LIMIT"]
 
-    user_id = replied.from_user.id
+    user_id = str(replied.from_user.id)
     mention = f"<a href='tg://user?id={user_id}'>{replied.from_user.first_name}</a>"
 
     if replied.from_user.is_self:

@@ -23,7 +23,7 @@ async def reset_all_warns(client: PyroBot, msg: Message):
     replied = msg.reply_to_message
     if not replied:
         return
-    user_id = replied.from_user.id
+    user_id = str(replied.from_user.id)
     if replied.from_user.is_self:
         return
     chat_id = str(msg.chat.id)

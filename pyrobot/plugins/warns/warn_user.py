@@ -34,7 +34,7 @@ async def warn_user(client: PyroBot, msg: Message):
 
     DATA = client.warndatastore[chat_id]
 
-    user_id = replied.from_user.id
+    user_id = str(replied.from_user.id)
     mention = f"<a href='tg://user?id={user_id}'>{replied.from_user.first_name}</a>"
 
     if replied.from_user.is_self:
@@ -81,16 +81,18 @@ async def warn_user(client: PyroBot, msg: Message):
         nw_l = p_l + 1  # new limit
         if nw_l >= w_l:
             if w_m == "ban":
-                await msg.chat.kick_member(user_id)
+                await msg.chat.kick_member(
+                    int(user_id)
+                )
                 exec_str = "BANNED"
             elif w_m == "kick":
                 await msg.chat.kick_member(
-                    user_id,
+                    int(user_id),
                     until_date=time.time() + 61
                 )
                 exec_str = "KICKED"
             elif w_m == "mute":
-                await msg.chat.restrict_member(user_id, ChatPermissions())
+                await msg.chat.restrict_member(int(user_id), ChatPermissions())
                 exec_str = "MUTED"
             reason = ("\n".join(DATA[user_id]["reason"]) + "\n" + str(reason))
             await msg.reply(
