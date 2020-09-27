@@ -10,8 +10,7 @@ from pyrobot import (
     DB_URI,
     TG_URI
 )
-from pyrobot.helper_functions.admin_check import admin_check
-from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
+from pyrobot.helper_functions.cust_p_filters import admin_fliter
 from pyrobot.helper_functions.msg_types import (
     get_note_type,
     Types
@@ -22,12 +21,9 @@ if DB_URI is not None:
 
 @Client.on_message(
     filters.command(["savenote", "save"], COMMAND_HAND_LER) &
-    f_onw_fliter
+    admin_fliter
 )
 async def save_note(client, message):
-    is_admin = await admin_check(message)
-    if not is_admin:
-        return
     status_message = await message.reply_text(
         "checking 🤔🙄🙄",
         quote=True

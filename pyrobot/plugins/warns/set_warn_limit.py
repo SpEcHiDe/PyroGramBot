@@ -11,17 +11,14 @@ from pyrobot import (
     WARN_SETTINGS_ID
 )
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.cust_p_filters import (
-    admin_fliter,
-    f_onw_fliter
+    sudo_filter
 )
 
 
 @PyroBot.on_message(
     filters.command(["warnlimit", "setwarn"], COMMAND_HAND_LER) &
-    admin_fliter &
-    f_onw_fliter
+    sudo_filter
 )
 async def set_warn_mode_and_limit(client: PyroBot, msg: Message):
     if len(msg.command) <= 1:

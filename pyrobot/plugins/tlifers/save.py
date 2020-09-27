@@ -10,8 +10,7 @@ from pyrobot import (
     TG_IRU_S_M_ID
 )
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.admin_check import admin_check
-from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
+from pyrobot.helper_functions.cust_p_filters import admin_fliter
 from pyrobot.helper_functions.msg_types import (
     get_note_type,
     Types
@@ -20,12 +19,9 @@ from pyrobot.helper_functions.msg_types import (
 
 @PyroBot.on_message(
     filters.command(["savefilter", "filter"], COMMAND_HAND_LER) &
-    f_onw_fliter
+    admin_fliter
 )
 async def save_filter(client: PyroBot, message):
-    is_admin = await admin_check(message)
-    if not is_admin:
-        return
     status_message = await message.reply_text(
         "checking 🤔🙄🙄",
         quote=True

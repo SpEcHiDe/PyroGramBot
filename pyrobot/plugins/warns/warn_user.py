@@ -20,8 +20,7 @@ from pyrobot.helper_functions.cust_p_filters import (
 
 @PyroBot.on_message(
     filters.command(["warnuser", "warn"], COMMAND_HAND_LER) &
-    admin_fliter &
-    f_onw_fliter
+    admin_fliter
 )
 async def warn_user(client: PyroBot, msg: Message):
     chat_id = str(msg.chat.id)

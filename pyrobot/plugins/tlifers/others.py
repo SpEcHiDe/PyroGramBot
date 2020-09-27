@@ -8,19 +8,15 @@ from pyrobot import (
     TG_IRU_S_M_ID
 )
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.admin_check import admin_check
-from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
+from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
 
 
 @PyroBot.on_message(
     filters.command(["clearfilter"], COMMAND_HAND_LER) &
-    f_onw_fliter
+    admin_fliter
 )
 async def clear_filter(client: PyroBot, message):
-    is_admin = await admin_check(message)
-    if not is_admin:
-        return
     status_message = await message.reply_text(
         "checking 🤔🙄🙄",
         quote=True

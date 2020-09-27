@@ -10,17 +10,14 @@ from pyrobot import (
     WARN_DATA_ID
 )
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.cust_p_filters import (
-    admin_fliter,
-    f_onw_fliter
+    admin_fliter
 )
 
 
 @PyroBot.on_message(
     filters.command(["resetwarn"], COMMAND_HAND_LER) &
-    admin_fliter &
-    f_onw_fliter
+    admin_fliter
 )
 async def reset_all_warns(client: PyroBot, msg: Message):
     replied = msg.reply_to_message
