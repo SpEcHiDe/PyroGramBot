@@ -33,4 +33,4 @@ async def button(client: PyroBot, callback_query: CallbackQuery):
 
     elif cb_data.startswith("rmwarn_"):
         _c, first_i, second_i = cb_data.split("_")
-        await remove_warn(client, callback_query, int(first_i), int(second_i))
+        await remove_warn(client, callback_query, str(first_i), int(second_i))

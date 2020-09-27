@@ -6,8 +6,8 @@ from pyrobot import COMMAND_HAND_LER, WARN_DATA_ID
 from pyrobot.pyrobot import PyroBot
 
 
-async def remove_warn(client: PyroBot, c_q: CallbackQuery, user_id: int, warner: int):
-    chat_id = c_q.message.chat.id
+async def remove_warn(client: PyroBot, c_q: CallbackQuery, user_id: str, warner: int):
+    chat_id = str(c_q.message.chat.id)
 
     if chat_id not in client.warndatastore:
         client.warndatastore[chat_id] = {}
