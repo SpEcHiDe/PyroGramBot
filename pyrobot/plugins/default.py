@@ -14,7 +14,7 @@ from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
 @Client.on_message(
-    filters.command(["load", "install"], COMMAND_HAND_LER)  &
+    filters.command(["load", "install"], COMMAND_HAND_LER) &
     sudo_filter
 )
 async def load_plugin(client: Client, message: Message):
@@ -56,7 +56,6 @@ async def load_plugin(client: Client, message: Message):
                                     module_path
                                 )
                             )
-
                             lded_count += 1
                     except Exception:
                         pass

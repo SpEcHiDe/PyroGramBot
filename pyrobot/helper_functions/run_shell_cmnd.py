@@ -7,7 +7,7 @@ from typing import List
 
 
 async def run_command(shell_command: List) -> (str, str):
-    """ executes a shell_command, 
+    """ executes a shell_command,
     and returns the stdout and stderr"""
     process = await asyncio.create_subprocess_exec(
         *shell_command,

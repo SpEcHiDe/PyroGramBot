@@ -14,7 +14,10 @@ class Config:
     # this should be a valid "regex" pattern
     COMMAND_HAND_LER = os.environ.get("COMMAND_HAND_LER", "/")
     # This is required for the plugins involving the file system.
-    TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
+    TMP_DOWNLOAD_DIRECTORY = os.environ.get(
+        "TMP_DOWNLOAD_DIRECTORY",
+        "./DOWNLOADS/"
+    )
     # get a Heroku API key from http://dashboard.heroku.com/account
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     # set this to your fork on GitHub (if you want)

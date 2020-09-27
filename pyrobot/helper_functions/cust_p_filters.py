@@ -23,6 +23,7 @@ sudo_filter = filters.create(
     name="SudoFilter"
 )
 
+
 def onw_filter(filt, client, message):
     if USE_AS_BOT:
         return bool(
@@ -30,7 +31,7 @@ def onw_filter(filt, client, message):
         )
     else:
         return bool(
-            message.from_user and 
+            message.from_user and
             message.from_user.is_self
         )
 

@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
 
-import asyncio
 import json
 import os
 import shutil
@@ -19,7 +18,6 @@ from pyrobot import (
     TMP_DOWNLOAD_DIRECTORY
 )
 from pyrobot.helper_functions.check_if_thumb_exists import is_thumb_image_exists
-from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 from pyrobot.helper_functions.run_shell_cmnd import run_command
 
 
@@ -133,7 +131,7 @@ async def youtube_dl_call_back(bot, update, cb_data):
         command_to_exec.append("--geo-bypass-country")
         command_to_exec.append("IN")
     LOGGER.info(command_to_exec)
-    start = datetime.now()    
+    start = datetime.now()
     t_response, e_response = await run_command(command_to_exec)
     # LOGGER.info(e_response)
     # LOGGER.info(t_response)
@@ -148,7 +146,7 @@ async def youtube_dl_call_back(bot, update, cb_data):
         # LOGGER.info(t_response)
         # os.remove(save_ytdl_json_path)
         end_one = datetime.now()
-        time_taken_for_download = (end_one -start).seconds
+        time_taken_for_download = (end_one - start).seconds
         dir_contents = os.listdir(tmp_directory_for_each_user)
         # dir_contents.sort()
         await update.message.edit_caption(
@@ -161,7 +159,7 @@ async def youtube_dl_call_back(bot, update, cb_data):
         for single_file in dir_contents:
             local_file_name = os.path.join(tmp_directory_for_each_user, single_file)
             thumb = await is_thumb_image_exists(local_file_name)
-            caption_str = os.path.basename(local_file_name)
+            # caption_str = os.path.basename(local_file_name)
             metadata = extractMetadata(createParser(local_file_name))
             duration = 0
             artist = ""
@@ -184,7 +182,7 @@ async def youtube_dl_call_back(bot, update, cb_data):
                     media=InputMediaVideo(
                         media=local_file_name,
                         thumb=thumb,
-                        caption=caption_str,
+                        caption=description,
                         parse_mode="html",
                         width=width,
                         height=height,
@@ -197,7 +195,7 @@ async def youtube_dl_call_back(bot, update, cb_data):
                     media=InputMediaAudio(
                         media=local_file_name,
                         thumb=thumb,
-                        caption=caption_str,
+                        caption=description,
                         parse_mode="html",
                         duration=duration,
                         performer=artist,
@@ -210,7 +208,7 @@ async def youtube_dl_call_back(bot, update, cb_data):
                     media=InputMediaDocument(
                         media=local_file_name,
                         thumb=thumb,
-                        caption=caption_str,
+                        caption=description,
                         parse_mode="html"
                     )
                     # quote=True,

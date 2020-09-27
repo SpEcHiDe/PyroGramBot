@@ -1,9 +1,6 @@
 """Google Drive Plugins
 Syntax: .gdrive"""
 
-import asyncio
-import io
-import json
 import math
 import httplib2
 import os
@@ -41,7 +38,7 @@ flow = None
     sudo_filter
 )
 async def g_drive_commands(client, message):
-    status_message = await message.reply_text("...")
+    status_message = await message.reply_text("...", quote=True)
     if len(message.command) > 1:
         current_recvd_command = message.command[1]
         if current_recvd_command == "setup":
@@ -308,7 +305,7 @@ async def gDrive_upload_file(creds, file_path, message):
     display_message = ""
     while response is None:
         status, response = u_file_obj.next_chunk()
-        #await asyncio.sleep(5)
+        # await asyncio.sleep(5)
         if status:
             percentage = int(status.progress() * 100)
             progress_str = "[{0}{1}]\nProgress: {2}%\n".format(

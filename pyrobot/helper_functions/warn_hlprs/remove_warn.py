@@ -2,11 +2,16 @@ import json
 
 from pyrogram.types import CallbackQuery
 
-from pyrobot import COMMAND_HAND_LER, WARN_DATA_ID
+from pyrobot import WARN_DATA_ID
 from pyrobot.pyrobot import PyroBot
 
 
-async def remove_warn(client: PyroBot, c_q: CallbackQuery, user_id: str, warner: int):
+async def remove_warn(
+    client: PyroBot,
+    c_q: CallbackQuery,
+    user_id: str,
+    warner: int
+):
     chat_id = str(c_q.message.chat.id)
 
     if chat_id not in client.warndatastore:
@@ -22,17 +27,23 @@ async def remove_warn(client: PyroBot, c_q: CallbackQuery, user_id: str, warner:
                 del DATA[user_id]["reason"][-1]
             else:
                 DATA.pop(user_id)
-            mention = f"<a href='tg://user?id={c_q.from_user.id}'>{c_q.from_user.first_name}</a>"
+            mention = f"<a href='tg://user?id={c_q.from_user.id}'>"
+            mention += c_q.from_user.first_name
+            mention += "</a>"
             text = f"{mention} removed this Warn."
             await c_q.edit_message_text(text)
         else:
             await c_q.edit_message_text(
                 "😕😕 This User does not have any Warn."
             )
-        await c_q.answer() # ensure no spinny circle -_-
+        await c_q.answer()  # ensure no spinny circle -_-
     else:
         await c_q.answer(
-            f"Only {(await client.get_users(warner)).first_name} Can Remove this Warn",
+            (
+                "Only "
+                f"{(await client.get_users(warner)).first_name} "
+                "Can Remove this Warn"
+            ),
             show_alert=True
         )
 

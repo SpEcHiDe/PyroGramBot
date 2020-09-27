@@ -1,8 +1,6 @@
 import pickle
 import threading
-
-from sqlalchemy import Column, Integer, String, LargeBinary
-
+from sqlalchemy import Column, Integer, LargeBinary
 from pyrobot.helper_functions.sql_helpers import BASE, SESSION
 
 
@@ -11,7 +9,6 @@ class gDriveCreds(BASE):
     chat_id = Column(Integer, primary_key=True)
     credential_string = Column(LargeBinary)
 
-
     def __init__(self, chat_id):
         self.chat_id = chat_id
 
@@ -19,6 +16,7 @@ class gDriveCreds(BASE):
 gDriveCreds.__table__.create(checkfirst=True)
 
 INSERTION_LOCK = threading.RLock()
+
 
 def set_credential(chat_id, credential_string):
     with INSERTION_LOCK:
@@ -37,8 +35,8 @@ def get_credential(chat_id):
         saved_cred = SESSION.query(gDriveCreds).get(chat_id)
         creds = None
         # The gDrive table stores the user's access and refresh tokens, and is
-        # created automatically when the authorization flow completes for the first
-        # time.
+        # created automatically when the authorization flow
+        # completes for the first time.
         if saved_cred is not None:
             creds = pickle.loads(saved_cred.credential_string)
         return creds

@@ -48,3 +48,8 @@ TG_MAX_SELECT_LEN = int(Config.TG_MAX_SELECT_LEN)
 TG_IRU_S_M_ID = int(Config.TG_IRU_S_M_ID)
 WARN_DATA_ID = int(Config.WARN_DATA_ID)
 WARN_SETTINGS_ID = int(Config.WARN_SETTINGS_ID)
+# define the "types" that should be uplaoded as streamable
+# copied from SpEcHiDe/UniBorg
+TL_VID_STREAM_TYPES = ("MP4", "WEBM", "MKV")
+TL_MUS_STREAM_TYPES = ("MP3", "WAV", "FLAC")
+TL_FF_NOAQ_TYPES = ("WEBP")

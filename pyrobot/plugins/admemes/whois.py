@@ -34,7 +34,8 @@ async def who_is(client, message):
     else:
         message_out_str = ""
         message_out_str += f"ID: <code>{from_user.id}</code>\n"
-        message_out_str += f"First Name: <a href='tg://user?id={from_user.id}'>"
+        message_out_str += "First Name: "
+        message_out_str += f"<a href='tg://user?id={from_user.id}'>"
         message_out_str += from_user.first_name or ""
         message_out_str += "</a>\n"
         last_name = from_user.last_name or ""
@@ -46,7 +47,11 @@ async def who_is(client, message):
             joined_date = datetime.fromtimestamp(
                 chat_member_p.joined_date or time.time()
             ).strftime("%Y.%m.%d %H:%M:%S")
-            message_out_str += f"<b>Joined On</b>: <code>{joined_date}</code>\n"
+            message_out_str += (
+                "<b>Joined On</b>: <code>"
+                f"{joined_date}"
+                "</code>\n"
+            )
         chat_photo = from_user.photo
         if chat_photo:
             local_user_photo = await client.download_media(

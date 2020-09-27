@@ -47,10 +47,16 @@ async def check_flood(client, message):
         )
     except Exception as e:  # pylint:disable=C0103,W0703
         no_admin_privilege_message = await message.reply_text(
-            text="""<b>Automatic AntiFlooder</b>
-@admin <a href='tg://user?id={}'>{}</a> is flooding this chat.
-
-`{}`""".format(message.from_user.id, message.from_user.first_name, str(e))
+            text=(
+                "<b>Automatic AntiFlooder</b>\n"
+                "@admin <a href='tg://user?id={}'>{}</a> "
+                "is flooding this chat.\n\n"
+                "<code>{}</code>"
+            ).format(
+                message.from_user.id,
+                message.from_user.first_name,
+                str(e)
+            )
         )
         await asyncio.sleep(10)
         await no_admin_privilege_message.edit_text(
@@ -60,20 +66,22 @@ async def check_flood(client, message):
     else:
         await client.send_message(
             chat_id=message.chat.id,
-            text="""<b>Automatic AntiFlooder</b>
-<a href='tg://user?id={}'>{}</a> has been automatically restricted
-because he reached the defined flood limit.
-
-#FLOOD""".format(
-    message.from_user.id,
-    message.from_user.first_name
-),
+            text=(
+                "<b>Automatic AntiFlooder</b>\n"
+                "<a href='tg://user?id={}'>{}</a> "
+                "has been automatically restricted "
+                "because he reached the defined flood limit. \n\n"
+                "#FLOOD".format(
+                    message.from_user.id,
+                    message.from_user.first_name
+                )
+            ),
             reply_to_message_id=message.message_id
         )
 
 
 @Client.on_message(
-    filters.command("setflood", COMMAND_HAND_LER) & 
+    filters.command("setflood", COMMAND_HAND_LER) &
     f_onw_fliter
 )
 async def set_flood(_, message):

@@ -28,8 +28,10 @@ async def save_note(client, message):
         "checking 🤔🙄🙄",
         quote=True
     )
-    if message.reply_to_message and \
-        message.reply_to_message.reply_markup is not None:
+    if (
+        message.reply_to_message and
+        message.reply_to_message.reply_markup is not None
+    ):
         fwded_mesg = await message.reply_to_message.forward(
             chat_id=TG_URI,
             disable_notification=True
@@ -47,14 +49,19 @@ async def save_note(client, message):
             # f"<a href='https://'>{message.chat.title}</a>"
         )
     else:
-        note_name, text, data_type, content, buttons = get_note_type(message, 2)
+        note_name, text, data_type, content, buttons = get_note_type(
+            message,
+            2
+        )
 
         if data_type is None:
             await status_message.edit_text("🤔 maybe note text is empty")
             return
 
         if not note_name:
-            await status_message.edit_text("എന്തിന്ന് ഉള്ള മറുപടി ആണ് എന്ന് വ്യക്തം ആക്കിയില്ല 🤔")
+            await status_message.edit_text(
+                "എന്തിന്ന് ഉള്ള മറുപടി ആണ് എന്ന് വ്യക്തം ആക്കിയില്ല 🤔"
+            )
             return
 
         # construct message using the above parameters

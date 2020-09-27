@@ -2,7 +2,6 @@ import re
 from pyrogram import filters
 from pyrogram.types import Message
 from pyrobot import (
-    LOGGER,
     TG_URI
 )
 from pyrobot.pyrobot import PyroBot

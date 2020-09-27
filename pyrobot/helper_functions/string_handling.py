@@ -24,7 +24,9 @@ MATCH_MD = re.compile(r'\*(.*?)\*|'
 
 # regex to find []() links -> hyperlinks/buttons
 LINK_REGEX = re.compile(r'(?<!\\)\[.+?\]\((.*?)\)')
-BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
+BTN_URL_REGEX = re.compile(
+    r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))"
+)
 
 
 def button_markdown_parser(msg: Message) -> (str, List):
@@ -102,7 +104,7 @@ def extract_time(time_val):
         return None
 
 
-def format_welcome_caption(html_string, chat_member): 
+def format_welcome_caption(html_string, chat_member):
     return html_string.format(
         dc_id=chat_member.dc_id,
         first_name=chat_member.first_name,

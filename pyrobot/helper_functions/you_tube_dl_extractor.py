@@ -66,7 +66,13 @@ async def extract_youtube_dl_formats(url, user_working_dir):
     if e_response:
         # logger.warn("Status : FAIL", exc.returncode, exc.output)
         error_message = e_response.replace(
-            "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output.", ""
+            (
+                "please report this issue on https://yt-dl.org/bug . "
+                "Make sure you are using the latest version; see  "
+                "https://yt-dl.org/update  on how to update. "
+                "Be sure to call youtube-dl with the --verbose flag and "
+                "include its complete output."
+            ), ""
         )
         return None, error_message, None
     if t_response:
@@ -105,66 +111,65 @@ async def extract_youtube_dl_formats(url, user_working_dir):
                     approx_file_size = ""
                     if "filesize" in formats:
                         approx_file_size = humanbytes(formats["filesize"])
-                    dipslay_str_uon = " " + format_string + " (" + format_ext.upper() + ") " + approx_file_size + " "
-                    cb_string_video = "ytdl_{}|{}|{}".format(
-                        "video", format_id, format_ext)
+                    dipslay_str_uon = (
+                        f" {format_string} ({format_ext.upper()}) "
+                        f"{approx_file_size} "
+                    )
+                    cb_string_video = f"ytdl_video|{format_id}|{format_ext}"
                     ikeyboard = []
                     if "drive.google.com" in url:
                         if format_id == "source":
                             ikeyboard = [
                                 InlineKeyboardButton(
                                     dipslay_str_uon,
-                                    callback_data=(cb_string_video).encode("UTF-8")
+                                    callback_data=cb_string_video
                                 )
                             ]
                     else:
-                        if format_string is not None and not "audio only" in format_string:
+                        if format_string and "audio only" not in format_string:
                             ikeyboard = [
                                 InlineKeyboardButton(
                                     dipslay_str_uon,
-                                    callback_data=(cb_string_video).encode("UTF-8")
+                                    callback_data=cb_string_video
                                 )
                             ]
                         else:
                             # special weird case :\
                             ikeyboard = [
                                 InlineKeyboardButton(
-                                    "SVideo [" +
-                                    "] ( " +
-                                    approx_file_size + " )",
-                                    callback_data=(cb_string_video).encode("UTF-8")
+                                    f"SVideo [] ( {approx_file_size} )",
+                                    callback_data=cb_string_video
                                 )
                             ]
                     inline_keyboard.append(ikeyboard)
                 if duration is not None:
-                    cb_string_64 = "ytdl_{}|{}|{}".format("audio", "64k", "mp3")
-                    cb_string_128 = "ytdl_{}|{}|{}".format("audio", "128k", "mp3")
-                    cb_string = "ytdl_{}|{}|{}".format("audio", "320k", "mp3")
+                    cb_string_64 = "ytdl_audio|64k|MP3"
+                    cb_string_128 = "ytdl_audio|128k|MP3"
+                    cb_string = "ytdl_audio|320k|MP3"
                     inline_keyboard.append([
                         InlineKeyboardButton(
-                            "MP3 " + "(" + "64 kbps" + ")",
-                            callback_data=cb_string_64.encode("UTF-8")
+                            "MP3 (64 kbps)",
+                            callback_data=cb_string_64
                         ),
                         InlineKeyboardButton(
-                            "MP3 " + "(" + "128 kbps" + ")",
-                            callback_data=cb_string_128.encode("UTF-8")
+                            "MP3 (128 kbps)",
+                            callback_data=cb_string_128
                         )
                     ])
                     inline_keyboard.append([
                         InlineKeyboardButton(
-                            "MP3 " + "(" + "320 kbps" + ")",
-                            callback_data=cb_string.encode("UTF-8")
+                            "MP3 (320 kbps)",
+                            callback_data=cb_string
                         )
                     ])
             else:
                 format_id = current_r_json["format_id"]
                 format_ext = current_r_json["ext"]
-                cb_string_video = "ytdl_{}|{}|{}".format(
-                    "video", format_id, format_ext)
+                cb_string_video = f"ytdl_video|{format_id}|{format_ext}"
                 inline_keyboard.append([
                     InlineKeyboardButton(
                         "SVideo",
-                        callback_data=(cb_string_video).encode("UTF-8")
+                        callback_data=cb_string_video
                     )
                 ])
             break
@@ -175,6 +180,6 @@ async def extract_youtube_dl_formats(url, user_working_dir):
             user_working_dir
         )
         # LOGGER.info(reply_markup)
-        succss_mesg = """Select the desired format: 👇
-<u>mentioned</u> <i>file size might be approximate</i>"""
+        succss_mesg = "Select the desired format: 👇\n"
+        succss_mesg += "<u>mentioned</u> <i>file size might be approximate</i>"
         return thumb_image, succss_mesg, reply_markup

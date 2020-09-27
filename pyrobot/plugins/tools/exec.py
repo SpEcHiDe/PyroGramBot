@@ -6,8 +6,7 @@ Syntax: .exec Code"""
 
 
 import asyncio
-import os
-import time
+from io import BytesIO
 from pyrogram import Client, filters
 from pyrobot import MAX_MESSAGE_LENGTH, COMMAND_HAND_LER
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
@@ -15,13 +14,14 @@ from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 @Client.on_message(filters.command("exec", COMMAND_HAND_LER) & sudo_filter)
 async def execution(_, message):
+    status_message = await message.reply_text("Processing ...")
     # DELAY_BETWEEN_EDITS = 0.3
     # PROCESS_RUN_TIME = 100
     cmd = message.text.split(" ", maxsplit=1)[1]
 
-    reply_to_id = message.message_id
+    reply_to_ = message
     if message.reply_to_message:
-        reply_to_id = message.reply_to_message.message_id
+        reply_to_ = message.reply_to_message
 
     # start_time = time.time() + PROCESS_RUN_TIME
     process = await asyncio.create_subprocess_shell(
@@ -34,7 +34,7 @@ async def execution(_, message):
     o = stdout.decode()
     if not o:
         o = "No Output"
-    
+
     OUTPUT = ""
     OUTPUT += f"<b>QUERY:</b>\n<u>Command:</u>\n<code>{cmd}</code> \n"
     OUTPUT += f"<u>PID</u>: <code>{process.pid}</code>\n\n"
@@ -42,14 +42,14 @@ async def execution(_, message):
     OUTPUT += f"<b>stdout</b>: \n<code>{o}</code>"
 
     if len(OUTPUT) > MAX_MESSAGE_LENGTH:
-        with open("exec.text", "w+", encoding="utf8") as out_file:
-            out_file.write(str(OUTPUT))
-        await message.reply_document(
-            document="exec.text",
-            caption=cmd,
-            disable_notification=True,
-            reply_to_message_id=reply_to_id
-        )
-        os.remove("exec.text")
+        with BytesIO(str.encode(OUTPUT)) as out_file:
+            out_file.name = "exec.text"
+            await reply_to_.reply_document(
+                document=out_file,
+                caption=cmd,
+                disable_notification=True
+            )
     else:
-        await message.reply_text(OUTPUT)
+        await reply_to_.reply_text(OUTPUT)
+
+    await status_message.delete()

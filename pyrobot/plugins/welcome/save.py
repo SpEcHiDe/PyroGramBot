@@ -42,7 +42,10 @@ async def save_note(client, message):
         await status_message.edit_text(
             "welcome message saved"
         )
-    elif message.reply_to_message and message.reply_to_message.reply_markup is not None:
+    elif (
+        message.reply_to_message and
+        message.reply_to_message.reply_markup is not None
+    ):
         fwded_mesg = await message.reply_to_message.forward(
             chat_id=TG_URI,
             disable_notification=True
@@ -59,7 +62,10 @@ async def save_note(client, message):
             "welcome message saved"
         )
     else:
-        note_name, text, data_type, content, buttons = get_note_type(message, 1)
+        note_name, text, data_type, content, buttons = get_note_type(
+            message,
+            1
+        )
 
         if data_type is None:
             await status_message.edit_text("🤔 maybe welcome text is empty")

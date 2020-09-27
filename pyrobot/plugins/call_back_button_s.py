@@ -5,9 +5,6 @@
 from pyrogram.types import (
     CallbackQuery
 )
-from pyrobot import (
-    LOGGER
-)
 from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.you_tube_dl_button import youtube_dl_call_back
 from pyrobot.helper_functions.warn_hlprs.remove_warn import remove_warn

@@ -8,11 +8,12 @@ from pyrogram import (
 )
 from pyrobot import (
     COMMAND_HAND_LER,
-    LOGGER,
     TMP_DOWNLOAD_DIRECTORY
 )
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
-from pyrobot.helper_functions.you_tube_dl_extractor import extract_youtube_dl_formats
+from pyrobot.helper_functions.you_tube_dl_extractor import (
+    extract_youtube_dl_formats
+)
 from pyrobot.helper_functions.extract_link import extract_link
 
 
@@ -22,11 +23,14 @@ async def down_load_media(client, message):
 
     current_user_id = message.from_user.id
     # create an unique directory
-    user_working_dir = os.path.join(TMP_DOWNLOAD_DIRECTORY, str(current_user_id))
+    user_working_dir = os.path.join(
+        TMP_DOWNLOAD_DIRECTORY,
+        str(current_user_id)
+    )
     # create download directory, if not exist
     if not os.path.isdir(user_working_dir):
         os.makedirs(user_working_dir)
-    
+
     assumed_url, _, _, _ = extract_link(message.reply_to_message)
 
     # list the formats, and display in button markup formats
@@ -42,7 +46,7 @@ async def down_load_media(client, message):
             reply_markup=reply_markup
         )
         await status_message.delete()
-    
+
     else:
         await status_message.edit_text(
             text=text_message,

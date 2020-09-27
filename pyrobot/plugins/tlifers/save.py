@@ -5,7 +5,6 @@ from pyrogram.types import (
 )
 from pyrobot import (
     COMMAND_HAND_LER,
-    LOGGER,
     TG_URI,
     TG_IRU_S_M_ID
 )
@@ -26,8 +25,10 @@ async def save_filter(client: PyroBot, message):
         "checking 🤔🙄🙄",
         quote=True
     )
-    if message.reply_to_message and \
-        message.reply_to_message.reply_markup is not None:
+    if (
+        message.reply_to_message and
+        message.reply_to_message.reply_markup is not None
+    ):
         fwded_mesg = await message.reply_to_message.forward(
             chat_id=TG_URI,
             disable_notification=True
@@ -46,16 +47,21 @@ async def save_filter(client: PyroBot, message):
             f"filter <u>{filter_kw}</u> added"
             # f"<a href='https://'>{message.chat.title}</a>"
         )
-    
+
     else:
-        filter_kw, text, data_type, content, buttons = get_note_type(message, 2)
+        filter_kw, text, data_type, content, buttons = get_note_type(
+            message,
+            2
+        )
 
         if data_type is None:
             await status_message.edit_text("🤔 maybe note text is empty")
             return
 
         if not filter_kw:
-            await status_message.edit_text("എന്തിന്ന് ഉള്ള മറുപടി ആണ് എന്ന് വ്യക്തം ആക്കിയില്ല 🤔")
+            await status_message.edit_text(
+                "എന്തിന്ന് ഉള്ള മറുപടി ആണ് എന്ന് വ്യക്തം ആക്കിയില്ല 🤔"
+            )
             return
 
         # construct message using the above parameters

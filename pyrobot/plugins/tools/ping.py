@@ -4,8 +4,7 @@ Syntax: .ping"""
 import time
 from pyrogram import Client, filters
 from pyrobot import (
-    COMMAND_HAND_LER,
-    IS_BOT
+    COMMAND_HAND_LER
 )
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 
@@ -17,7 +16,10 @@ REPO = ("User / Bot is available on GitHub:\n"
 # -- Constants End -- #
 
 
-@Client.on_message(filters.command(["alive", "start"], COMMAND_HAND_LER) & f_onw_fliter)
+@Client.on_message(
+    filters.command(["alive", "start"], COMMAND_HAND_LER) &
+    f_onw_fliter
+)
 async def check_alive(_, message):
     await message.reply_text(ALIVE)
 

@@ -1,12 +1,7 @@
 from pyrogram import (
     filters
 )
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup
-)
 from pyrobot import (
-    COMMAND_HAND_LER,
     DB_URI,
     TG_URI
 )

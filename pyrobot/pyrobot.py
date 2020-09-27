@@ -4,13 +4,12 @@
 
 import json
 from collections import defaultdict
-from typing import cast, Dict, List, Union
+from typing import Dict, List, Union
 from pyrogram import (
     Client,
     __version__
 )
 from pyrogram.errors import MessageNotModified
-from pyrogram.types import Message
 from pyrogram.raw.all import layer
 from pyrobot import (
     APP_ID,
@@ -29,7 +28,9 @@ from pyrobot import (
 
 class PyroBot(Client):
     filterstore: Dict[str, Dict[str, str]] = defaultdict(dict)
-    warndatastore: Dict[str, Dict[str, Union[str, int, List[str]]]] = defaultdict(dict)
+    warndatastore: Dict[
+        str, Dict[str, Union[str, int, List[str]]]
+    ] = defaultdict(dict)
     warnsettingsstore: Dict[str, str] = defaultdict(dict)
 
     def __init__(self):
@@ -43,7 +44,6 @@ class PyroBot(Client):
             bot_token=TG_COMPANION_BOT
         )
 
-
     async def start(self):
         await super().start()
         usr_bot_me = await self.get_me()
@@ -56,7 +56,6 @@ class PyroBot(Client):
             f"(Layer {layer}) started on @{usr_bot_me.username}. "
             "Hi."
         )
-
 
     async def stop(self, *args):
         await self.save_public_store(
@@ -74,7 +73,6 @@ class PyroBot(Client):
         await super().stop()
         LOGGER.info("PyroGramBot stopped. Bye.")
 
-
     async def load_public_store(self, message_id: int) -> Dict:
         if message_id != 0:
             _check_message = await self.get_messages(
@@ -84,7 +82,7 @@ class PyroBot(Client):
             )
             if _check_message:
                 return json.loads(_check_message.text)
-    
+        return {}
 
     async def save_public_store(self, message_id: int, text: str):
         if message_id != 0:

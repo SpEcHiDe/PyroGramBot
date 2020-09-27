@@ -1,13 +1,10 @@
 import json
-import time
 from pyrogram import filters
 from pyrogram.types import (
-    Message, CallbackQuery, ChatPermissions,
-    InlineKeyboardMarkup, InlineKeyboardButton
+    Message
 )
 from pyrobot import (
     COMMAND_HAND_LER,
-    WARN_DATA_ID,
     WARN_SETTINGS_ID
 )
 from pyrobot.pyrobot import PyroBot

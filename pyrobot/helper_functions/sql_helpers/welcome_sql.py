@@ -1,4 +1,4 @@
-from sqlalchemy import BigInteger, Boolean, Column, Numeric
+from sqlalchemy import Boolean, Column, Numeric
 from pyrobot.helper_functions.sql_helpers import SESSION, BASE
 
 

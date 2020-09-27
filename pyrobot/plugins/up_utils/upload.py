@@ -9,8 +9,7 @@ from pyrogram import (
     filters
 )
 from pyrobot import (
-    COMMAND_HAND_LER,
-    TMP_DOWNLOAD_DIRECTORY
+    COMMAND_HAND_LER
 )
 from pyrobot.helper_functions.check_if_thumb_exists import is_thumb_image_exists
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
@@ -51,7 +50,6 @@ async def upload_as_document(client, message):
         await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasdoc FILE_PATH</code> to upload to current Telegram chat")
 
 
-
 @Client.on_message(
     filters.command("uploadasvideo", COMMAND_HAND_LER) &
     sudo_filter
@@ -90,7 +88,6 @@ async def upload_as_video(client, message):
         await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasvideo FILE_PATH</code> to upload to current Telegram chat")
 
 
-
 @Client.on_message(
     filters.command("uploadasphoto", COMMAND_HAND_LER) &
     sudo_filter
@@ -98,8 +95,8 @@ async def upload_as_video(client, message):
 async def upload_as_photo(client, message):
     status_message = await message.reply_text("...")
     if " " in message.text:
-        recvd_command, local_file_name = message.text.split(" ", 1)
-        thumb_image_path = await is_thumb_image_exists(local_file_name)
+        _, local_file_name = message.text.split(" ", 1)
+        # thumb_image_path = await is_thumb_image_exists(local_file_name)
         if os.path.exists(local_file_name):
             start_t = datetime.now()
             c_time = time.time()
@@ -122,4 +119,6 @@ async def upload_as_photo(client, message):
         else:
             await status_message.edit("404: media not found")
     else:
-        await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasphoto FILE_PATH</code> to upload to current Telegram chat")
+        await status_message.edit(
+            f"<code>{COMMAND_HAND_LER}uploadasphoto FILE_PATH</code> to upload to current Telegram chat"
+        )

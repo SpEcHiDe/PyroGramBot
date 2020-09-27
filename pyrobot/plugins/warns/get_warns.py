@@ -1,13 +1,9 @@
-import json
-import time
 from pyrogram import filters
 from pyrogram.types import (
-    Message, CallbackQuery, ChatPermissions,
-    InlineKeyboardMarkup, InlineKeyboardButton
+    Message
 )
 from pyrobot import (
-    COMMAND_HAND_LER,
-    WARN_DATA_ID
+    COMMAND_HAND_LER
 )
 from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.cust_p_filters import (
@@ -32,7 +28,9 @@ async def check_warns_of_user(client: PyroBot, msg: Message):
     WARN_LIMIT = W_S["WARN_LIMIT"]
 
     user_id = str(replied.from_user.id)
-    mention = f"<a href='tg://user?id={user_id}'>{replied.from_user.first_name}</a>"
+    mention = f"<a href='tg://user?id={user_id}'>"
+    mention += replied.from_user.first_name
+    mention += "</a>"
 
     if replied.from_user.is_self:
         return

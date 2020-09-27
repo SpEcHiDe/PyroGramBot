@@ -2,8 +2,10 @@ import json
 import time
 from pyrogram import filters
 from pyrogram.types import (
-    Message, CallbackQuery, ChatPermissions,
-    InlineKeyboardMarkup, InlineKeyboardButton
+    Message,
+    ChatPermissions,
+    InlineKeyboardMarkup,
+    InlineKeyboardButton
 )
 from pyrobot import (
     COMMAND_HAND_LER,
@@ -13,8 +15,7 @@ from pyrobot import (
 from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.cust_p_filters import (
-    admin_fliter,
-    f_onw_fliter
+    admin_fliter
 )
 
 
@@ -28,14 +29,16 @@ async def warn_user(client: PyroBot, msg: Message):
     replied = msg.reply_to_message
     if not replied:
         return
-    
+
     if chat_id not in client.warndatastore:
         client.warndatastore[chat_id] = {}
 
     DATA = client.warndatastore[chat_id]
 
     user_id = str(replied.from_user.id)
-    mention = f"<a href='tg://user?id={user_id}'>{replied.from_user.first_name}</a>"
+    mention = f"<a href='tg://user?id={user_id}'>"
+    mention += replied.from_user.first_name
+    mention += "</a>"
 
     if replied.from_user.is_self:
         await msg.reply_text("ഞാൻ സ്വയം താക്കീത്‌ നൽകാൻ പോകുന്നില്ല")
@@ -109,7 +112,7 @@ async def warn_user(client: PyroBot, msg: Message):
             r_t = f"#Warned\n{mention} has {nw_l}/{w_l} warnings.\n"
             r_t += f"<u>Reason</u>: {reason}"   # r_t = reply text
             await replied.reply_text(r_t, reply_markup=keyboard)
-    
+
     client.warndatastore[chat_id] = DATA
     await client.save_public_store(
         WARN_DATA_ID,

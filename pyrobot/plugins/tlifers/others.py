@@ -2,14 +2,11 @@ import json
 from pyrogram import filters
 from pyrobot import (
     COMMAND_HAND_LER,
-    LOGGER,
     MAX_MESSAGE_LENGTH,
-    TG_URI,
     TG_IRU_S_M_ID
 )
 from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
-
 
 
 @PyroBot.on_message(
