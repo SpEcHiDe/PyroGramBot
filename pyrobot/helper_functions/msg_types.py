@@ -23,7 +23,7 @@ def get_note_type(msg: Message, split: int):
     raw_text = msg.text or msg.caption
     args = raw_text.split(None, split)
     # use python's maxsplit to separate cmd and args
-    note_name = args[1]
+    note_name = msg.command[1]
 
     buttons = []
     # determine what the contents of the filter are - text, image, sticker, etc
