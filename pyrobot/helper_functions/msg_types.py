@@ -29,20 +29,12 @@ def get_note_type(msg: Message, split: int):
     # determine what the contents of the filter are - text, image, sticker, etc
     if len(args) >= (split + 1) and not msg.reply_to_message:
         text, buttons = button_markdown_parser(msg)
-        if buttons:
-            data_type = Types.BUTTON_TEXT
-        else:
-            data_type = Types.TEXT
-
+        data_type = Types.BUTTON_TEXT if buttons else Types.TEXT
     elif msg.reply_to_message:
         if len(args) >= split and msg.reply_to_message.text:
             # not caption, text
             text, buttons = button_markdown_parser(msg.reply_to_message)
-            if buttons:
-                data_type = Types.BUTTON_TEXT
-            else:
-                data_type = Types.TEXT
-
+            data_type = Types.BUTTON_TEXT if buttons else Types.TEXT
         elif msg.reply_to_message.sticker:
             content = msg.reply_to_message.sticker.file_id
             # stickers can't "officially" have captions in Telegram
