@@ -43,11 +43,11 @@ async def list_note(_, message):
     msg_p = msg
 
     for note in note_list:
-        note_name = " - {}\n".format(note.name)
+        note_name = " - #{}\n".format(note.name)
         if len(msg) + len(note_name) > MAX_MESSAGE_LENGTH:
             await message.reply_text(msg)
             msg = ""
-        msg += f"#{note_name}"
+        msg += note_name
 
     if msg == msg_p:
         await status_message.edit_text("ഇൗ ചാറ്റിൽ കുറിപ്പുകളൊന്നുമില്ല.")
