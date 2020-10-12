@@ -21,7 +21,10 @@ if DB_URI is not None:
 
 
 @Client.on_message(
-    filters.incoming,
+    (
+        filters.incoming &
+        ~filters.service
+    ),
     group=1
 )
 async def check_flood(client, message):
