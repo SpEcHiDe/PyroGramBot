@@ -51,6 +51,8 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 * `WARN_SETTINGS_ID`: this is used for the `warns` plugins.
 
+* `A_PIN_MESSAGE_ID`: this is used for the `antichannelpin` plugins.
+
 
 ## Credits, and Thanks to
 
