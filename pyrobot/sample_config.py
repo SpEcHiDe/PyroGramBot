@@ -18,7 +18,7 @@ class Config:
         "TMP_DOWNLOAD_DIRECTORY",
         "./DOWNLOADS/"
     )
-    # get a Heroku API key from http://dashboard.heroku.com/account
+    #only if you use heroku get a Heroku API key from http://dashboard.heroku.com/account
     HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
     # set this to your fork on GitHub (if you want)
     OFFICIAL_UPSTREAM_REPO = os.environ.get(
