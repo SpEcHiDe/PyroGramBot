@@ -19,3 +19,6 @@ async def on_new_pin_message(client: PyroBot, message: Message):
         await original_pinned_message.pin(
             disable_notification=True
         )
+@PyroBot.on_message(filters.pinned_message)
+def pinned(c,m):
+    m.delete()
