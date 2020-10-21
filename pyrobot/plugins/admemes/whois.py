@@ -5,6 +5,7 @@ import os
 import time
 from datetime import datetime
 from pyrogram import Client, filters
+from pyrogram.errors import UserNotParticipant
 from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.extract_user import extract_user
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
@@ -43,15 +44,18 @@ async def who_is(client, message):
         dc_id = from_user.dc_id or "[🙏 no profile photo 👀]"
         message_out_str += f"DC ID: <code>{dc_id}</code>\n"
         if message.chat.type in (("supergroup", "channel")):
-            chat_member_p = await message.chat.get_member(from_user.id)
-            joined_date = datetime.fromtimestamp(
-                chat_member_p.joined_date or time.time()
-            ).strftime("%Y.%m.%d %H:%M:%S")
-            message_out_str += (
-                "<b>Joined On</b>: <code>"
-                f"{joined_date}"
-                "</code>\n"
-            )
+            try:
+                chat_member_p = await message.chat.get_member(from_user.id)
+                joined_date = datetime.fromtimestamp(
+                    chat_member_p.joined_date or time.time()
+                ).strftime("%Y.%m.%d %H:%M:%S")
+                message_out_str += (
+                    "<b>Joined On</b>: <code>"
+                    f"{joined_date}"
+                    "</code>\n"
+                )
+            except UserNotParticipant:
+                pass
         chat_photo = from_user.photo
         if chat_photo:
             local_user_photo = await client.download_media(
