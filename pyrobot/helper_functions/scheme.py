@@ -12,7 +12,6 @@ from pyrobot import (
     LAYER_UPDATE_INTERVAL,
     LAYER_UPDATE_MESSAGE_CAPTION
 )
-from pyrobot.pyrobot import PyroBot
 
 
 async def fetch(scheme_url: str):
@@ -21,7 +20,7 @@ async def fetch(scheme_url: str):
         return await response.text()
 
 
-async def check_feed(client: PyroBot):
+async def check_feed(client):
     layer_uri = (
         "https://"
         "github.com"
