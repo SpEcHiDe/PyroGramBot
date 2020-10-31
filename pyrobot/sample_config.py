@@ -49,6 +49,10 @@ class Config:
     #
     LAYER_FEED_CHAT = os.environ.get("LAYER_FEED_CHAT", None)
     LAYER_UPDATE_INTERVAL = os.environ.get("LAYER_UPDATE_INTERVAL", None)
+    LAYER_UPDATE_MESSAGE_CAPTION = os.environ.get(
+        "LAYER_UPDATE_MESSAGE_CAPTION",
+        None
+    )
 
 
 class Production(Config):

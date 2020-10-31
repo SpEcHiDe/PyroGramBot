@@ -24,6 +24,7 @@ from pyrobot import (
     WARN_DATA_ID,
     WARN_SETTINGS_ID
 )
+from pyrobot.helper_functions.scheme import check_feed
 
 
 class PyroBot(Client):
@@ -51,6 +52,7 @@ class PyroBot(Client):
         self.filterstore = await self.load_public_store(TG_IRU_S_M_ID)
         self.warndatastore = await self.load_public_store(WARN_DATA_ID)
         self.warnsettingsstore = await self.load_public_store(WARN_SETTINGS_ID)
+        await check_feed(self)
         LOGGER.info(
             f"PyroGramBot based on Pyrogram v{__version__} "
             f"(Layer {layer}) started on @{usr_bot_me.username}. "
