@@ -9,7 +9,9 @@ from pyrobot import (
 )
 from pyrobot.helper_functions.admin_check import admin_check
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
-
+from pyrobot.helper_functions.cust_p_filters import (
+    admin_fliter
+)
 
 @Client.on_message(
     filters.command("purge", COMMAND_HAND_LER) &
@@ -58,3 +60,13 @@ async def purge(client, message):
     )
     await asyncio.sleep(5)
     await status_message.delete()
+
+    
+    @Client.on_message(
+    filters.command("del", COMMAND_HAND_LER) &
+    admin_fliter
+)
+async def delmsg(client, message):
+     if message.reply_to_message:
+         await message.reply_to_message.delete()
+         await message.delete()
