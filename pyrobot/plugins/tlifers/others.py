@@ -3,7 +3,8 @@ from pyrogram import filters
 from pyrobot import (
     COMMAND_HAND_LER,
     MAX_MESSAGE_LENGTH,
-    TG_IRU_S_M_ID
+    TG_IRU_S_M_ID,
+    TG_URI
 )
 from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
@@ -53,3 +54,19 @@ async def list_filters(client: PyroBot, message):
     elif len(msg) != 0:
         await message.reply_text(msg)
         await status_message.delete()
+
+
+@PyroBot.on_message(
+    filters.command(["getfsnormat"], COMMAND_HAND_LER)
+)
+async def get_no_format_tlifer(client: PyroBot, message):
+    flt_name = " ".join(message.command[1:])
+    flt_list = client.filterstore.get(str(message.chat.id), [])
+    for flt in flt_list:
+        if flt == flt_name:
+            flt_message_id = flt_list[flt]
+            flt_store_cid = str(TG_URI)[4:]
+            await message.reply_text(
+                f"https://t.me/c/{flt_store_cid}/{flt_message_id}"
+            )
+            break

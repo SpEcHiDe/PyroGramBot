@@ -5,7 +5,8 @@ from pyrogram import (
 from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI,
-    MAX_MESSAGE_LENGTH
+    MAX_MESSAGE_LENGTH,
+    TG_URI
 )
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
 if DB_URI is not None:
@@ -55,3 +56,18 @@ async def list_note(_, message):
     elif len(msg) != 0:
         await message.reply_text(msg)
         await status_message.delete()
+
+
+@Client.on_message(
+    filters.command(["getnoformat"], COMMAND_HAND_LER)
+)
+async def get_no_format_note(_, message):
+    note_name = " ".join(message.command[1:])
+    note_d = sql.get_note(message.chat.id, note_name)
+    if not note_d:
+        return
+    note_message_id = note_d.d_message_id
+    note_store_cid = str(TG_URI)[4:]
+    await message.reply_text(
+        f"https://t.me/c/{note_store_cid}/{note_message_id}"
+    )
