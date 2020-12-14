@@ -27,7 +27,7 @@ async def check_feed(client):
         "/telegramdesktop/tdesktop/raw/dev/Telegram/Resources/tl/"
         "api.tl"
     )
-    last_hash = "" # None # hash(await fetch(layer_uri))
+    last_hash = hash(await fetch(layer_uri))
     while True:
         contents = await fetch(layer_uri)
         if hash(contents) != last_hash:
