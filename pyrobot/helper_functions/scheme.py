@@ -17,7 +17,7 @@ from pyrobot import (
 async def fetch(scheme_url: str):
     async with aiohttp.ClientSession() as session:
         response = await session.get(scheme_url)
-        return await response.text()
+        return str.encode(await response.text())
 
 
 async def check_feed(client):
@@ -27,7 +27,7 @@ async def check_feed(client):
         "/telegramdesktop/tdesktop/raw/dev/Telegram/Resources/tl/"
         "api.tl"
     )
-    last_hash = hash(await fetch(layer_uri))
+    last_hash = "" # None # hash(await fetch(layer_uri))
     while True:
         contents = await fetch(layer_uri)
         if hash(contents) != last_hash:
