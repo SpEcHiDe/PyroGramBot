@@ -14,6 +14,7 @@ from pyrogram.raw.all import layer
 from pyrobot import (
     APP_ID,
     API_HASH,
+    LAYER_UPDATE_INTERVAL,
     LOGGER,
     # OWNER_ID,
     # SUDO_USERS,
@@ -52,7 +53,8 @@ class PyroBot(Client):
         self.filterstore = await self.load_public_store(TG_IRU_S_M_ID)
         self.warndatastore = await self.load_public_store(WARN_DATA_ID)
         self.warnsettingsstore = await self.load_public_store(WARN_SETTINGS_ID)
-        await check_feed(self)
+        if LAYER_UPDATE_INTERVAL:
+            await check_feed(self)
         LOGGER.info(
             f"PyroGramBot based on Pyrogram v{__version__} "
             f"(Layer {layer}) started on @{usr_bot_me.username}. "
