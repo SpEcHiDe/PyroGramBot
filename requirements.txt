@@ -1,8 +1,9 @@
-pyrogram
-tgcrypto
+Pyrogram==1.0.7
+TgCrypto==1.2.1
 
-asyncio
-aiohttp
+# GET / POST network requests
+asyncio==3.4.3
+aiohttp==3.6.2
 
 # scrapping tools [not used anywhere]
 beautifulsoup4
