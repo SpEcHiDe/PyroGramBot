@@ -7,40 +7,39 @@ from decouple import config
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.types import User, Message, Sticker, Document
-# © 2021 BugHunterCodeLabs
-# @BugHunterBots
+
+
+ DOWNLOAD_LOCATION = os.environ.get("DOWNLOAD_LOCATION", "./DOWNLOADS/")
+
 
 
 @Client.on_message(filters.private & filters.command(["getsticker"]))
 async def getsticker(bot, message):  
-    random_id = random.randint(100,1000)     
     tx = await message.reply_text("Checking Sticker")
     await tx.edit("Validating sticker..")
     await tx.delete()
-    # © 2021 BugHunterCodeLabs
-    # @BugHunterBots
     if message.reply_to_message is None: 
             tx =  await tx.edit("Reply to a Sticker File!")       
     else :
           if message.reply_to_message.sticker.is_animated:
              try :
                    tx = await message.reply_text("Downloading...")
-                   file_path = f"./DOWNLOADS/{message.chat.id}/tgs-{random_id}.tgs" 
+                   file_path = DOWNLOAD_LOCATION + f"{message.chat.id}.tgs"
                    await message.reply_to_message.download(file_path)  
                    await tx.edit("Downloaded") 
-                #   zip_path= ZipFile.write("./DOWNLOADS/{message.chat.id}/tgs-{random_id}.tgs") can't create a zip file
+                #   zip_path= ZipFile.write("./DOWNLOADS/{message.chat.id}/tgs-{random_id}.tgs")
                    await tx.edit("Uploading...")
-                   await message.reply_document(document=file_path,caption=f"©@BugHunterBots") # Worst move, same sticker Uploaded
+                   await message.reply_document(document=file_path,caption=f"©@BugHunterBots")
                    await tx.delete()   
                    os.remove(file_path)
-                #   os.remove(zip_path) Removing zip file path
+                #   os.remove(zip_path)
              except Exception as error:
                    print(error)
  
           elif message.reply_to_message.sticker.is_animated is False:        
              try : 
                    tx = await message.reply_text("Downloading...")
-                   file_path = f"./DOWNLOADS/{message.chat.id}/png-{random_id}.png"
+                   file_path = DOWNLOAD_LOCATION + f"{message.chat.id}.png"
                    await message.reply_to_message.download(file_path)   
                    await tx.edit("Downloaded")
                    await tx.edit("Uploading...")
@@ -49,6 +48,7 @@ async def getsticker(bot, message):
                    os.remove(file_path)
              except Exception as error:
                    print(error)
+
 # © 2021 BugHunterCodeLabs
 # @BugHunterBots
 
