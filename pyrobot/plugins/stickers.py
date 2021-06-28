@@ -2,7 +2,6 @@ import os
 from os import error
 import logging
 import pyrogram
-import time
 import random
 from decouple import config
 from pyrogram import Client, filters
