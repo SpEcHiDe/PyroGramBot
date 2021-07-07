@@ -9,7 +9,8 @@
 Syntax: .paste"""
 
 import aiohttp
-import json
+from json import loads
+from json.decoder import JSONDecodeError
 import os
 from urllib.parse import urlparse
 from pyrogram import Client, filters
@@ -21,7 +22,10 @@ from pyrobot import (
 
 @Client.on_message(filters.command("paste", COMMAND_HAND_LER))
 async def paste_bin(_, message):
-    status_message = await message.reply_text("...")
+    status_message = await message.reply_text(
+        "...",
+        quote=True
+    )
     downloaded_file_name = None
 
     # first we need to get the data to be pasted
@@ -54,8 +58,27 @@ async def paste_bin(_, message):
 
     # a dictionary to store different pastebin URIs
     paste_bin_store_s = {
-        "deldog": "https://del.dog/documents",
-        "nekobin": "https://nekobin.com/api/documents"
+        # "deldog": {
+        #   "URL": "https://del.dog/documents",
+        #   "GAS": "https://github.com/dogbin/dogbin",
+        # },
+        "nekobin": {
+            "URL": "https://nekobin.com/api/documents",
+            "RAV": "result.key",
+            "GAS": "https://github.com/nekobin/nekobin",
+        },
+        "pasty": {
+            "URL": "https://pasty.lus.pm/api/v1/pastes",
+            "HEADERS": {
+                "User-Agent": "PyroGramBot/6.9",
+                "Content-Type": "application/json",
+            },
+            "RAV": "id",
+            "GAS": "https://github.com/lus/pasty",
+        },
+        "pasting": {
+            "URL": "https://pasting.codes/api",
+        },
     }
 
     chosen_store = "nekobin"
@@ -63,45 +86,53 @@ async def paste_bin(_, message):
         chosen_store = message.command[1]
 
     # get the required pastebin URI
-    paste_store_url = paste_bin_store_s.get(
-        chosen_store,
-        paste_bin_store_s["nekobin"]
+    paste_store_ = paste_bin_store_s.get(
+        chosen_store
     )
+
+    if not paste_store_:
+        av_kys = ", ".join(paste_bin_store_s.keys())
+        await status_message.edit(
+            f"<b><u>available keys</u></b>: {av_kys}"
+        )
+        return
+
+    paste_store_url = paste_store_.get("URL")
     paste_store_base_url_rp = urlparse(paste_store_url)
 
     # the pastebin sites, respond with only the "key"
     # we need to prepend the BASE_URL of the appropriate site
-    paste_store_base_url = paste_store_base_url_rp.scheme + "://" + \
+    paste_store_base_url = paste_store_base_url_rp.scheme + \
+        "://" + \
         paste_store_base_url_rp.netloc
 
     async with aiohttp.ClientSession() as session:
-        response_d = await session.post(paste_store_url, json=json_paste_data)
-        response_jn = await response_d.json()
+        response_d = await session.post(
+            paste_store_url,
+            json=json_paste_data,
+            headers=paste_store_.get("HEADERS")
+        )
+        response_jn = await response_d.text()
+        print(response_jn)
+        try:
+            response_jn = loads(response_jn.strip())
+        except JSONDecodeError:
+            # some sites, do not have JSON response
+            pass
 
-    # we got the response from a specific site,
-    # this dictionary needs to be scrapped
-    # using bleck megick to find the "key"
-    t_w_attempt = bleck_megick(response_jn)
-    required_url = json.dumps(
-        t_w_attempt, sort_keys=True, indent=4
-    ) + "\n\n #ERROR"
-    if t_w_attempt is not None:
-        required_url = paste_store_base_url + "/" + "raw" + "/" + t_w_attempt
-
-    await status_message.edit(required_url)
-
-
-def bleck_megick(dict_rspns):
-    # first, try getting "key", dirctly
-    first_key_r = dict_rspns.get("key")
-    # this is for the "del.dog" site
-    if first_key_r is not None:
-        return first_key_r
-    check_if_result_ests = dict_rspns.get("result")
-    if check_if_result_ests is not None:
-        # this is for the "nekobin.com" site
-        second_key_a = check_if_result_ests.get("key")
-        if second_key_a is not None:
-            return second_key_a
-    # TODO: is there a better way?
-    return None
+    rk = paste_store_.get("RAV")
+    if rk and "." in rk:
+        rkp = rk.split(".")
+        for kp in rkp:
+            response_jn = response_jn.get(kp)
+    elif not rk:
+        response_jn = response_jn[1:]
+    else:
+        response_jn = response_jn.get(rk)
+    required_url = paste_store_base_url + "/" + response_jn
+    # finally, edit the bot sent message
+    await status_message.delete()
+    await message.reply_text(
+        required_url,
+        quote=True
+    )
