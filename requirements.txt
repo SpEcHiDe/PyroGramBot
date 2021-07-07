@@ -1,5 +1,6 @@
-Pyrogram==1.0.7
-TgCrypto==1.2.1
+# Pyrogram
+Pyrogram==1.2.9
+TgCrypto==1.2.2
 
 # GET / POST network requests
 asyncio==3.4.3
@@ -13,9 +14,11 @@ emoji
 gitpython
 heroku3
 
-# Image manipulation Tools
-hachoir
-Pillow
+# get metadata from files
+hachoir==3.1.1
+
+# process(, and resize) images
+Pillow==8.0
 
 # SQL DataBase ReQuirements
 psycopg2-binary
