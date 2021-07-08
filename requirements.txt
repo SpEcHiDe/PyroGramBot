@@ -1,9 +1,10 @@
-Pyrogram==1.0.7
-TgCrypto==1.2.1
+# Pyrogram
+Pyrogram==1.2.9
+TgCrypto==1.2.2
 
 # GET / POST network requests
 asyncio==3.4.3
-aiohttp==3.6.2
+aiohttp==3.7.4
 
 # scrapping tools [not used anywhere]
 beautifulsoup4
@@ -13,9 +14,11 @@ emoji
 gitpython
 heroku3
 
-# Image manipulation Tools
-hachoir
-Pillow
+# get metadata from files
+hachoir==3.1.1
+
+# process(, and resize) images
+Pillow==8.0
 
 # SQL DataBase ReQuirements
 psycopg2-binary
@@ -33,3 +36,6 @@ google-api-python-client
 google-auth-httplib2
 google-auth-oauthlib
 oauth2client
+
+# for reading .env files
+python-dotenv>=0.10

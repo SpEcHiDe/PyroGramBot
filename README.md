@@ -2,6 +2,8 @@
 
 A Telegram Bot ~~[still WIP, not stable]~~ based on [Pyrogram](https://github.com/pyrogram/pyrogram)
 
+>> This was an attempt to learn bot development using Pyrogram. I had made several mistakes (or, bad design decisions), in the creation of this bot. So, ✌️ please do not judge theis codes.
+
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the [COPYING](./COPYING) for more details.
 
 ## installing
