@@ -11,7 +11,7 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.types import User, Message, Sticker, Document
 
-@Client.on_message(filters.private & filters.command(["findsticker"]))
+@Client.on_message(filters.command(["findsticker"]))
 async def findsticker(bot, message):  
   try:
         txt = await message.reply_text("Validating Sticker ID")
