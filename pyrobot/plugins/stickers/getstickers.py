@@ -1,3 +1,9 @@
+# © BugHunterCodeLabs ™
+# © bughunter0
+# 2021
+# Copyright - https://en.m.wikipedia.org/wiki/Fair_use
+
+
 import os , glob
 from os import error
 import logging
