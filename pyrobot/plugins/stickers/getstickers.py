@@ -7,7 +7,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.types import User, Message, Sticker, Document
 
 
-@bughunter0.on_message(filters.private & filters.command(["getsticker"]))
+@Client.on_message(filters.command(["getsticker"]))
 async def getstickerasfile(bot, message):  
     if message.reply_to_message is None: 
                tx =  await tx.edit("Reply to a Sticker File!")       
