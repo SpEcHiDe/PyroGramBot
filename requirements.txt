@@ -39,3 +39,6 @@ oauth2client
 
 # for reading .env files
 python-dotenv>=0.10
+
+# for tts
+gTTS
