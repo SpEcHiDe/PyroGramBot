@@ -57,3 +57,29 @@ LAYER_UPDATE_INTERVAL = Config.LAYER_UPDATE_INTERVAL
 if LAYER_UPDATE_INTERVAL:
     LAYER_UPDATE_INTERVAL = int(LAYER_UPDATE_INTERVAL)
 LAYER_UPDATE_MESSAGE_CAPTION = Config.LAYER_UPDATE_MESSAGE_CAPTION
+
+# a dictionary to store different pastebin URIs
+paste_bin_store_s = {
+    # "deldog": {
+    #   "URL": "https://del.dog/documents",
+    #   "GAS": "https://github.com/dogbin/dogbin",
+    # },
+    "nekobin": {
+        "URL": "https://nekobin.com/api/documents",
+        "RAV": "result.key",
+        "GAS": "https://github.com/nekobin/nekobin",
+    },
+    "pasty": {
+        "URL": "https://pasty.lus.pm/api/v1/pastes",
+        "HEADERS": {
+            "User-Agent": "PyroGramBot/6.9",
+            "Content-Type": "application/json",
+        },
+        "RAV": "id",
+        "GAS": "https://github.com/lus/pasty",
+        "AVDTS": "deletionToken",
+    },
+    "pasting": {
+        "URL": "https://pasting.codes/api",
+    },
+}

@@ -14,14 +14,20 @@ from json.decoder import JSONDecodeError
 import os
 from urllib.parse import urlparse
 from pyrogram import Client, filters
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message
+)
 from pyrobot import (
     COMMAND_HAND_LER,
-    TMP_DOWNLOAD_DIRECTORY
+    TMP_DOWNLOAD_DIRECTORY,
+    paste_bin_store_s
 )
 
 
 @Client.on_message(filters.command("paste", COMMAND_HAND_LER))
-async def paste_bin(_, message):
+async def paste_bin(_, message: Message):
     status_message = await message.reply_text(
         "...",
         quote=True
@@ -56,32 +62,7 @@ async def paste_bin(_, message):
         "content": downloaded_file_name
     }
 
-    # a dictionary to store different pastebin URIs
-    paste_bin_store_s = {
-        # "deldog": {
-        #   "URL": "https://del.dog/documents",
-        #   "GAS": "https://github.com/dogbin/dogbin",
-        # },
-        "nekobin": {
-            "URL": "https://nekobin.com/api/documents",
-            "RAV": "result.key",
-            "GAS": "https://github.com/nekobin/nekobin",
-        },
-        "pasty": {
-            "URL": "https://pasty.lus.pm/api/v1/pastes",
-            "HEADERS": {
-                "User-Agent": "PyroGramBot/6.9",
-                "Content-Type": "application/json",
-            },
-            "RAV": "id",
-            "GAS": "https://github.com/lus/pasty",
-        },
-        "pasting": {
-            "URL": "https://pasting.codes/api",
-        },
-    }
-
-    chosen_store = "nekobin"
+    chosen_store = "pasty"
     if len(message.command) == 2:
         chosen_store = message.command[1]
 
@@ -113,7 +94,7 @@ async def paste_bin(_, message):
             headers=paste_store_.get("HEADERS")
         )
         response_jn = await response_d.text()
-        print(response_jn)
+        # print(response_jn)
         try:
             response_jn = loads(response_jn.strip())
         except JSONDecodeError:
@@ -121,18 +102,35 @@ async def paste_bin(_, message):
             pass
 
     rk = paste_store_.get("RAV")
-    if rk and "." in rk:
+    pkr = response_jn
+    if rk:
         rkp = rk.split(".")
         for kp in rkp:
-            response_jn = response_jn.get(kp)
+            pkr = pkr.get(kp)
     elif not rk:
-        response_jn = response_jn[1:]
-    else:
-        response_jn = response_jn.get(rk)
-    required_url = paste_store_base_url + "/" + response_jn
+        pkr = pkr[1:]
+    required_url = paste_store_base_url + "/" + pkr
+
+    kr = paste_store_.get("AVDTS")
+    reply_markup = None
+    if kr:
+        kor = response_jn.get(kr)
+        reply_markup = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        text="❌ delete paste ❎",
+                        callback_data=f"pb_{kor}_{pkr}"
+                    )
+                ]
+            ]
+        )
+
     # finally, edit the bot sent message
     await status_message.delete()
     await message.reply_text(
         required_url,
-        quote=True
+        quote=True,
+        reply_markup=reply_markup,
+        disable_web_page_preview=True
     )
