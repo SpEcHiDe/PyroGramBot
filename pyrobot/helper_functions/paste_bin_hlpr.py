@@ -13,7 +13,7 @@ async def del_pasty_ao(
     client: PyroBot,
     c_q: CallbackQuery
 ):
-    _, deletionToken, pasty_id = c_q.data.split("_")
+    _, AlbertEinsteinTG_dt, pasty_id = c_q.data.split("_")
     if not c_q.message.reply_to_message:
         await c_q.answer(
             text=(
@@ -40,16 +40,19 @@ async def del_pasty_ao(
     # only pasty.lus.pm supports
     # deletion at the moment
     async with aiohttp.ClientSession() as requests:
-        reqd_url = f"{pasty.get('URL')}/{pasty_id}"
-        reqd_headers = pasty.get("HEADERS")
+        AlbertEinsteinTG_url = f"{pasty.get('URL')}/{pasty_id}"
+        AlbertEinsteinTG_headers = pasty.get("HEADERS")
         await requests.request(
             method="DELETE",
-            url=reqd_url,
+            url=AlbertEinsteinTG_url,
             data=dumps({
-                "deletionToken": deletionToken
+                "deletionToken": AlbertEinsteinTG_dt
             }),
-            headers=reqd_headers
+            headers=AlbertEinsteinTG_headers
         )
-    await c_q.message.edit_reply_markup(
+    await c_q.message.edit_text(
+        text=(
+            f"❌ <s>{c_q.message.text}</s>"
+        ),
         reply_markup=None
     )
