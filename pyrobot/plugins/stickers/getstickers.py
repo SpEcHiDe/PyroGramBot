@@ -27,8 +27,7 @@ async def getstickerasfile(bot, message):
                     #   zip_path= ZipFile.write("")
                         await tx.edit("Uploading...")
                         start = time.time()
-                        await message.reply_document(file_path)
-                        await tx.delete()   
+                        await message.reply_document(file_path) 
                         os.remove(file_path)
                     #   os.remove(zip_path)
                    except Exception as error:
