@@ -16,7 +16,7 @@ async def findsticker(bot, message):
   try:
         txt = await message.reply_text("Validating Sticker ID")
         stickerid = str(message.reply_to_message.text)
-        chat_id = str(message.chat.id)
+        chat_id = int(message.chat.id)
         await txt.delete()
         await bot.send_sticker(chat_id,f"{stickerid}")
   except Exception as error:
