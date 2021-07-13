@@ -18,7 +18,7 @@ from gtts import gTTS
 async def tts(bot, message):
   try:
       if message.reply_to_message is None:
-            await message.reply_text("Please use /pytts as a Reply to a Text")
+            await message.reply_text("Please use /tts as a Reply to a Text")
       else :
             if message.reply_to_message.text:
                   text = str(message.reply_to_message.text)
