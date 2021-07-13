@@ -24,12 +24,9 @@ async def getsticker(bot, message):
                         file_path = DOWNLOAD_LOCATION + f"{message.chat.id}.tgs"
                         await message.reply_to_message.download(file_path)  
                         await tx.edit("Downloaded") 
-                    #   zip_path= ZipFile.write("")
                         await tx.edit("Uploading...")
-                        start = time.time()
                         await message.reply_document(file_path) 
                         os.remove(file_path)
-                    #   os.remove(zip_path)
                    except Exception as error:
                         print(error)
  
@@ -40,7 +37,7 @@ async def getsticker(bot, message):
                        await message.reply_to_message.download(file_path)   
                        await tx.edit("Downloaded")
                        await tx.edit("Uploading...")
-                       start = time.time()
                        await message.reply_document(file_path)  
+                       os.remove(file_path)
                    except Exception as error:
                        print(error)
