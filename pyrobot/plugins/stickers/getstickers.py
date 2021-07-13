@@ -14,7 +14,7 @@ from pyrogram.types import User, Message, Sticker, Document
 
 
 @Client.on_message(filters.command(["getsticker"]))
-async def getstickerasfile(bot, message):  
+async def getsticker(bot, message):  
     if message.reply_to_message is None: 
                tx =  await tx.edit("Reply to a Sticker File!")       
           else :
@@ -41,8 +41,6 @@ async def getstickerasfile(bot, message):
                        await tx.edit("Downloaded")
                        await tx.edit("Uploading...")
                        start = time.time()
-                       await message.reply_document(file_path)
-                       await tx.delete()   
-                       os.remove(file_path)
+                       await message.reply_document(file_path)  
                    except Exception as error:
                        print(error)
