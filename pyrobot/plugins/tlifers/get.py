@@ -11,7 +11,10 @@ from pyrobot.helper_functions.msg_types import (
 
 
 @PyroBot.on_message(
-    filters.incoming,
+    (
+        filters.incoming &
+        ~filters.edited
+    ),
     group=2
 )
 async def watch_all_messages(client: PyroBot, message: Message):
