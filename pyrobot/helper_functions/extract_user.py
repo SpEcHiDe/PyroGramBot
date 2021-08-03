@@ -21,7 +21,7 @@ def extract_user(message: Message) -> (int, str):
             if required_entity.type == "text_mention":
                 user_id = required_entity.user.id
                 user_first_name = required_entity.user.first_name
-            elif required_entity.type == "mention":
+            elif required_entity.type in ["mention", "phone_number"]:
                 user_id = message.text[
                     required_entity.offset:
                     required_entity.offset + required_entity.length
@@ -29,7 +29,10 @@ def extract_user(message: Message) -> (int, str):
                 # don't want to make a request -_-
                 user_first_name = user_id
         else:
-            user_id = message.command[1]
+            try:
+                user_id = int(message.command[1])
+            except ValueError:
+                user_id = message.command[1]
             # don't want to make a request -_-
             user_first_name = user_id
 
