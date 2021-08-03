@@ -29,12 +29,14 @@ def extract_user(message: Message) -> (int, str):
                 # don't want to make a request -_-
                 user_first_name = user_id
         else:
-            try:
-                user_id = int(message.command[1])
-            except ValueError:
-                user_id = message.command[1]
+            user_id = message.command[1]
             # don't want to make a request -_-
             user_first_name = user_id
+
+        try:
+            user_id = int(user_id)
+        except ValueError:
+            print("പൊട്ടൻ ")
 
     else:
         user_id = message.from_user.id
