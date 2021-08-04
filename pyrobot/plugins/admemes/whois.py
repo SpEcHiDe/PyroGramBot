@@ -23,9 +23,6 @@ async def who_is(client, message):
     from_user = None
     from_user_id, _ = extract_user(message)
     try:
-        user_id = from_user_id
-        if not str(user_id).startswith("@"):
-            user_id = int(user_id)
         from_user = await client.get_users(user_id)
     except Exception as error:
         await status_message.edit(str(error))
