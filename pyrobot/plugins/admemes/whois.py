@@ -23,7 +23,7 @@ async def who_is(client, message):
     from_user = None
     from_user_id, _ = extract_user(message)
     try:
-        from_user = await client.get_users(user_id)
+        from_user = await client.get_users(from_user_id)
     except Exception as error:
         await status_message.edit(str(error))
         return
