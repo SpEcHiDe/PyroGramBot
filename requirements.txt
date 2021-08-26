@@ -42,3 +42,6 @@ python-dotenv>=0.10
 
 # for tts
 gTTS
+
+# for interactine with te.legra.ph
+telegraph==1.4.1
