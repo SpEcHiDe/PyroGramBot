@@ -29,17 +29,23 @@ async def who_is(client, message):
         return
     if from_user is None:
         await status_message.edit("no valid user_id / message specified")
-    else:
-        message_out_str = ""
-        message_out_str += f"ID: <code>{from_user.id}</code>\n"
-        message_out_str += "First Name: "
+    message_out_str = ""
+        message_out_str += "<b>Name:</b> "
         message_out_str += f"<a href='tg://user?id={from_user.id}'>"
         message_out_str += from_user.first_name or ""
         message_out_str += "</a>\n"
         last_name = from_user.last_name or ""
-        message_out_str += f"Last Name: {last_name}\n"
-        dc_id = from_user.dc_id or "[🙏 no profile photo 👀]"
-        message_out_str += f"DC ID: <code>{dc_id}</code>\n"
+        message_out_str += f"<b>Suffix:</b> {last_name}\n"
+        username = from_user.username or ""
+        message_out_str += f"<b>Username:</b> @{username}\n"
+        message_out_str += f"<b>User ID:</b> <code>{from_user.id}</code>\n"
+        dc_id = from_user.dc_id or "[User Doesnt Have A Valid DP 👀]"
+        message_out_str += f"<b>DC ID:</b> <code>{dc_id}</code>\n"
+        message_out_str += f"<b>User Link:</b> {from_user.mention}\n" if from_user.username else ""
+        message_out_str += f"<b>Is Deleted:</b> True\n" if from_user.is_deleted else ""
+        message_out_str += f"<b>Is Verified:</b> True" if from_user.is_verified else ""
+        message_out_str += f"<b>Is Scam:</b> True" if from_user.is_scam else ""
+        message_out_str += f"<b>Last Seen:</b> <code>{last_online(from_user)}</code>\n\n"
         if message.chat.type in (("supergroup", "channel")):
             try:
                 chat_member_p = await message.chat.get_member(from_user.id)
@@ -47,7 +53,7 @@ async def who_is(client, message):
                     chat_member_p.joined_date or time.time()
                 ).strftime("%Y.%m.%d %H:%M:%S")
                 message_out_str += (
-                    "<b>Joined On</b>: <code>"
+                    "<b>Joined on:</b> <code>"
                     f"{joined_date}"
                     "</code>\n"
                 )
@@ -75,3 +81,21 @@ async def who_is(client, message):
                 disable_notification=True
             )
         await status_message.delete()
+
+def last_online(from_user):
+    time = ""
+    if from_user.is_bot:
+        time += "🤖 Bot :("
+    elif from_user.status == 'recently':
+        time += "Recently"
+    elif from_user.status == 'within_week':
+        time += "Within the last week"
+    elif from_user.status == 'within_month':
+        time += "Within the last month"
+    elif from_user.status == 'long_time_ago':
+        time += "A long time ago :("
+    elif from_user.status == 'online':
+        time += "Currently Online"
+    elif from_user.status == 'offline':
+        time += datetime.fromtimestamp(from_user.last_online_date).strftime("%a, %d %b %Y, %H:%M:%S")
+    return time
