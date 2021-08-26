@@ -43,13 +43,14 @@ class PyroBot(Client):
             workdir=TMP_DOWNLOAD_DIRECTORY,
             api_id=APP_ID,
             api_hash=API_HASH,
-            bot_token=TG_COMPANION_BOT
+            bot_token=TG_COMPANION_BOT,
+            parse_mode="html",
+            sleep_threshold=60
         )
 
     async def start(self):
         await super().start()
         usr_bot_me = await self.get_me()
-        self.set_parse_mode("html")
         self.filterstore = await self.load_public_store(TG_IRU_S_M_ID)
         self.warndatastore = await self.load_public_store(WARN_DATA_ID)
         self.warnsettingsstore = await self.load_public_store(WARN_SETTINGS_ID)
