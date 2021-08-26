@@ -25,29 +25,29 @@ async def showid(client, message):
         _id = ""
         _id += (
             "<b>Chat ID</b>: "
-            f"<code>{message.chat.id}</code>"
+            f"<code>{message.chat.id}</code>\n"
         )
         if message.reply_to_message:
             _id += (
                 "<b>Replied User ID</b>: "
-                f"<code>{message.reply_to_message.from_user.id}</code>"
+                f"<code>{message.reply_to_message.from_user.id}</code>\n"
             )
             file_info = get_file_id(message.reply_to_message)
             if file_info:
                 _id += (
                     f"<b>{file_info.message_type}</b>: "
-                    f"<code>{file_info.file_id}</code>"
+                    f"<code>{file_info.file_id}</code>\n"
                 )
         else:
             _id += (
                 "<b>User ID</b>: "
-                f"<code>{message.from_user.id}</code>"
+                f"<code>{message.from_user.id}</code>\n"
             )
             file_info = get_file_id(message)
             if file_info:
                 _id += (
                     f"<b>{file_info.message_type}</b>: "
-                    f"<code>{file_info.file_id}</code>"
+                    f"<code>{file_info.file_id}</code>\n"
                 )
         await message.reply_text(
             _id,
