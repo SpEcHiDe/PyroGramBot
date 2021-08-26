@@ -4,3 +4,4 @@ __pycache__
 pyrogrambot/__pycache__
 pyrogrambot/plugins/__pycache__
 **/*.session
+.vscode

@@ -9,10 +9,11 @@ from pyrogram.errors import UserNotParticipant
 from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.extract_user import extract_user
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
+from pyrobot.helper_functions.last_online_hlpr import last_online
 
 
 @Client.on_message(
-    filters.command(["whois", "info", "id"], COMMAND_HAND_LER) &
+    filters.command(["whois", "info"], COMMAND_HAND_LER) &
     f_onw_fliter
 )
 async def who_is(client, message):
@@ -81,22 +82,3 @@ async def who_is(client, message):
             disable_notification=True
         )
     await status_message.delete()
-
-
-def last_online(from_user):
-    time = ""
-    if from_user.is_bot:
-        time += "🤖 Bot :("
-    elif from_user.status == 'recently':
-        time += "Recently"
-    elif from_user.status == 'within_week':
-        time += "Within the last week"
-    elif from_user.status == 'within_month':
-        time += "Within the last month"
-    elif from_user.status == 'long_time_ago':
-        time += "A long time ago :("
-    elif from_user.status == 'online':
-        time += "Currently Online"
-    elif from_user.status == 'offline':
-        time += datetime.fromtimestamp(from_user.last_online_date).strftime("%a, %d %b %Y, %H:%M:%S")
-    return time
