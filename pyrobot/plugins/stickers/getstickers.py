@@ -1,0 +1,43 @@
+# © BugHunterCodeLabs ™
+# © bughunter0
+# 2021
+# Copyright - https://en.m.wikipedia.org/wiki/Fair_use
+
+
+import os , glob
+from os import error
+import logging
+import pyrogram
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import User, Message, Sticker, Document
+
+
+@Client.on_message(filters.command(["getsticker"]))
+async def getsticker(bot, message):  
+    if message.reply_to_message is None: 
+               tx =  await tx.edit("Reply to a Sticker File!")       
+          else :
+               if message.reply_to_message.sticker.is_animated:
+                   try :     
+                        tx = await message.reply_text("Downloading...")
+                        file_path = DOWNLOAD_LOCATION + f"{message.chat.id}.tgs"
+                        await message.reply_to_message.download(file_path)  
+                        await tx.edit("Downloaded") 
+                        await tx.edit("Uploading...")
+                        await message.reply_document(file_path) 
+                        os.remove(file_path)
+                   except Exception as error:
+                        print(error)
+ 
+               elif message.reply_to_message.sticker.is_animated is False:        
+                   try : 
+                       tx = await message.reply_text("Downloading...")
+                       file_path = DOWNLOAD_LOCATION + f"{message.chat.id}.png"
+                       await message.reply_to_message.download(file_path)   
+                       await tx.edit("Downloaded")
+                       await tx.edit("Uploading...")
+                       await message.reply_document(file_path)  
+                       os.remove(file_path)
+                   except Exception as error:
+                       print(error)
