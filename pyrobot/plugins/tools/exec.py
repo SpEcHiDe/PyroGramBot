@@ -30,10 +30,10 @@ async def execution(_, message):
     stdout, stderr = await process.communicate()
     e = stderr.decode()
     if not e:
-        e = "No Error"
+        e = "😂"
     o = stdout.decode()
     if not o:
-        o = "No Output"
+        o = "😐"
 
     OUTPUT = ""
     OUTPUT += f"<b>QUERY:</b>\n<u>Command:</u>\n<code>{cmd}</code> \n"
