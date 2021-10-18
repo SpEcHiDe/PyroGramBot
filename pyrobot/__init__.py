@@ -70,7 +70,7 @@ paste_bin_store_s = {
         "GAS": "https://github.com/nekobin/nekobin",
     },
     "pasty": {
-        "URL": "https://pasty.lus.pm/api/v1/pastes",
+        "URL": "https://pasty.lus.pm/api/v2/pastes",
         "HEADERS": {
             "User-Agent": "PyroGramBot/6.9",
             "Content-Type": "application/json",
