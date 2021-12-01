@@ -10,11 +10,16 @@ def extract_user(message: Message) -> (int, str):
     user_first_name = None
 
     if (
-        message.reply_to_message and
-        message.reply_to_message.from_user
+        message.reply_to_message
     ):
-        user_id = message.reply_to_message.from_user.id
-        user_first_name = message.reply_to_message.from_user.first_name
+        if message.reply_to_message.from_user:
+            user_id = message.reply_to_message.from_user.id
+            user_first_name = message.reply_to_message.from_user.first_name
+
+        elif message.reply_to_message.sender_chat:
+            user_id = message.reply_to_message.sender_chat.id
+            user_first_name = message.reply_to_message.sender_chat.first_name
+        # TODO: L136
 
     elif len(message.command) > 1:
         if (
@@ -37,17 +42,16 @@ def extract_user(message: Message) -> (int, str):
             print("പൊട്ടൻ ")
 
     elif (
-        message and
-        message.from_user
+        message
     ):
-        user_id = message.from_user.id
-        user_first_name = message.from_user.first_name
+        if message.from_user:
+            user_id = message.from_user.id
+            user_first_name = message.from_user.first_name
 
-    elif (
-        message and
-        message.sender_chat
-    ):
-        user_id = message.sender_chat.id
-        user_first_name = message.sender_chat.title
+        # TODO: L136
+
+        elif message.sender_chat:
+            user_id = message.sender_chat.id
+            user_first_name = message.sender_chat.title
 
     return (user_id, user_first_name)
