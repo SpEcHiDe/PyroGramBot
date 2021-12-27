@@ -47,9 +47,10 @@ async def execution(_, message):
             await reply_to_.reply_document(
                 document=out_file,
                 caption=cmd[:MAX_MESSAGE_LENGTH // 4 - 1],
-                disable_notification=True
+                disable_notification=True,
+                quote=True
             )
     else:
-        await reply_to_.reply_text(OUTPUT)
+        await reply_to_.reply_text(OUTPUT, quote=True)
 
     await status_message.delete()
