@@ -57,7 +57,7 @@ async def eval(client, message):
             out_file.name = "eval.text"
             await reply_to_.reply_document(
                 document=out_file,
-                caption=cmd,
+                caption=cmd[:MAX_MESSAGE_LENGTH // 4 - 1],
                 disable_notification=True
             )
     else:
