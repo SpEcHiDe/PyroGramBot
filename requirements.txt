@@ -1,5 +1,5 @@
 # Pyrogram
-Pyrogram==1.2.20
+https://github.com/SpEcHiDe/pyrogram/archive/8ccd98026a8aef6f5d2523d1ade217a6fd47fa4a.zip
 TgCrypto==1.2.2
 
 # GET / POST network requests
