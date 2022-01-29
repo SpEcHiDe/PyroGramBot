@@ -14,7 +14,16 @@ from pyrobot.helper_functions.admin_check import admin_check
 
 def f_sudo_filter(filt, client, message):
     return bool(
-        message.from_user.id in SUDO_USERS and
+        (
+            (
+                message.from_user and
+                message.from_user.id in SUDO_USERS
+            ) or
+            (
+                message.sender_chat and
+                message.sender_chat.id in SUDO_USERS
+            )
+        ) and
         # t, lt, fl 2013
         not message.edit_date
     )
