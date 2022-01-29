@@ -13,7 +13,7 @@ from pyrobot import (
     WARN_SETTINGS_ID
 )
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.admin_check import admin_check
+from pyrobot.helper_functions.admin_check import admin_check  # TODO: remove in next version
 from pyrobot.helper_functions.cust_p_filters import (
     admin_fliter
 )
@@ -84,14 +84,14 @@ async def warn_user(client: PyroBot, msg: Message):
         nw_l = p_l + 1  # new limit
         if nw_l >= w_l:
             if w_m == "ban":
-                await msg.chat.kick_member(
+                await msg.chat.ban_member(
                     int(user_id)
                 )
                 exec_str = "BANNED"
             elif w_m == "kick":
-                await msg.chat.kick_member(
+                await msg.chat.ban_member(
                     int(user_id),
-                    until_date=time.time() + 61
+                    until_date=time.time() + 75
                 )
                 exec_str = "KICKED"
             elif w_m == "mute":

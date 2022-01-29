@@ -13,8 +13,7 @@ from pyrobot import (
     COMMAND_HAND_LER,
     DB_URI
 )
-from pyrobot.helper_functions.admin_check import admin_check
-from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
+from pyrobot.helper_functions.cust_p_filters import admin_fliter
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.antiflood_sql as sql
     CHAT_FLOOD = sql.__load_flood_settings()
@@ -23,7 +22,9 @@ if DB_URI is not None:
 @Client.on_message(
     (
         filters.incoming &
-        ~filters.service
+        ~filters.service &
+        ~filters.edited &
+        ~admin_fliter
     ),
     group=1
 )
@@ -35,9 +36,6 @@ async def check_flood(client, message):
     if not CHAT_FLOOD:
         return
     if not str(message.chat.id) in CHAT_FLOOD:
-        return
-    is_admin = await admin_check(message)
-    if is_admin:
         return
     # copy @chathelp_bot bio here -_-
     if not message.from_user:
@@ -88,13 +86,10 @@ async def check_flood(client, message):
 
 @Client.on_message(
     filters.command("setflood", COMMAND_HAND_LER) &
-    f_onw_fliter
+    admin_fliter
 )
 async def set_flood(_, message):
     """ /setflood command """
-    is_admin = await admin_check(message)
-    if not is_admin:
-        return
     if len(message.command) == 2:
         input_str = message.command[1]
     try:
@@ -109,8 +104,7 @@ async def set_flood(_, message):
 
 
 @Client.on_message(
-    filters.command("flood", COMMAND_HAND_LER) &
-    f_onw_fliter
+    filters.command("flood", COMMAND_HAND_LER)
 )
 async def get_flood_settings(_, message):
     flood_limit = sql.get_flood_limit(message.chat.id)
