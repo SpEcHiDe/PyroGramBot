@@ -1,27 +1,16 @@
-from pyrogram import (
-    Client,
-    filters
-)
-from pyrobot import (
-    COMMAND_HAND_LER,
-    DB_URI,
-    MAX_MESSAGE_LENGTH,
-    TG_URI
-)
+from pyrogram import Client, filters
+from pyrobot import COMMAND_HAND_LER, DB_URI, MAX_MESSAGE_LENGTH, TG_URI
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
+
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.notes_sql as sql
 
 
 @Client.on_message(
-    filters.command(["clearnote", "clear"], COMMAND_HAND_LER) &
-    admin_fliter
+    filters.command(["clearnote", "clear"], COMMAND_HAND_LER) & admin_fliter
 )
 async def clear_note(_, message):
-    status_message = await message.reply_text(
-        "checking 🤔🙄🙄",
-        quote=True
-    )
+    status_message = await message.reply_text("checking 🤔🙄🙄", quote=True)
     note_name = " ".join(message.command[1:])
     sql.rm_note(message.chat.id, note_name)
     await status_message.edit_text(
@@ -29,14 +18,9 @@ async def clear_note(_, message):
     )
 
 
-@Client.on_message(
-    filters.command(["listnotes", "notes"], COMMAND_HAND_LER)
-)
+@Client.on_message(filters.command(["listnotes", "notes"], COMMAND_HAND_LER))
 async def list_note(_, message):
-    status_message = await message.reply_text(
-        "checking 🤔🙄🙄",
-        quote=True
-    )
+    status_message = await message.reply_text("checking 🤔🙄🙄", quote=True)
 
     note_list = sql.get_all_chat_notes(message.chat.id)
 
@@ -58,9 +42,7 @@ async def list_note(_, message):
         await status_message.delete()
 
 
-@Client.on_message(
-    filters.command(["getnoformat"], COMMAND_HAND_LER)
-)
+@Client.on_message(filters.command(["getnoformat"], COMMAND_HAND_LER))
 async def get_no_format_note(_, message):
     note_name = " ".join(message.command[1:])
     note_d = sql.get_note(message.chat.id, note_name)
@@ -68,6 +50,4 @@ async def get_no_format_note(_, message):
         return
     note_message_id = note_d.d_message_id
     note_store_cid = str(TG_URI)[4:]
-    await message.reply_text(
-        f"https://t.me/c/{note_store_cid}/{note_message_id}"
-    )
+    await message.reply_text(f"https://t.me/c/{note_store_cid}/{note_message_id}")

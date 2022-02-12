@@ -6,16 +6,18 @@ def last_online(from_user: User) -> str:
     time = ""
     if from_user.is_bot:
         time += "🤖 Bot :("
-    elif from_user.status == 'recently':
+    elif from_user.status == "recently":
         time += "Recently"
-    elif from_user.status == 'within_week':
+    elif from_user.status == "within_week":
         time += "Within the last week"
-    elif from_user.status == 'within_month':
+    elif from_user.status == "within_month":
         time += "Within the last month"
-    elif from_user.status == 'long_time_ago':
+    elif from_user.status == "long_time_ago":
         time += "A long time ago :("
-    elif from_user.status == 'online':
+    elif from_user.status == "online":
         time += "Currently Online"
-    elif from_user.status == 'offline':
-        time += datetime.fromtimestamp(from_user.last_online_date).strftime("%a, %d %b %Y, %H:%M:%S")
+    elif from_user.status == "offline":
+        time += datetime.fromtimestamp(from_user.last_online_date).strftime(
+            "%a, %d %b %Y, %H:%M:%S"
+        )
     return time

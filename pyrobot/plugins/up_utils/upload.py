@@ -4,22 +4,14 @@ Syntax: .upload* *"""
 import os
 import time
 from datetime import datetime
-from pyrogram import (
-    Client,
-    filters
-)
-from pyrobot import (
-    COMMAND_HAND_LER
-)
+from pyrogram import Client, filters
+from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.check_if_thumb_exists import is_thumb_image_exists
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
 from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 
 
-@Client.on_message(
-    filters.command("uploadasdoc", COMMAND_HAND_LER) &
-    sudo_filter
-)
+@Client.on_message(filters.command("uploadasdoc", COMMAND_HAND_LER) & sudo_filter)
 async def upload_as_document(client, message):
     status_message = await message.reply_text("...")
     if " " in message.text:
@@ -37,9 +29,7 @@ async def upload_as_document(client, message):
                 disable_notification=True,
                 reply_to_message_id=message.message_id,
                 progress=progress_for_pyrogram,
-                progress_args=(
-                    "trying to upload", status_message, c_time
-                )
+                progress_args=("trying to upload", status_message, c_time),
             )
             end_t = datetime.now()
             ms = (end_t - start_t).seconds
@@ -47,13 +37,12 @@ async def upload_as_document(client, message):
         else:
             await status_message.edit("404: media not found")
     else:
-        await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasdoc FILE_PATH</code> to upload to current Telegram chat")
+        await status_message.edit(
+            f"<code>{COMMAND_HAND_LER}uploadasdoc FILE_PATH</code> to upload to current Telegram chat"
+        )
 
 
-@Client.on_message(
-    filters.command("uploadasvideo", COMMAND_HAND_LER) &
-    sudo_filter
-)
+@Client.on_message(filters.command("uploadasvideo", COMMAND_HAND_LER) & sudo_filter)
 async def upload_as_video(client, message):
     status_message = await message.reply_text("...")
     if " " in message.text:
@@ -75,9 +64,7 @@ async def upload_as_video(client, message):
                 disable_notification=True,
                 reply_to_message_id=message.message_id,
                 progress=progress_for_pyrogram,
-                progress_args=(
-                    "trying to upload", status_message, c_time
-                )
+                progress_args=("trying to upload", status_message, c_time),
             )
             end_t = datetime.now()
             ms = (end_t - start_t).seconds
@@ -85,13 +72,12 @@ async def upload_as_video(client, message):
         else:
             await status_message.edit("404: media not found")
     else:
-        await status_message.edit(f"<code>{COMMAND_HAND_LER}uploadasvideo FILE_PATH</code> to upload to current Telegram chat")
+        await status_message.edit(
+            f"<code>{COMMAND_HAND_LER}uploadasvideo FILE_PATH</code> to upload to current Telegram chat"
+        )
 
 
-@Client.on_message(
-    filters.command("uploadasphoto", COMMAND_HAND_LER) &
-    sudo_filter
-)
+@Client.on_message(filters.command("uploadasphoto", COMMAND_HAND_LER) & sudo_filter)
 async def upload_as_photo(client, message):
     status_message = await message.reply_text("...")
     if " " in message.text:
@@ -109,9 +95,7 @@ async def upload_as_photo(client, message):
                 disable_notification=True,
                 reply_to_message_id=message.message_id,
                 progress=progress_for_pyrogram,
-                progress_args=(
-                    "trying to upload", status_message, c_time
-                )
+                progress_args=("trying to upload", status_message, c_time),
             )
             end_t = datetime.now()
             ms = (end_t - start_t).seconds

@@ -1,13 +1,8 @@
 import re
 import time
 from typing import List
-from pyrogram.types import (
-    Message,
-    InlineKeyboardButton
-)
-from pyrobot import (
-    COMMAND_HAND_LER
-)
+from pyrogram.types import Message, InlineKeyboardButton
+from pyrobot import COMMAND_HAND_LER
 
 
 # NOTE: the url \ escape may cause double escapes
@@ -16,17 +11,17 @@ from pyrobot import (
 # match ` (code)
 # match []() (markdown link)
 # else, escape *, _, `, and [
-MATCH_MD = re.compile(r'\*(.*?)\*|'
-                      r'_(.*?)_|'
-                      r'`(.*?)`|'
-                      r'(?<!\\)(\[.*?\])(\(.*?\))|'
-                      r'(?P<esc>[*_`\[])')
+MATCH_MD = re.compile(
+    r"\*(.*?)\*|"
+    r"_(.*?)_|"
+    r"`(.*?)`|"
+    r"(?<!\\)(\[.*?\])(\(.*?\))|"
+    r"(?P<esc>[*_`\[])"
+)
 
 # regex to find []() links -> hyperlinks/buttons
-LINK_REGEX = re.compile(r'(?<!\\)\[.+?\]\((.*?)\)')
-BTN_URL_REGEX = re.compile(
-    r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))"
-)
+LINK_REGEX = re.compile(r"(?<!\\)\[.+?\]\((.*?)\)")
+BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
 
 
 def button_markdown_parser(msg: Message) -> (str, List):
@@ -60,16 +55,14 @@ def button_markdown_parser(msg: Message) -> (str, List):
         if n_escapes % 2 == 0:
             # create a thruple with button label, url, and newline status
             if bool(match.group(4)) and buttons:
-                buttons[-1].append(InlineKeyboardButton(
-                    text=match.group(2),
-                    url=match.group(3)
-                ))
+                buttons[-1].append(
+                    InlineKeyboardButton(text=match.group(2), url=match.group(3))
+                )
             else:
-                buttons.append([InlineKeyboardButton(
-                    text=match.group(2),
-                    url=match.group(3)
-                )])
-            note_data += markdown_note[prev:match.start(1)]
+                buttons.append(
+                    [InlineKeyboardButton(text=match.group(2), url=match.group(3))]
+                )
+            note_data += markdown_note[prev : match.start(1)]
             prev = match.end(1)
         # if odd, escaped -> move along
         else:
@@ -82,19 +75,19 @@ def button_markdown_parser(msg: Message) -> (str, List):
 
 
 def extract_time(time_val):
-    if any(time_val.endswith(unit) for unit in ('s', 'm', 'h', 'd')):
+    if any(time_val.endswith(unit) for unit in ("s", "m", "h", "d")):
         unit = time_val[-1]
         time_num = time_val[:-1]  # type: str
         if not time_num.isdigit():
             return None
 
-        if unit == 's':
+        if unit == "s":
             bantime = int(time.time() + int(time_num))
-        elif unit == 'm':
+        elif unit == "m":
             bantime = int(time.time() + int(time_num) * 60)
-        elif unit == 'h':
+        elif unit == "h":
             bantime = int(time.time() + int(time_num) * 60 * 60)
-        elif unit == 'd':
+        elif unit == "d":
             bantime = int(time.time() + int(time_num) * 24 * 60 * 60)
         else:
             # how even...?
@@ -111,5 +104,5 @@ def format_welcome_caption(html_string, chat_member):
         id=chat_member.id,
         last_name=chat_member.last_name,
         mention=chat_member.mention,
-        username=chat_member.username
+        username=chat_member.username,
     )

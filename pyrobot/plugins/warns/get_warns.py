@@ -1,20 +1,11 @@
 from pyrogram import filters
-from pyrogram.types import (
-    Message
-)
-from pyrobot import (
-    COMMAND_HAND_LER
-)
+from pyrogram.types import Message
+from pyrobot import COMMAND_HAND_LER
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.cust_p_filters import (
-    admin_fliter
-)
+from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
 
-@PyroBot.on_message(
-    filters.command(["warns"], COMMAND_HAND_LER) &
-    admin_fliter
-)
+@PyroBot.on_message(filters.command(["warns"], COMMAND_HAND_LER) & admin_fliter)
 async def check_warns_of_user(client: PyroBot, msg: Message):
     replied = msg.reply_to_message
     if not replied:

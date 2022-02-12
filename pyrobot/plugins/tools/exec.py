@@ -46,9 +46,9 @@ async def execution(_, message):
             out_file.name = "exec.text"
             await reply_to_.reply_document(
                 document=out_file,
-                caption=cmd[:MAX_MESSAGE_LENGTH // 4 - 1],
+                caption=cmd[: MAX_MESSAGE_LENGTH // 4 - 1],
                 disable_notification=True,
-                quote=True
+                quote=True,
             )
     else:
         await reply_to_.reply_text(OUTPUT, quote=True)

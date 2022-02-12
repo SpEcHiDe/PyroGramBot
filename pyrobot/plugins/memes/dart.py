@@ -7,10 +7,7 @@ DART_E_MOJI = "🎯"
 # EMOJI CONSTANTS
 
 
-@Client.on_message(
-    filters.command(["throw", "dart"], COMMAND_HAND_LER) &
-    f_onw_fliter
-)
+@Client.on_message(filters.command(["throw", "dart"], COMMAND_HAND_LER) & f_onw_fliter)
 async def throw_dart(client, message):
     """ /throw an @AnimatedDart """
     rep_mesg_id = message.message_id
@@ -20,5 +17,5 @@ async def throw_dart(client, message):
         chat_id=message.chat.id,
         emoji=DART_E_MOJI,
         disable_notification=True,
-        reply_to_message_id=rep_mesg_id
+        reply_to_message_id=rep_mesg_id,
     )

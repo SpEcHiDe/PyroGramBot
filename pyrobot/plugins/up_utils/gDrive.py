@@ -16,10 +16,11 @@ from pyrobot import (
     G_DRIVE_CLIENT_ID,
     G_DRIVE_CLIENT_SECRET,
     LOGGER,
-    TMP_DOWNLOAD_DIRECTORY
+    TMP_DOWNLOAD_DIRECTORY,
 )
 from pyrobot.helper_functions.display_progress_dl_up import progress_for_pyrogram
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
+
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.gDrive_sql as sql
 
@@ -33,10 +34,7 @@ G_DRIVE_DIR_MIME_TYPE = "application/vnd.google-apps.folder"
 flow = None
 
 
-@Client.on_message(
-    filters.command("gdrive", COMMAND_HAND_LER) &
-    sudo_filter
-)
+@Client.on_message(filters.command("gdrive", COMMAND_HAND_LER) & sudo_filter)
 async def g_drive_commands(client, message):
     status_message = await message.reply_text("...", quote=True)
     if len(message.command) > 1:
@@ -68,13 +66,9 @@ async def g_drive_commands(client, message):
                         message_string = "<b>gDrive <i>Search Query</i></b>:"
                         message_string += f"<code>{search_query}</code>\n\n"
                         message_string += "<i>Results</i>:\n"
-                        message_string += await search_g_drive(
-                            creds,
-                            search_query
-                        )
+                        message_string += await search_g_drive(creds, search_query)
                         await status_message.edit_text(
-                            text=message_string,
-                            disable_web_page_preview=True
+                            text=message_string, disable_web_page_preview=True
                         )
                     else:
                         await status_message.edit_text(
@@ -107,12 +101,12 @@ async def g_drive_commands(client, message):
                     if len(message.command) > 2:
                         upload_file_name = " ".join(message.command[2:])
                         if not os.path.exists(upload_file_name):
-                            await status_message.edit_text("invalid file path provided?")
+                            await status_message.edit_text(
+                                "invalid file path provided?"
+                            )
                             return
                         gDrive_file_id = await gDrive_upload_file(
-                            creds,
-                            upload_file_name,
-                            status_message
+                            creds, upload_file_name, status_message
                         )
                         reply_message_text = ""
                         if gDrive_file_id is not None:
@@ -123,8 +117,7 @@ async def g_drive_commands(client, message):
                         else:
                             reply_message_text += "failed to upload.. check logs?"
                         await status_message.edit_text(
-                            text=reply_message_text,
-                            disable_web_page_preview=True
+                            text=reply_message_text, disable_web_page_preview=True
                         )
                     elif message.reply_to_message is not None:
                         if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
@@ -136,17 +129,19 @@ async def g_drive_commands(client, message):
                             file_name=download_location,
                             progress=progress_for_pyrogram,
                             progress_args=(
-                                "trying to download", status_message, c_time
-                            )
+                                "trying to download",
+                                status_message,
+                                c_time,
+                            ),
                         )
-                        await status_message.edit(f"Downloaded to <code>{the_real_download_location}</code>")
+                        await status_message.edit(
+                            f"Downloaded to <code>{the_real_download_location}</code>"
+                        )
                         if not os.path.exists(the_real_download_location):
                             await message.edit_text("invalid file path provided?")
                             return
                         gDrive_file_id = await gDrive_upload_file(
-                            creds,
-                            the_real_download_location,
-                            status_message
+                            creds, the_real_download_location, status_message
                         )
                         reply_message_text = ""
                         if gDrive_file_id is not None:
@@ -158,8 +153,7 @@ async def g_drive_commands(client, message):
                             reply_message_text += "failed to upload.. check logs?"
                         os.remove(the_real_download_location)
                         await status_message.edit_text(
-                            text=reply_message_text,
-                            disable_web_page_preview=True
+                            text=reply_message_text, disable_web_page_preview=True
                         )
                     else:
                         await status_message.edit_text(
@@ -193,9 +187,7 @@ async def g_drive_setup(message):
             # Save the credentials for the next run
             sql.set_credential(message.from_user.id, creds)
             #
-            await message.edit_text(
-                text="gDrive authentication credentials, refreshed"
-            )
+            await message.edit_text(text="gDrive authentication credentials, refreshed")
         else:
             global flow
             # Run through the OAuth flow and retrieve credentials
@@ -203,20 +195,17 @@ async def g_drive_setup(message):
                 G_DRIVE_CLIENT_ID,
                 G_DRIVE_CLIENT_SECRET,
                 OAUTH_SCOPE,
-                redirect_uri=REDIRECT_URI
+                redirect_uri=REDIRECT_URI,
             )
             authorize_url = flow.step1_get_authorize_url()
             reply_string = f"please visit {authorize_url} and "
             reply_string += "send back "
-            reply_string += f"<code>{COMMAND_HAND_LER}gdrive confirm (RECEIVED_CODE)</code>"
-            await message.edit_text(
-                text=reply_string,
-                disable_web_page_preview=True
+            reply_string += (
+                f"<code>{COMMAND_HAND_LER}gdrive confirm (RECEIVED_CODE)</code>"
             )
+            await message.edit_text(text=reply_string, disable_web_page_preview=True)
     else:
-        await message.edit_text(
-            text="don't type this command -_-"
-        )
+        await message.edit_text(text="don't type this command -_-")
 
 
 async def AskUserToVisitLinkAndGiveCode(message, code):
@@ -231,35 +220,29 @@ async def AskUserToVisitLinkAndGiveCode(message, code):
     creds = flow.step2_exchange(code)
     #
     # Save the credentials for the next run
-    sql.set_credential(
-        message.reply_to_message.from_user.id,
-        creds
-    )
+    sql.set_credential(message.reply_to_message.from_user.id, creds)
     #
-    await message.edit_text(
-        text="saved gDrive authentication credentials"
-    )
+    await message.edit_text(text="saved gDrive authentication credentials")
     # clear the global variable once the authentication FLOW is finished
     flow = None
 
 
 async def search_g_drive(creds, search_query):
-    service = build(
-        "drive",
-        "v3",
-        credentials=creds,
-        cache_discovery=False
-    )
+    service = build("drive", "v3", credentials=creds, cache_discovery=False)
     #
     query = "name contains '{}'".format(search_query)
     page_token = None
     # Call the Drive v3 API
-    results = service.files().list(
-        q=query,
-        spaces="drive",
-        fields="nextPageToken, files(id, name)",
-        pageToken=page_token
-    ).execute()
+    results = (
+        service.files()
+        .list(
+            q=query,
+            spaces="drive",
+            fields="nextPageToken, files(id, name)",
+            pageToken=page_token,
+        )
+        .execute()
+    )
     items = results.get("files", [])
     message_string = ""
     if not items:
@@ -277,21 +260,13 @@ async def search_g_drive(creds, search_query):
 
 async def gDrive_upload_file(creds, file_path, message):
     # Create Google Drive service instance
-    service = build(
-        "drive",
-        "v3",
-        credentials=creds,
-        cache_discovery=False
-    )
+    service = build("drive", "v3", credentials=creds, cache_discovery=False)
     # getting the mime type of the file
     mime_type = guess_type(file_path)[0]
     mime_type = mime_type if mime_type else "text/plain"
     # File body description
     media_body = MediaFileUpload(
-        file_path,
-        mimetype=mime_type,
-        chunksize=150*1024*1024,
-        resumable=True
+        file_path, mimetype=mime_type, chunksize=150 * 1024 * 1024, resumable=True
     )
     file_name = os.path.basename(file_path)
     body = {
@@ -311,9 +286,11 @@ async def gDrive_upload_file(creds, file_path, message):
             progress_str = "[{0}{1}]\nProgress: {2}%\n".format(
                 "".join(["█" for i in range(math.floor(percentage / 5))]),
                 "".join(["░" for i in range(20 - math.floor(percentage / 5))]),
-                round(percentage, 2)
+                round(percentage, 2),
             )
-            current_message = f"uploading to gDrive\nFile Name: {file_name}\n{progress_str}"
+            current_message = (
+                f"uploading to gDrive\nFile Name: {file_name}\n{progress_str}"
+            )
             if display_message != current_message:
                 try:
                     await message.edit_text(current_message)

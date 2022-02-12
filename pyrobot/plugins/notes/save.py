@@ -1,58 +1,32 @@
-from pyrogram import (
-    Client,
-    filters
-)
-from pyrogram.types import (
-    InlineKeyboardMarkup
-)
-from pyrobot import (
-    COMMAND_HAND_LER,
-    DB_URI,
-    TG_URI
-)
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup
+from pyrobot import COMMAND_HAND_LER, DB_URI, TG_URI
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
-from pyrobot.helper_functions.msg_types import (
-    get_note_type,
-    Types
-)
+from pyrobot.helper_functions.msg_types import get_note_type, Types
+
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.notes_sql as sql
 
 
 @Client.on_message(
-    filters.command(["savenote", "save"], COMMAND_HAND_LER) &
-    admin_fliter
+    filters.command(["savenote", "save"], COMMAND_HAND_LER) & admin_fliter
 )
 async def save_note(client, message):
-    status_message = await message.reply_text(
-        "checking 🤔🙄🙄",
-        quote=True
-    )
-    if (
-        message.reply_to_message and
-        message.reply_to_message.reply_markup is not None
-    ):
+    status_message = await message.reply_text("checking 🤔🙄🙄", quote=True)
+    if message.reply_to_message and message.reply_to_message.reply_markup is not None:
         fwded_mesg = await message.reply_to_message.forward(
-            chat_id=TG_URI,
-            disable_notification=True
+            chat_id=TG_URI, disable_notification=True
         )
         chat_id = message.chat.id
         note_name = " ".join(message.command[1:])
         note_message_id = fwded_mesg.message_id
-        sql.add_note_to_db(
-            chat_id,
-            note_name,
-            note_message_id
-        )
+        sql.add_note_to_db(chat_id, note_name, note_message_id)
         await status_message.edit_text(
             f"note <u>{note_name}</u> added"
             # f"<a href='https://'>{message.chat.title}</a>"
         )
     else:
-        note_name, text, data_type, content, buttons = get_note_type(
-            message,
-            2
-        )
+        note_name, text, data_type, content, buttons = get_note_type(message, 2)
 
         if data_type is None:
             await status_message.edit_text("🤔 maybe note text is empty")
@@ -77,7 +51,7 @@ async def save_note(client, message):
                 disable_web_page_preview=True,
                 disable_notification=True,
                 reply_to_message_id=1,
-                reply_markup=reply_markup
+                reply_markup=reply_markup,
             )
         elif data_type is not None:
             fwded_mesg = await client.send_cached_media(
@@ -87,18 +61,14 @@ async def save_note(client, message):
                 parse_mode="md",
                 disable_notification=True,
                 reply_to_message_id=1,
-                reply_markup=reply_markup
+                reply_markup=reply_markup,
             )
 
         # save to db 🤔
         if fwded_mesg is not None:
             chat_id = message.chat.id
             note_message_id = fwded_mesg.message_id
-            sql.add_note_to_db(
-                chat_id,
-                note_name,
-                note_message_id
-            )
+            sql.add_note_to_db(chat_id, note_name, note_message_id)
             await status_message.edit_text(
                 f"note <u>{note_name}</u> added"
                 # f"<a href='https://'>{message.chat.title}</a>"

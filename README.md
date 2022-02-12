@@ -31,10 +31,6 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 * `TMP_DOWNLOAD_DIRECTORY`: the path (as a string) to store the temporary files, which are used by some of the plugins.
 
-* `HEROKU_API_KEY`: this is only required if you are going to use Heroku, for the `/update` plugin to work.
-
-* `OFFICIAL_UPSTREAM_REPO`: this is only required if you are going to use Heroku, for the `/update` plugin to work.
-
 * `DATABASE_URL`: ~~if you are using Heroku, this value is automatically filled by the Postgres Plugin.~~ if you are not using Heroku, Read the guide on how to Install Database?, in [the Wiki](https://github.com/SpEcHiDe/PyroGramBot/wiki/How-to-Install-Database-%3F). **[**  __to be deprecated__ **]**
 
 * `TELEGRAM_URL`: create a Telegram Channel / Super Group, with you robot as administrator, and add the channel id as an integer in this variable.

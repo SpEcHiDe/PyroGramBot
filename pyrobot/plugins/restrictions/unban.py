@@ -5,20 +5,15 @@ from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
 
 @Client.on_message(
-    filters.command(["unban", "unmute"], COMMAND_HAND_LER) &
-    admin_fliter
+    filters.command(["unban", "unmute"], COMMAND_HAND_LER) & admin_fliter
 )
 async def un_ban_user(_, message):
     user_id, user_first_name = extract_user(message)
 
     try:
-        await message.chat.unban_member(
-            user_id=user_id
-        )
+        await message.chat.unban_member(user_id=user_id)
     except Exception as error:
-        await message.reply_text(
-            str(error)
-        )
+        await message.reply_text(str(error))
     else:
         if str(user_id).lower().startswith("@"):
             await message.reply_text(

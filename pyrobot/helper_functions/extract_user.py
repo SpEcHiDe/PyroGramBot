@@ -11,10 +11,7 @@ def extract_user(message: Message) -> Tuple[int, str]:
     user_first_name = None
 
     if len(message.command) > 1:
-        if (
-            len(message.entities) > 1 and
-            message.entities[1].type == "text_mention"
-        ):
+        if len(message.entities) > 1 and message.entities[1].type == "text_mention":
             # 0: is the command used
             # 1: should be the user specified
             required_entity = message.entities[1]
@@ -30,15 +27,10 @@ def extract_user(message: Message) -> Tuple[int, str]:
         except ValueError:
             print("പൊട്ടൻ ")
 
-
-    elif (
-        message.reply_to_message
-    ):
+    elif message.reply_to_message:
         user_id, user_first_name = _eufm(message.reply_to_message)
 
-    elif (
-        message
-    ):
+    elif message:
         user_id, user_first_name = _eufm(message)
 
     return (user_id, user_first_name)

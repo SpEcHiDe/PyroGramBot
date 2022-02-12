@@ -7,11 +7,7 @@ import aiohttp
 import os
 from io import BytesIO
 from pyrogram import filters
-from pyrobot import (
-    LAYER_FEED_CHAT,
-    LAYER_UPDATE_INTERVAL,
-    LAYER_UPDATE_MESSAGE_CAPTION
-)
+from pyrobot import LAYER_FEED_CHAT, LAYER_UPDATE_INTERVAL, LAYER_UPDATE_MESSAGE_CAPTION
 
 
 async def fetch(scheme_url: str):
@@ -34,9 +30,7 @@ async def check_feed(client):
             file = BytesIO(contents)
             file.name = os.path.basename(layer_uri)
             message = await client.send_document(
-                LAYER_FEED_CHAT,
-                file,
-                caption=LAYER_UPDATE_MESSAGE_CAPTION
+                LAYER_FEED_CHAT, file, caption=LAYER_UPDATE_MESSAGE_CAPTION
             )
             await message.pin(disable_notification=True)
             last_hash = hash(contents)

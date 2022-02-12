@@ -1,39 +1,25 @@
-from pyrogram import (
-    Client,
-    filters
-)
-from pyrogram.types import (
-    ChatPermissions
-)
+from pyrogram import Client, filters
+from pyrogram.types import ChatPermissions
 from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.extract_user import extract_user
 from pyrobot.helper_functions.string_handling import extract_time
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
 
-@Client.on_message(
-    filters.command("mute", COMMAND_HAND_LER) &
-    admin_fliter
-)
+@Client.on_message(filters.command("mute", COMMAND_HAND_LER) & admin_fliter)
 async def mute_user(_, message):
     user_id, user_first_name = extract_user(message)
 
     try:
         await message.chat.restrict_member(
-            user_id=user_id,
-            permissions=ChatPermissions(
-            )
+            user_id=user_id, permissions=ChatPermissions()
         )
     except Exception as error:
-        await message.reply_text(
-            str(error)
-        )
+        await message.reply_text(str(error))
     else:
         if str(user_id).lower().startswith("@"):
             await message.reply_text(
-                "👍🏻 "
-                f"{user_first_name}"
-                " ലവന്റെ വായടച്ചിട്ടുണ്ട്! 🤐"
+                "👍🏻 " f"{user_first_name}" " ലവന്റെ വായടച്ചിട്ടുണ്ട്! 🤐"
             )
         else:
             await message.reply_text(
@@ -45,10 +31,7 @@ async def mute_user(_, message):
             )
 
 
-@Client.on_message(
-    filters.command("tmute", COMMAND_HAND_LER) &
-    admin_fliter
-)
+@Client.on_message(filters.command("tmute", COMMAND_HAND_LER) & admin_fliter)
 async def temp_mute_user(_, message):
     if not len(message.command) > 1:
         return
@@ -61,23 +44,16 @@ async def temp_mute_user(_, message):
             (
                 "അസാധുവായ സമയ തരം വ്യക്തമാക്കി. "
                 "പ്രതീക്ഷിച്ചതു m, h, or d, കിട്ടിയത്: {}"
-            ).format(
-                message.command[1][-1]
-            )
+            ).format(message.command[1][-1])
         )
         return
 
     try:
         await message.chat.restrict_member(
-            user_id=user_id,
-            permissions=ChatPermissions(
-            ),
-            until_date=until_date_val
+            user_id=user_id, permissions=ChatPermissions(), until_date=until_date_val
         )
     except Exception as error:
-        await message.reply_text(
-            str(error)
-        )
+        await message.reply_text(str(error))
     else:
         if str(user_id).lower().startswith("@"):
             await message.reply_text(

@@ -5,23 +5,18 @@ from pyrogram.types import (
     Message,
     ChatPermissions,
     InlineKeyboardMarkup,
-    InlineKeyboardButton
+    InlineKeyboardButton,
 )
-from pyrobot import (
-    COMMAND_HAND_LER,
-    WARN_DATA_ID,
-    WARN_SETTINGS_ID
-)
+from pyrobot import COMMAND_HAND_LER, WARN_DATA_ID, WARN_SETTINGS_ID
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.admin_check import admin_check  # TODO: remove in next version
-from pyrobot.helper_functions.cust_p_filters import (
-    admin_fliter
+from pyrobot.helper_functions.admin_check import (
+    admin_check,  # TODO: remove in next version
 )
+from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
 
 @PyroBot.on_message(
-    filters.command(["warnuser", "warn"], COMMAND_HAND_LER) &
-    admin_fliter
+    filters.command(["warnuser", "warn"], COMMAND_HAND_LER) & admin_fliter
 )
 async def warn_user(client: PyroBot, msg: Message):
     chat_id = str(msg.chat.id)
@@ -55,26 +50,24 @@ async def warn_user(client: PyroBot, msg: Message):
     _, reason = msg.text.split(maxsplit=1)
 
     if chat_id not in client.warnsettingsstore:
-        client.warnsettingsstore[chat_id] = {
-            "WARN_LIMIT": 5,
-            "WARN_MODE": "kick"
-        }
+        client.warnsettingsstore[chat_id] = {"WARN_LIMIT": 5, "WARN_MODE": "kick"}
     w_s = client.warnsettingsstore[chat_id]
     w_l = w_s["WARN_LIMIT"]
     w_m = w_s["WARN_MODE"]
 
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton(
-            "ഈ താക്കീത്‌ നീക്കംചെയ്യുക",
-            callback_data=f"rmwarn_{user_id}_{msg.from_user.id}"
-        )]
-    ])
+    keyboard = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "ഈ താക്കീത്‌ നീക്കംചെയ്യുക",
+                    callback_data=f"rmwarn_{user_id}_{msg.from_user.id}",
+                )
+            ]
+        ]
+    )
 
     if not DATA.get(user_id):
-        w_d = {
-            "limit": 1,
-            "reason": [reason]
-        }
+        w_d = {"limit": 1, "reason": [reason]}
         DATA[user_id] = w_d  # warning data
         reply_text = f"#Warned\n{mention} has 1/{w_l} warnings.\n"
         reply_text += f"<u>Reason</u>: {reason}"
@@ -84,20 +77,15 @@ async def warn_user(client: PyroBot, msg: Message):
         nw_l = p_l + 1  # new limit
         if nw_l >= w_l:
             if w_m == "ban":
-                await msg.chat.ban_member(
-                    int(user_id)
-                )
+                await msg.chat.ban_member(int(user_id))
                 exec_str = "BANNED"
             elif w_m == "kick":
-                await msg.chat.ban_member(
-                    int(user_id),
-                    until_date=time.time() + 75
-                )
+                await msg.chat.ban_member(int(user_id), until_date=time.time() + 75)
                 exec_str = "KICKED"
             elif w_m == "mute":
                 await msg.chat.restrict_member(int(user_id), ChatPermissions())
                 exec_str = "MUTED"
-            reason = ("\n".join(DATA[user_id]["reason"]) + "\n" + str(reason))
+            reason = "\n".join(DATA[user_id]["reason"]) + "\n" + str(reason)
             await msg.reply(
                 f"#WARNED_{exec_str}\n"
                 f"{exec_str} User: {mention}\n"
@@ -110,16 +98,12 @@ async def warn_user(client: PyroBot, msg: Message):
             DATA[user_id]["limit"] = nw_l
             DATA[user_id]["reason"].append(reason)
             r_t = f"#Warned\n{mention} has {nw_l}/{w_l} warnings.\n"
-            r_t += f"<u>Reason</u>: {reason}"   # r_t = reply text
+            r_t += f"<u>Reason</u>: {reason}"  # r_t = reply text
             await replied.reply_text(r_t, reply_markup=keyboard)
 
     client.warndatastore[chat_id] = DATA
-    await client.save_public_store(
-        WARN_DATA_ID,
-        json.dumps(client.warndatastore)
-    )
+    await client.save_public_store(WARN_DATA_ID, json.dumps(client.warndatastore))
     client.warnsettingsstore[chat_id] = w_s
     await client.save_public_store(
-        WARN_SETTINGS_ID,
-        json.dumps(client.warnsettingsstore)
+        WARN_SETTINGS_ID, json.dumps(client.warnsettingsstore)
     )

@@ -37,17 +37,7 @@ class Config:
     # this should be a valid "regex" pattern
     COMMAND_HAND_LER = os.environ.get("COMMAND_HAND_LER", "/")
     # This is required for the plugins involving the file system.
-    TMP_DOWNLOAD_DIRECTORY = os.environ.get(
-        "TMP_DOWNLOAD_DIRECTORY",
-        "./DLS/"
-    )
-    # get a Heroku API key from http://dashboard.heroku.com/account
-    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
-    # set this to your fork on GitHub (if you want)
-    OFFICIAL_UPSTREAM_REPO = os.environ.get(
-        "OFFICIAL_UPSTREAM_REPO",
-        "https://github.com/SpEcHiDe/PyroGramUserBot"
-    )
+    TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DLS/")
     # For Databases
     # can be None in which case plugins requiring
     # DataBase would not work
@@ -72,10 +62,7 @@ class Config:
     #
     LAYER_FEED_CHAT = os.environ.get("LAYER_FEED_CHAT", None)
     LAYER_UPDATE_INTERVAL = os.environ.get("LAYER_UPDATE_INTERVAL", None)
-    LAYER_UPDATE_MESSAGE_CAPTION = os.environ.get(
-        "LAYER_UPDATE_MESSAGE_CAPTION",
-        None
-    )
+    LAYER_UPDATE_MESSAGE_CAPTION = os.environ.get("LAYER_UPDATE_MESSAGE_CAPTION", None)
 
 
 class Production(Config):

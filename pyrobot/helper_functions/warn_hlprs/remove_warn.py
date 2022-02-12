@@ -6,12 +6,7 @@ from pyrobot import WARN_DATA_ID
 from pyrobot.pyrobot import PyroBot
 
 
-async def remove_warn(
-    client: PyroBot,
-    c_q: CallbackQuery,
-    user_id: str,
-    warner: int
-):
+async def remove_warn(client: PyroBot, c_q: CallbackQuery, user_id: str, warner: int):
     chat_id = str(c_q.message.chat.id)
 
     if chat_id not in client.warndatastore:
@@ -33,9 +28,7 @@ async def remove_warn(
             text = f"{mention} removed this Warn."
             await c_q.edit_message_text(text)
         else:
-            await c_q.edit_message_text(
-                "😕😕 This User does not have any Warn."
-            )
+            await c_q.edit_message_text("😕😕 This User does not have any Warn.")
         await c_q.answer()  # ensure no spinny circle -_-
     else:
         await c_q.answer(
@@ -44,11 +37,8 @@ async def remove_warn(
                 f"{(await client.get_users(warner)).first_name} "
                 "Can Remove this Warn"
             ),
-            show_alert=True
+            show_alert=True,
         )
 
     client.warndatastore[chat_id] = DATA
-    await client.save_public_store(
-        WARN_DATA_ID,
-        json.dumps(client.warndatastore)
-    )
+    await client.save_public_store(WARN_DATA_ID, json.dumps(client.warndatastore))

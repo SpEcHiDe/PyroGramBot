@@ -14,24 +14,13 @@ from json.decoder import JSONDecodeError
 import os
 from urllib.parse import urlparse
 from pyrogram import Client, filters
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message
-)
-from pyrobot import (
-    COMMAND_HAND_LER,
-    TMP_DOWNLOAD_DIRECTORY,
-    paste_bin_store_s
-)
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY, paste_bin_store_s
 
 
 @Client.on_message(filters.command("paste", COMMAND_HAND_LER))
 async def paste_bin(_, message: Message):
-    status_message = await message.reply_text(
-        "...",
-        quote=True
-    )
+    status_message = await message.reply_text("...", quote=True)
     downloaded_file_name = None
 
     # first we need to get the data to be pasted
@@ -58,24 +47,18 @@ async def paste_bin(_, message: Message):
         await status_message.edit("എന്ത് ചെയ്യണം എന്ന് പറഞ്ഞില്ല")
         return
 
-    json_paste_data = {
-        "content": downloaded_file_name
-    }
+    json_paste_data = {"content": downloaded_file_name}
 
     chosen_store = "pasty"
     if len(message.command) == 2:
         chosen_store = message.command[1]
 
     # get the required pastebin URI
-    paste_store_ = paste_bin_store_s.get(
-        chosen_store
-    )
+    paste_store_ = paste_bin_store_s.get(chosen_store)
 
     if not paste_store_:
         av_kys = ", ".join(paste_bin_store_s.keys())
-        await status_message.edit(
-            f"<b><u>available keys</u></b>: {av_kys}"
-        )
+        await status_message.edit(f"<b><u>available keys</u></b>: {av_kys}")
         return
 
     paste_store_url = paste_store_.get("URL")
@@ -83,15 +66,13 @@ async def paste_bin(_, message: Message):
 
     # the pastebin sites, respond with only the "key"
     # we need to prepend the BASE_URL of the appropriate site
-    paste_store_base_url = paste_store_base_url_rp.scheme + \
-        "://" + \
-        paste_store_base_url_rp.netloc
+    paste_store_base_url = (
+        paste_store_base_url_rp.scheme + "://" + paste_store_base_url_rp.netloc
+    )
 
     async with aiohttp.ClientSession() as session:
         response_d = await session.post(
-            paste_store_url,
-            json=json_paste_data,
-            headers=paste_store_.get("HEADERS")
+            paste_store_url, json=json_paste_data, headers=paste_store_.get("HEADERS")
         )
         response_jn = await response_d.text()
         # print(response_jn)
@@ -119,8 +100,7 @@ async def paste_bin(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        text="❌ delete paste ❎",
-                        callback_data=f"pb_{kor}_{pkr}"
+                        text="❌ delete paste ❎", callback_data=f"pb_{kor}_{pkr}"
                     )
                 ]
             ]
@@ -132,5 +112,5 @@ async def paste_bin(_, message: Message):
         required_url,
         quote=True,
         reply_markup=reply_markup,
-        disable_web_page_preview=True
+        disable_web_page_preview=True,
     )

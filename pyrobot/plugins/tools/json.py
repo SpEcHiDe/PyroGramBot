@@ -26,6 +26,6 @@ async def jsonify(_, message):
             document="json.text",
             caption=str(e),
             disable_notification=True,
-            reply_to_message_id=reply_to_id
+            reply_to_message_id=reply_to_id,
         )
         os.remove("json.text")

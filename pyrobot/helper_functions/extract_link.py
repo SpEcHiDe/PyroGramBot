@@ -13,7 +13,7 @@ def extract_url_from_entity(entities: MessageEntity, text: str):
         elif entity.type == "url":
             o_ = entity.offset
             l_ = entity.length
-            url = text[o_:o_ + l_]
+            url = text[o_ : o_ + l_]
     return url
 
 
@@ -58,10 +58,7 @@ def extract_link(message: Message):
                 youtube_dl_password = url_parts[3]
 
         elif message.caption_entities is not None:
-            url = extract_url_from_entity(
-                message.caption_entities,
-                message.caption
-            )
+            url = extract_url_from_entity(message.caption_entities, message.caption)
 
         else:
             url = message.caption.strip()

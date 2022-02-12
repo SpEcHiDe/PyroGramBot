@@ -7,14 +7,14 @@ import os
 
 # the logging things
 import logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
 
 from pyrobot.sample_config import Config
+
+
+logging.basicConfig(
+    level=logging.DEBUG, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 
 # TODO: is there a better way?
@@ -28,8 +28,6 @@ TMP_DOWNLOAD_DIRECTORY = Config.TMP_DOWNLOAD_DIRECTORY
 # create download directory, if not exist
 if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
     os.makedirs(TMP_DOWNLOAD_DIRECTORY)
-HEROKU_API_KEY = Config.HEROKU_API_KEY
-OFFICIAL_UPSTREAM_REPO = Config.OFFICIAL_UPSTREAM_REPO
 DB_URI = Config.DB_URI
 TG_URI = int(Config.TG_URI)
 G_DRIVE_CLIENT_ID = Config.G_DRIVE_CLIENT_ID
@@ -48,7 +46,7 @@ WARN_SETTINGS_ID = int(Config.WARN_SETTINGS_ID)
 # copied from SpEcHiDe/UniBorg
 TL_VID_STREAM_TYPES = ("MP4", "WEBM", "MKV")
 TL_MUS_STREAM_TYPES = ("MP3", "WAV", "FLAC")
-TL_FF_NOAQ_TYPES = ("WEBP")
+TL_FF_NOAQ_TYPES = "WEBP"
 A_PIN_MESSAGE_ID = int(Config.A_PIN_MESSAGE_ID)
 LAYER_FEED_CHAT = Config.LAYER_FEED_CHAT
 if LAYER_FEED_CHAT:

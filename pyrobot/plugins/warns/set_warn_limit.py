@@ -1,21 +1,13 @@
 import json
 from pyrogram import filters
-from pyrogram.types import (
-    Message
-)
-from pyrobot import (
-    COMMAND_HAND_LER,
-    WARN_SETTINGS_ID
-)
+from pyrogram.types import Message
+from pyrobot import COMMAND_HAND_LER, WARN_SETTINGS_ID
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.cust_p_filters import (
-    sudo_filter
-)
+from pyrobot.helper_functions.cust_p_filters import sudo_filter
 
 
 @PyroBot.on_message(
-    filters.command(["warnlimit", "setwarn"], COMMAND_HAND_LER) &
-    sudo_filter
+    filters.command(["warnlimit", "setwarn"], COMMAND_HAND_LER) & sudo_filter
 )
 async def set_warn_mode_and_limit(client: PyroBot, msg: Message):
     if len(msg.command) <= 1:
@@ -42,9 +34,8 @@ async def set_warn_mode_and_limit(client: PyroBot, msg: Message):
         await msg.reply("Invalid arguments, Exiting...")
     client.warnsettingsstore[chat_id] = {
         "WARN_LIMIT": WARN_LIMIT,
-        "WARN_MODE": WARN_MODE
+        "WARN_MODE": WARN_MODE,
     }
     await client.save_public_store(
-        WARN_SETTINGS_ID,
-        json.dumps(client.warnsettingsstore)
+        WARN_SETTINGS_ID, json.dumps(client.warnsettingsstore)
     )

@@ -57,9 +57,9 @@ async def eval(client, message):
             out_file.name = "eval.text"
             await reply_to_.reply_document(
                 document=out_file,
-                caption=cmd[:MAX_MESSAGE_LENGTH // 4 - 1],
+                caption=cmd[: MAX_MESSAGE_LENGTH // 4 - 1],
                 disable_notification=True,
-                quote=True
+                quote=True,
             )
     else:
         await reply_to_.reply_text(final_output, quote=True)
@@ -68,7 +68,7 @@ async def eval(client, message):
 
 async def aexec(code, client, message):
     exec(
-        'async def __aexec(client, message): ' +
-        ''.join(f'\n {l_}' for l_ in code.split('\n'))
+        "async def __aexec(client, message): "
+        + "".join(f"\n {l_}" for l_ in code.split("\n"))
     )
-    return await locals()['__aexec'](client, message)
+    return await locals()["__aexec"](client, message)

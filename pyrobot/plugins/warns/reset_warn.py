@@ -1,22 +1,12 @@
 import json
 from pyrogram import filters
-from pyrogram.types import (
-    Message
-)
-from pyrobot import (
-    COMMAND_HAND_LER,
-    WARN_DATA_ID
-)
+from pyrogram.types import Message
+from pyrobot import COMMAND_HAND_LER, WARN_DATA_ID
 from pyrobot.pyrobot import PyroBot
-from pyrobot.helper_functions.cust_p_filters import (
-    admin_fliter
-)
+from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
 
-@PyroBot.on_message(
-    filters.command(["resetwarn"], COMMAND_HAND_LER) &
-    admin_fliter
-)
+@PyroBot.on_message(filters.command(["resetwarn"], COMMAND_HAND_LER) & admin_fliter)
 async def reset_all_warns(client: PyroBot, msg: Message):
     replied = msg.reply_to_message
     if not replied:
@@ -34,7 +24,4 @@ async def reset_all_warns(client: PyroBot, msg: Message):
     else:
         await msg.reply("User already not have any warn.")
     client.warndatastore[chat_id] = DATA
-    await client.save_public_store(
-        WARN_DATA_ID,
-        json.dumps(client.warndatastore)
-    )
+    await client.save_public_store(WARN_DATA_ID, json.dumps(client.warndatastore))

@@ -1,69 +1,33 @@
-from pyrogram import (
-    Client,
-    filters
-)
-from pyrogram.types import (
-    InlineKeyboardMarkup
-)
-from pyrobot import (
-    COMMAND_HAND_LER,
-    DB_URI,
-    TG_URI
-)
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup
+from pyrobot import COMMAND_HAND_LER, DB_URI, TG_URI
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
-from pyrobot.helper_functions.msg_types import (
-    get_note_type,
-    Types
-)
+from pyrobot.helper_functions.msg_types import get_note_type, Types
+
 if DB_URI is not None:
     import pyrobot.helper_functions.sql_helpers.welcome_sql as sql
 
 
 @Client.on_message(
-    filters.command(["savewelcome", "setwelcome"], COMMAND_HAND_LER) &
-    admin_fliter
+    filters.command(["savewelcome", "setwelcome"], COMMAND_HAND_LER) & admin_fliter
 )
 async def save_note(client, message):
-    status_message = await message.reply_text(
-        "checking 🤔🙄🙄",
-        quote=True
-    )
+    status_message = await message.reply_text("checking 🤔🙄🙄", quote=True)
     if len(message.command) == 2:
         chat_id = message.chat.id
         note_message_id = int(message.command[1])
-        sql.add_welcome_setting(
-            chat_id,
-            False,
-            0,
-            note_message_id
-        )
-        await status_message.edit_text(
-            "welcome message saved"
-        )
-    elif (
-        message.reply_to_message and
-        message.reply_to_message.reply_markup is not None
-    ):
+        sql.add_welcome_setting(chat_id, False, 0, note_message_id)
+        await status_message.edit_text("welcome message saved")
+    elif message.reply_to_message and message.reply_to_message.reply_markup is not None:
         fwded_mesg = await message.reply_to_message.forward(
-            chat_id=TG_URI,
-            disable_notification=True
+            chat_id=TG_URI, disable_notification=True
         )
         chat_id = message.chat.id
         note_message_id = fwded_mesg.message_id
-        sql.add_welcome_setting(
-            chat_id,
-            True,
-            0,
-            note_message_id
-        )
-        await status_message.edit_text(
-            "welcome message saved"
-        )
+        sql.add_welcome_setting(chat_id, True, 0, note_message_id)
+        await status_message.edit_text("welcome message saved")
     else:
-        note_name, text, data_type, content, buttons = get_note_type(
-            message,
-            1
-        )
+        note_name, text, data_type, content, buttons = get_note_type(message, 1)
 
         if data_type is None:
             await status_message.edit_text("🤔 maybe welcome text is empty")
@@ -82,7 +46,7 @@ async def save_note(client, message):
                 disable_web_page_preview=True,
                 disable_notification=True,
                 reply_to_message_id=1,
-                reply_markup=reply_markup
+                reply_markup=reply_markup,
             )
         elif data_type is not None:
             fwded_mesg = await client.send_cached_media(
@@ -92,19 +56,12 @@ async def save_note(client, message):
                 parse_mode="md",
                 disable_notification=True,
                 reply_to_message_id=1,
-                reply_markup=reply_markup
+                reply_markup=reply_markup,
             )
 
         # save to db 🤔
         if fwded_mesg is not None:
             chat_id = message.chat.id
             note_message_id = fwded_mesg.message_id
-            sql.add_welcome_setting(
-                chat_id,
-                bool(note_name),
-                0,
-                note_message_id
-            )
-            await status_message.edit_text(
-                "welcome message saved"
-            )
+            sql.add_welcome_setting(chat_id, bool(note_name), 0, note_message_id)
+            await status_message.edit_text("welcome message saved")
