@@ -1,7 +1,8 @@
 venv
 config.env
 __pycache__
-pyrogrambot/__pycache__
-pyrogrambot/plugins/__pycache__
 **/*.session
 .vscode
+/DLS
+# File used to manually test new changes, contains sensitive data
+/example/**.py
