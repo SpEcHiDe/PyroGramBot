@@ -8,6 +8,7 @@ from typing import Dict, List, Union
 from pyrogram import Client, __version__
 from pyrogram.errors import MessageNotModified
 from pyrogram.raw.all import layer
+from pyrogram.enums import ParseMode
 from pyrobot import (
     APP_ID,
     API_HASH,
@@ -33,19 +34,20 @@ class PyroBot(Client):
     def __init__(self):
         name = self.__class__.__name__.lower()
         super().__init__(
-            ":memory:",
+            name="PyroGramBot",
             plugins=dict(root=f"{name}/plugins"),
             workdir=TMP_DOWNLOAD_DIRECTORY,
             api_id=APP_ID,
             api_hash=API_HASH,
             bot_token=TG_COMPANION_BOT,
-            parse_mode="html",
+            parse_mode=ParseMode.HTML,
             sleep_threshold=60,
+            in_memory=True
         )
 
     async def start(self):
         await super().start()
-        usr_bot_me = await self.get_me()
+        usr_bot_me = self.me
         self.filterstore = await self.load_public_store(TG_IRU_S_M_ID)
         self.warndatastore = await self.load_public_store(WARN_DATA_ID)
         self.warnsettingsstore = await self.load_public_store(WARN_SETTINGS_ID)

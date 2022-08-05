@@ -30,7 +30,6 @@ async def watch_all_messages(client: PyroBot, message: Message):
                 await n_m.reply_cached_media(
                     file_id=file_id,
                     caption=caption,
-                    parse_mode="html",
                     reply_markup=flt_message.reply_markup,
                 )
             else:
@@ -45,7 +44,6 @@ async def watch_all_messages(client: PyroBot, message: Message):
                 await n_m.reply_text(
                     text=caption,
                     disable_web_page_preview=disable_web_page_preview,
-                    parse_mode="html",
                     reply_markup=flt_message.reply_markup,
                 )
             break
