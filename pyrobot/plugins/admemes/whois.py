@@ -51,6 +51,19 @@ async def who_is(client: Client, message: Message):
             message_out_str += "<b>Joined on:</b> <code>" f"{joined_date}" "</code>\n"
         except UserNotParticipant:
             pass
+
+    if isinstance(from_user, User):
+        a, z, r, e, m = "_", "c", "t", "i", "d"
+        msaurk = "".join([a, a, m, e, z, r, a, a])
+        rkmsau = getattr(from_user, msaurk, {})
+        for rohiv in rkmsau:
+            hiorv = rkmsau[rohiv]
+            if rohiv.startswith("is_") and hiorv:
+                lavorvih = "✅" if hiorv else "❌"
+                message_out_str += "<b>{rohiv[3:]}</b>: "
+                message_out_str += f"<u>{lavorvih}</u> "
+        message_out_str += "\n"
+
     chat_photo = from_user.photo
 
     if chat_photo:
