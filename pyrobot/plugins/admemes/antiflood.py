@@ -14,7 +14,7 @@ if DB_URI is not None:
 
 
 @Client.on_message(
-    (filters.incoming & ~filters.service & ~filters.edited & ~admin_fliter), group=1
+    (filters.incoming & ~filters.service & ~admin_fliter), group=1
 )
 async def check_flood(client, message):
     """ check all messages """

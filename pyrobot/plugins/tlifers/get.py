@@ -6,7 +6,7 @@ from pyrobot.pyrobot import PyroBot
 from pyrobot.helper_functions.msg_types import get_file_id
 
 
-@PyroBot.on_message((filters.incoming & ~filters.edited), group=2)
+@PyroBot.on_message((filters.incoming), group=2)
 async def watch_all_messages(client: PyroBot, message: Message):
     to_match = message.text or message.caption or ""
     flt_list = client.filterstore.get(str(message.chat.id), [])
