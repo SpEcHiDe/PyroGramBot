@@ -3,14 +3,15 @@
 # (c) Shrimadhav U K
 
 from pyrogram.types import Message, MessageEntity
+from pyrogram.enums import MessageEntityType
 
 
 def extract_url_from_entity(entities: MessageEntity, text: str):
     url = None
     for entity in entities:
-        if entity.type == "text_link":
+        if entity.type == MessageEntityType.TEXT_LINK:
             url = entity.url
-        elif entity.type == "url":
+        elif entity.type == MessageEntityType.URL:
             o_ = entity.offset
             l_ = entity.length
             url = text[o_ : o_ + l_]

@@ -1,6 +1,6 @@
 import re
 import time
-from typing import List
+from typing import List, Tuple
 from pyrogram.types import Message, InlineKeyboardButton
 from pyrobot import COMMAND_HAND_LER
 
@@ -24,7 +24,7 @@ LINK_REGEX = re.compile(r"(?<!\\)\[.+?\]\((.*?)\)")
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
 
 
-def button_markdown_parser(msg: Message) -> (str, List):
+def button_markdown_parser(msg: Message) -> Tuple[str, List]:
     # offset = len(args[2]) - len(raw_text)
     # set correct offset relative to command + notename
     markdown_note = None

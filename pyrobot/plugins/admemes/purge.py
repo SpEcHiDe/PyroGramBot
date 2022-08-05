@@ -3,6 +3,7 @@ Syntax: .purge"""
 
 import asyncio
 from pyrogram import Client, filters
+from pyrogram.enums import ChatType
 from pyrobot import COMMAND_HAND_LER, TG_MAX_SELECT_LEN
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
@@ -10,7 +11,7 @@ from pyrobot.helper_functions.cust_p_filters import admin_fliter
 @Client.on_message(filters.command("purge", COMMAND_HAND_LER) & admin_fliter)
 async def purge(client, message):
     """ purge upto the replied message """
-    if message.chat.type not in (("supergroup", "channel")):
+    if message.chat.type not in [ChatType.SUPERGROUP, ChatType.CHANNEL]:
         # https://t.me/c/1312712379/84174
         return
 

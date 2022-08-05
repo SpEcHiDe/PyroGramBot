@@ -6,6 +6,7 @@ import time
 from datetime import datetime
 from pyrogram import Client, filters
 from pyrogram.types import Message, User
+from pyrogram.enums import ChatType
 from pyrogram.errors import UserNotParticipant
 from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.extract_user import extract_user
@@ -42,7 +43,7 @@ async def who_is(client: Client, message: Message):
         else ""
     )
 
-    if isinstance(from_user, User) and message.chat.type in ["supergroup", "channel"]:
+    if isinstance(from_user, User) and message.chat.type in [ChatType.SUPERGROUP, ChatType.CHANNEL]:
         try:
             chat_member_p = await message.chat.get_member(from_user.id)
             joined_date = datetime.fromtimestamp(

@@ -3,6 +3,7 @@
 
 from pyrogram.types import Message
 from typing import Tuple
+from pyrogram.enums import MessageEntityType
 
 
 def extract_user(message: Message) -> Tuple[int, str]:
@@ -11,7 +12,7 @@ def extract_user(message: Message) -> Tuple[int, str]:
     user_first_name = None
 
     if len(message.command) > 1:
-        if len(message.entities) > 1 and message.entities[1].type == "text_mention":
+        if len(message.entities) > 1 and message.entities[1].type == MessageEntityType.TEXT_MENTION:
             # 0: is the command used
             # 1: should be the user specified
             required_entity = message.entities[1]
