@@ -53,7 +53,7 @@ async def get_note_with_command(message):
                 reply_markup=note_message.reply_markup,
             )
         #
-        sql.update_previous_welcome(message.chat.id, n_m.message_id)
+        sql.update_previous_welcome(message.chat.id, n_m.id)
 
 
 @PyroBot.on_message(filters.new_chat_members)

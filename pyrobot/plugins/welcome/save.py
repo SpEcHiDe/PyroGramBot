@@ -23,7 +23,7 @@ async def save_note(client, message):
             chat_id=TG_URI, disable_notification=True
         )
         chat_id = message.chat.id
-        note_message_id = fwded_mesg.message_id
+        note_message_id = fwded_mesg.id
         sql.add_welcome_setting(chat_id, True, 0, note_message_id)
         await status_message.edit_text("welcome message saved")
     else:
@@ -62,6 +62,6 @@ async def save_note(client, message):
         # save to db 🤔
         if fwded_mesg is not None:
             chat_id = message.chat.id
-            note_message_id = fwded_mesg.message_id
+            note_message_id = fwded_mesg.id
             sql.add_welcome_setting(chat_id, bool(note_name), 0, note_message_id)
             await status_message.edit_text("welcome message saved")

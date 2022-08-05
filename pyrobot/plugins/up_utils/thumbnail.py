@@ -96,7 +96,7 @@ async def get_thumb_nail(client, message):
                 chat_id=message.chat.id,
                 document=downloaded_file_name,
                 disable_notification=True,
-                reply_to_message_id=message.message_id
+                reply_to_message_id=message.id
             )
             os.remove(downloaded_file_name)
         await message.delete()"""

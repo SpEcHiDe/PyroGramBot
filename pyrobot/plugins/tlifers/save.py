@@ -18,7 +18,7 @@ async def save_filter(client: PyroBot, message):
         )
         chat_id = message.chat.id
         filter_kw = " ".join(message.command[1:])
-        fm_id = fwded_mesg.message_id
+        fm_id = fwded_mesg.id
 
         client.filterstore[str(chat_id)][filter_kw] = fm_id
         await client.save_public_store(TG_IRU_S_M_ID, json.dumps(client.filterstore))
@@ -70,7 +70,7 @@ async def save_filter(client: PyroBot, message):
         # save to db 🤔
         if fwded_mesg is not None:
             chat_id = message.chat.id
-            fm_id = fwded_mesg.message_id
+            fm_id = fwded_mesg.id
 
             client.filterstore[str(chat_id)][filter_kw] = fm_id
             await client.save_public_store(

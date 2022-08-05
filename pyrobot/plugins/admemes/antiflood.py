@@ -58,7 +58,7 @@ async def check_flood(client, message):
                 "because he reached the defined flood limit. \n\n"
                 "#FLOOD".format(message.from_user.id, message.from_user.first_name)
             ),
-            reply_to_message_id=message.message_id,
+            reply_to_message_id=message.id,
         )
 
 
