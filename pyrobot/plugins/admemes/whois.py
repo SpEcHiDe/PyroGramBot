@@ -20,7 +20,7 @@ async def who_is(client: Client, message: Message):
     from_user = None
     from_user_id, _ = extract_user(message)
     try:
-        from_user = await client.get_chat(from_user_id)
+        from_user = await client.get_users(from_user_id)
     except Exception as error:
         await status_message.edit(str(error))
         return
@@ -61,7 +61,7 @@ async def who_is(client: Client, message: Message):
             hiorv = rkmsau[rohiv]
             if rohiv.startswith("is_") and hiorv:
                 lavorvih = "✅" if hiorv else "❌"
-                message_out_str += "<b>{rohiv[3:]}</b>: "
+                message_out_str += f"<b>{rohiv[3:]}</b>: "
                 message_out_str += f"<u>{lavorvih}</u> "
         message_out_str += "\n"
 
