@@ -13,7 +13,7 @@ beautifulsoup4==4.9.1
 hachoir==3.1.1
 
 # process(, and resize) images
-Pillow==9.0.0
+Pillow==9.0.1
 
 # SQL DataBase ReQuirements
 psycopg2-binary==2.8.6
@@ -29,7 +29,7 @@ google-auth-oauthlib==0.4.6
 oauth2client==4.1.3
 
 # for reading .env files
-python-dotenv>=0.10
+python-dotenv==0.10
 
 # for interacting with te.legra.ph
 telegraph==1.4.1
