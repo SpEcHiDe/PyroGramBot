@@ -8,7 +8,7 @@ from pyrobot.helper_functions.cust_p_filters import admin_fliter
 
 @Client.on_message(filters.command("mute", COMMAND_HAND_LER) & admin_fliter)
 async def mute_user(_, message):
-    user_id, user_first_name = extract_user(message)
+    user_id, user_first_name, _ = extract_user(message)
 
     try:
         await message.chat.restrict_member(
@@ -36,7 +36,7 @@ async def temp_mute_user(_, message):
     if not len(message.command) > 1:
         return
 
-    user_id, user_first_name = extract_user(message)
+    user_id, user_first_name, _ = extract_user(message)
 
     until_date_val = extract_time(message.command[1])
     if until_date_val is None:

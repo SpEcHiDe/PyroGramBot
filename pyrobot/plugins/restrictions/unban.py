@@ -8,7 +8,7 @@ from pyrobot.helper_functions.cust_p_filters import admin_fliter
     filters.command(["unban", "unmute"], COMMAND_HAND_LER) & admin_fliter
 )
 async def un_ban_user(_, message):
-    user_id, user_first_name = extract_user(message)
+    user_id, user_first_name, _ = extract_user(message)
 
     try:
         await message.chat.unban_member(user_id=user_id)
