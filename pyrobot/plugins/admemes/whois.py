@@ -13,7 +13,12 @@ from pyrobot.helper_functions.extract_user import extract_user
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 from pyrogram.raw.functions.users import GetFullUser
 from pyrogram.raw.functions.channels import GetFullChannel
-from pyrogram.errors import PeerIdInvalid, ChannelInvalid, UsernameNotOccupied
+from pyrogram.errors import (
+    PeerIdInvalid,
+    ChannelInvalid,
+    UserIdInvalid,
+    UsernameNotOccupied
+)
 
 
 @Client.on_message(filters.command(["whois", "info"], COMMAND_HAND_LER) & f_onw_fliter)
@@ -26,7 +31,7 @@ async def who_is(client: Client, message: Message):
     small_user = None
     full_user = None
 
-    if isinstance(thengaa, User):
+    if thengaa or isinstance(thengaa, User):
         try:
             from_user = await client.invoke(
                 GetFullUser(
@@ -37,14 +42,20 @@ async def who_is(client: Client, message: Message):
                     )
                 )
             )
+        except UserIdInvalid:
+            pass
         except PeerIdInvalid as error:
             return await status_message.edit(str(error))
 
-        small_user = from_user.users[0]
-        full_user = from_user.full_user
-        from_user = User._parse(client, small_user)
+        if from_user:
+            small_user = from_user.users[0]
+            full_user = from_user.full_user
+            from_user = User._parse(client, small_user)
 
-    if isinstance(thengaa, Chat):
+    if (
+        not from_user and
+        thengaa or isinstance(thengaa, Chat)
+    ):
         try:
             from_user = await client.invoke(
                 GetFullChannel(
@@ -61,6 +72,9 @@ async def who_is(client: Client, message: Message):
         small_user = from_user.chats[0]
         full_user = from_user.full_chat
         from_user = Chat._parse_channel_chat(client, small_user)
+
+    if not from_user and thengaa == True:
+        return await status_message.edit("🏃🏻‍♂️🏃🏻‍♂️🏃🏻‍♂️")
 
     first_name = from_user.first_name or small_user.title or ""
     last_name = getattr(from_user, "last_name", "")

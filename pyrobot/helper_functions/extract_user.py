@@ -27,6 +27,7 @@ def extract_user(message: Message) -> Tuple[int, str, Union[Chat, User]]:
             user_id = message.command[1]
             # don't want to make a request -_-
             user_first_name = user_id
+            aviyal = True
 
         try:
             user_id = int(user_id)
