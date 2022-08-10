@@ -76,9 +76,9 @@ async def who_is(client: Client, message: Message):
     if message.chat.type in [ChatType.SUPERGROUP, ChatType.CHANNEL]:
         try:
             chat_member_p = await message.chat.get_member(small_user.id)
-            joined_date = datetime.fromtimestamp(
-                chat_member_p.joined_date or time.time()
-            ).strftime("%Y.%m.%d %H:%M:%S")
+            joined_date = (chat_member_p.joined_date or datetime.fromtimestamp(
+                time.time()
+            )).strftime("%Y.%m.%d %H:%M:%S")
             message_out_str += "<b>Joined on:</b> <code>" f"{joined_date}" "</code>\n"
         except UserNotParticipant:
             pass
