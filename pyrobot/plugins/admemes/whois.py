@@ -76,7 +76,15 @@ async def who_is(client: Client, message: Message):
     if not from_user and thengaa == True:
         return await status_message.edit("🏃🏻‍♂️🏃🏻‍♂️🏃🏻‍♂️")
 
-    first_name = from_user.first_name or small_user.title or ""
+    first_name = getattr(
+        from_user,
+        "title",
+        getattr(
+            from_user,
+            "first_name",
+            " "
+        )
+    )
     last_name = getattr(from_user, "last_name", "")
     username = from_user.username or ""
 
