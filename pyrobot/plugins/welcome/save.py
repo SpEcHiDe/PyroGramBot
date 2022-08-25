@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from pyrogram.enums import ParseMode
 from pyrogram.types import InlineKeyboardMarkup
 from pyrobot import COMMAND_HAND_LER, DB_URI, TG_URI
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
@@ -42,7 +43,7 @@ async def save_note(client, message):
             fwded_mesg = await client.send_message(
                 chat_id=TG_URI,
                 text=text,
-                parse_mode="md",
+                parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 disable_notification=True,
                 reply_to_message_id=1,
@@ -53,7 +54,7 @@ async def save_note(client, message):
                 chat_id=TG_URI,
                 file_id=content,
                 caption=text,
-                parse_mode="md",
+                parse_mode=ParseMode.MARKDOWN,
                 disable_notification=True,
                 reply_to_message_id=1,
                 reply_markup=reply_markup,
