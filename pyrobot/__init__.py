@@ -81,3 +81,5 @@ paste_bin_store_s = {
         "URL": "https://pasting.codes/api",
     },
 }
+
+TE_LEGRA_PH_DOMAIN = Config.TE_LEGRA_PH_DOMAIN
