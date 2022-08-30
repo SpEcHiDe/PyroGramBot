@@ -42,7 +42,6 @@ async def save_note(client, message):
             fwded_mesg = await client.send_message(
                 chat_id=TG_URI,
                 text=text,
-                parse_mode="md",
                 disable_web_page_preview=True,
                 disable_notification=True,
                 reply_to_message_id=1,
@@ -53,7 +52,6 @@ async def save_note(client, message):
                 chat_id=TG_URI,
                 file_id=content,
                 caption=text,
-                parse_mode="md",
                 disable_notification=True,
                 reply_to_message_id=1,
                 reply_markup=reply_markup,
