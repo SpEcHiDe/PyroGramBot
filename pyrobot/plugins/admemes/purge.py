@@ -26,16 +26,14 @@ async def purge(client, message):
         ):
             message_ids.append(a_s_message_id)
             if len(message_ids) == TG_MAX_SELECT_LEN:
-                await client.delete_messages(
+                count_del_etion_s += await client.delete_messages(
                     chat_id=message.chat.id, message_ids=message_ids, revoke=True
                 )
-                count_del_etion_s += len(message_ids)
                 message_ids = []
         if len(message_ids) > 0:
-            await client.delete_messages(
+            count_del_etion_s += await client.delete_messages(
                 chat_id=message.chat.id, message_ids=message_ids, revoke=True
             )
-            count_del_etion_s += len(message_ids)
 
     await status_message.edit_text(f"deleted {count_del_etion_s} messages")
     await asyncio.sleep(5)
