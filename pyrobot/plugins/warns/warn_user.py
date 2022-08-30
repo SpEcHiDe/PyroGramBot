@@ -13,6 +13,7 @@ from pyrobot.helper_functions.admin_check import (
     admin_check,  # TODO: remove in next version
 )
 from pyrobot.helper_functions.cust_p_filters import admin_fliter
+from datetime import datetime, timedelta
 
 
 @PyroBot.on_message(
@@ -80,7 +81,7 @@ async def warn_user(client: PyroBot, msg: Message):
                 await msg.chat.ban_member(int(user_id))
                 exec_str = "BANNED"
             elif w_m == "kick":
-                await msg.chat.ban_member(int(user_id), until_date=time.time() + 75)
+                await msg.chat.ban_member(int(user_id), until_date=datetime.now() + timedelta(days=1))
                 exec_str = "KICKED"
             elif w_m == "mute":
                 await msg.chat.restrict_member(int(user_id), ChatPermissions())
