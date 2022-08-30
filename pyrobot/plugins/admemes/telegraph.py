@@ -7,7 +7,7 @@ from pyrobot.helper_functions.cust_p_filters import sudo_filter
 from pyrobot.helper_functions.get_file_id import get_file_id
 
 
-@Client.on_message(filters.command("telegraph") & sudo_filter)
+@Client.on_message(filters.command(["telegraph", "graphorg"]) & sudo_filter)
 async def telegraph(client, message):
     replied = message.reply_to_message
     if not replied:
@@ -28,7 +28,7 @@ async def telegraph(client, message):
         await message.reply_text(message, text=document)
     else:
         await message.reply(
-            f"https://telegra.ph{response[0]}", disable_web_page_preview=True
+            f"http://graph.org{response[0]}", disable_web_page_preview=True
         )
     finally:
         shutil.rmtree(_t, ignore_errors=True)
