@@ -82,13 +82,13 @@ def extract_time(time_val):
             return None
 
         if unit == "s":
-            bantime = datetime.now() + until_date=timedelta(seconds=int(time_num))
+            bantime = datetime.now() + timedelta(seconds=int(time_num))
         elif unit == "m":
-            bantime = datetime.now() + until_date=timedelta(minutes=int(time_num) * 60)
+            bantime = datetime.now() + timedelta(minutes=int(time_num) * 60)
         elif unit == "h":
-            bantime = datetime.now() + until_date=timedelta(hours=int(time_num) * 60 * 60)
+            bantime = datetime.now() + timedelta(hours=int(time_num) * 60 * 60)
         elif unit == "d":
-            bantime = datetime.now() + until_date=timedelta(days=int(time_num))
+            bantime = datetime.now() + timedelta(days=int(time_num))
         else:
             # how even...?
             return None
