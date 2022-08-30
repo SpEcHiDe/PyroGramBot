@@ -3,7 +3,7 @@ import time
 from typing import List, Tuple
 from pyrogram.types import Message, InlineKeyboardButton
 from pyrobot import COMMAND_HAND_LER
-
+from datetime import datetime, timedelta
 
 # NOTE: the url \ escape may cause double escapes
 # match * (bold) (don't escape if in url)
@@ -82,13 +82,13 @@ def extract_time(time_val):
             return None
 
         if unit == "s":
-            bantime = int(time.time() + int(time_num))
+            bantime = datetime.now() + until_date=timedelta(seconds=int(time_num))
         elif unit == "m":
-            bantime = int(time.time() + int(time_num) * 60)
+            bantime = datetime.now() + until_date=timedelta(minutes=int(time_num) * 60)
         elif unit == "h":
-            bantime = int(time.time() + int(time_num) * 60 * 60)
+            bantime = datetime.now() + until_date=timedelta(hours=int(time_num) * 60 * 60)
         elif unit == "d":
-            bantime = int(time.time() + int(time_num) * 24 * 60 * 60)
+            bantime = datetime.now() + until_date=timedelta(days=int(time_num))
         else:
             # how even...?
             return None
