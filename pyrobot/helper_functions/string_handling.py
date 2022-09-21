@@ -84,9 +84,9 @@ def extract_time(time_val):
         if unit == "s":
             bantime = datetime.now() + timedelta(seconds=int(time_num))
         elif unit == "m":
-            bantime = datetime.now() + timedelta(minutes=int(time_num) * 60)
+            bantime = datetime.now() + timedelta(minutes=int(time_num))
         elif unit == "h":
-            bantime = datetime.now() + timedelta(hours=int(time_num) * 60 * 60)
+            bantime = datetime.now() + timedelta(hours=int(time_num))
         elif unit == "d":
             bantime = datetime.now() + timedelta(days=int(time_num))
         else:
