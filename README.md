@@ -6,13 +6,6 @@ A Telegram Bot ~~[still WIP, not stable]~~ based on [Pyrogram](https://github.co
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the [COPYING](./COPYING) for more details.
 
-## installing
-
-#### The Easy Way
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-
 ## ENVironment VARiables
 
 #### Mandatory Environment Variables
