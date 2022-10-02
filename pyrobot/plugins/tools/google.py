@@ -6,9 +6,8 @@ Syntax: .google query
 
 import requests
 from pyrogram import Client, filters
-from pyrobot import COMMAND_HAND_LER
+from pyrobot import Config, COMMAND_HAND_LER
 from pyrobot.helper_functions.cust_p_filters import sudo_filter
-from pyrobot import Config
 
 @Client.on_message(filters.command("google", COMMAND_HAND_LER) & sudo_filter)
 async def google_(client, message):
