@@ -14,7 +14,7 @@ from pyrobot import Config
 async def google_(client, message):
     msg = await message.reply_text("Processing ..", True)
     if Config.SERPER_API is None:
-        return await msg.edit("SERPER_API is not set\n")
+        return await msg.edit("SERPER_API is not set\nPlease get it from https://serper.dev")
   
     query = message.text.split(" ", maxsplit=1)[1]
     headers = {"X-API-KEY": Config.SERPER_API, "Content-Type": "application/json"}
