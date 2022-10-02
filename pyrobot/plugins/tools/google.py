@@ -23,6 +23,7 @@ async def google_(client, message):
     req = requests.get("https://google.serper.dev/search",headers=headers, params=params)
     out = req.json()
     results = out['organic']
+
     text = f"Query: `{query}`\n"
     for result in results:
         title = result["title"]
