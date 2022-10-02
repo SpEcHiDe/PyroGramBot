@@ -1,6 +1,7 @@
 """
 Google Search 
 https://serper.dev
+free 1000 queries
 """
 
 import requests
@@ -29,17 +30,14 @@ async def google_(client, message):
 }
     req = requests.get("https://google.serper.dev/search",headers=headers, params=params)
     out = req.json()
-    text = ""
-    for result in out['organic']:
-      title = result["title"]
-      link = result["link"]
-      text += f"[{title}]({link})\n"
+    text = f"Query: `{query}`\n"
+    try:
+        for result in out['organic']:
+           title = result["title"]
+           link = result["link"]
+           text += f"[{title}]({link})\n"
+    except Exception as e:
+	    print(e)
+	    text += f"Failed to get results\n{e}"
+
     await msg.edit(text, disable_web_page_preview=True)
-    
-    
-    
-    
-    
-	
-	
-	
