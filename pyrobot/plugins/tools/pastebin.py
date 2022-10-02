@@ -25,7 +25,11 @@ async def paste_bin(client: Client, message: Message):
     downloaded_file_name = None
 
     # first we need to get the data to be pasted
-    if message.reply_to_message and message.reply_to_message.media:
+    if (
+        message.reply_to_message and
+        message.reply_to_message.document and
+        "text/" in message.reply_to_message.document.mime_type
+    ):
         file_obj = io.BytesIO()
         downloaded_file_name = ""
         async for chunk in client.stream_media(message.reply_to_message):
