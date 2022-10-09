@@ -51,7 +51,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 * `A_PIN_MESSAGE_ID`: this is used for the `antichannelpin` plugins.
 
-* `SERPER_API`: this is used for the `google` plugins. You can get it from https://serper.dev
+* `USE_TG_BOT_APP_ID`: this is used for the google search plugin. you can get it by sending /getapi to [@useTGBot](https://useTGBot.t.me)
 
 ## Credits, and Thanks to
 
