@@ -63,6 +63,8 @@ class Config:
     LAYER_FEED_CHAT = os.environ.get("LAYER_FEED_CHAT", None)
     LAYER_UPDATE_INTERVAL = os.environ.get("LAYER_UPDATE_INTERVAL", None)
     LAYER_UPDATE_MESSAGE_CAPTION = os.environ.get("LAYER_UPDATE_MESSAGE_CAPTION", None)
+    # google search api https://serper.dev
+    SERPER_API = os.environ.get("SERPER_API ", None)
     #
     TE_LEGRA_PH_DOMAIN = os.environ.get(
         "TE_LEGRA_PH_DOMAIN",
