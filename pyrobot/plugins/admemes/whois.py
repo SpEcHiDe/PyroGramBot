@@ -1,7 +1,7 @@
 """Get info about the replied user
 Syntax: .whois"""
 
-import os
+from io import BytesIO
 from time import time
 from datetime import datetime
 from pyrogram import Client, filters
@@ -212,7 +212,8 @@ async def who_is(client: Client, message: Message):
         if p_p_u_t:
             message_out_str += f"<b>Upload Date</b>: <u>{p_p_u_t}</u>\n"
         if profile_vid:
-            local_user_photo = await client.download_media(
+            file_obj = BytesIO()
+            async for chunk in client.stream_media(
                 message=FileId(
                     file_type=FileType.PHOTO,
                     dc_id=tUpo.dc_id,
@@ -225,23 +226,28 @@ async def who_is(client: Client, message: Message):
                     volume_id=0,
                     local_id=0,
                 ).encode(),
-                file_name=f"profile_vid_{tUpo.id}.mp4",
-            )
+            ):
+                file_obj.write(chunk)
+            file_obj.name = "profile_vid_.mp4"
             await message.reply_video(
-                video=local_user_photo,  # type: ignore
+                video=file_obj,
                 quote=True,
                 caption=message_out_str,
                 disable_notification=True,
             )
         else:
-            local_user_photo = await client.download_media(message=chat_photo.big_file_id)
+            file_obj = BytesIO()
+            async for chunk in client.stream_media(
+                message=chat_photo.big_file_id,
+            ):
+                file_obj.write(chunk)
+            file_obj.name = "profile_pic_.jpg"
             await message.reply_photo(
-                photo=local_user_photo,  # type: ignore
+                photo=file_obj,
                 quote=True,
                 caption=message_out_str,
                 disable_notification=True,
             )
-        os.remove(local_user_photo)
     else:
         await message.reply_text(
             text=message_out_str, quote=True, disable_notification=True
