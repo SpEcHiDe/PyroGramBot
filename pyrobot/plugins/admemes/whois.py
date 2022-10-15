@@ -13,6 +13,7 @@ from pyrobot.helper_functions.extract_user import extract_user
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 from pyrogram.raw.functions.users import GetFullUser
 from pyrogram.raw.functions.channels import GetFullChannel
+from pyrogram.file_id import FileId, FileType, ThumbnailSource
 from pyrogram.errors import (
     PeerIdInvalid,
     ChannelInvalid,
@@ -30,6 +31,7 @@ async def who_is(client: Client, message: Message):
 
     small_user = None
     full_user = None
+    profile_vid = None
 
     if thengaa or isinstance(thengaa, User):
         try:
@@ -201,6 +203,7 @@ async def who_is(client: Client, message: Message):
             )
         )
         if tUpo:
+            profile_vid = tUpo.video_sizes[0] if tUpo.video_sizes else None
             p_p_u_t = datetime.fromtimestamp(
                 tUpo.date
             ).strftime(
@@ -208,13 +211,36 @@ async def who_is(client: Client, message: Message):
             )
         if p_p_u_t:
             message_out_str += f"<b>Upload Date</b>: <u>{p_p_u_t}</u>\n"
-        local_user_photo = await client.download_media(message=chat_photo.big_file_id)
-        await message.reply_photo(
-            photo=local_user_photo,
-            quote=True,
-            caption=message_out_str,
-            disable_notification=True,
-        )
+        if profile_vid:
+            local_user_photo = await client.download_media(
+                message=FileId(
+                    file_type=FileType.PHOTO,
+                    dc_id=tUpo.dc_id,
+                    media_id=tUpo.id,
+                    access_hash=tUpo.access_hash,
+                    file_reference=tUpo.file_reference,
+                    thumbnail_source=ThumbnailSource.THUMBNAIL,
+                    thumbnail_file_type=FileType.PHOTO,
+                    thumbnail_size=profile_vid.type,
+                    volume_id=0,
+                    local_id=0,
+                ).encode(),
+                file_name=f"profile_vid_{tUpo.id}.mp4",
+            )
+            await message.reply_video(
+                video=local_user_photo,  # type: ignore
+                quote=True,
+                caption=message_out_str,
+                disable_notification=True,
+            )
+        else:
+            local_user_photo = await client.download_media(message=chat_photo.big_file_id)
+            await message.reply_photo(
+                photo=local_user_photo,  # type: ignore
+                quote=True,
+                caption=message_out_str,
+                disable_notification=True,
+            )
         os.remove(local_user_photo)
     else:
         await message.reply_text(
