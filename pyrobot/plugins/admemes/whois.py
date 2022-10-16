@@ -167,11 +167,8 @@ async def who_is(client: Client, message: Message):
                 None
             )
         )
-        if (
-            plose and
-            len(plose) < 433
-        ):
-            message_out_str += f"<code>{plose}</code>\n"
+        if plose:
+            message_out_str += f"<b>Available Reactions / User Settings</b>: <u>{len(plose)}</u>\n"
 
     if getattr(full_user, "online_count", None):
         message_out_str += (
