@@ -167,7 +167,10 @@ async def who_is(client: Client, message: Message):
                 None
             )
         )
-        if plose:
+        if (
+            plose and
+            len(plose) < 433
+        ):
             message_out_str += f"<code>{plose}</code>\n"
 
     if getattr(full_user, "online_count", None):

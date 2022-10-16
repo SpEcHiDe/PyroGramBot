@@ -32,7 +32,7 @@ def extract_user(message: Message) -> Tuple[int, str, Union[Chat, User]]:
         try:
             user_id = int(user_id)
         except ValueError:
-            print("പൊട്ടൻ ")
+            pass
 
     elif message.reply_to_message:
         user_id, user_first_name, aviyal = _eufm(message.reply_to_message)
