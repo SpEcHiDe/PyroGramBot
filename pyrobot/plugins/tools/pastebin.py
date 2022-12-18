@@ -8,6 +8,7 @@
 """IX.IO pastebin like site
 Syntax: .paste"""
 
+import io
 import aiohttp
 from json import loads
 from json.decoder import JSONDecodeError
@@ -19,22 +20,21 @@ from pyrobot import COMMAND_HAND_LER, TMP_DOWNLOAD_DIRECTORY, paste_bin_store_s
 
 
 @Client.on_message(filters.command("paste", COMMAND_HAND_LER))
-async def paste_bin(_, message: Message):
+async def paste_bin(client: Client, message: Message):
     status_message = await message.reply_text("...", quote=True)
     downloaded_file_name = None
 
     # first we need to get the data to be pasted
-    if message.reply_to_message and message.reply_to_message.media:
-        downloaded_file_name_res = await message.reply_to_message.download(
-            file_name=TMP_DOWNLOAD_DIRECTORY
-        )
-        m_list = None
-        with open(downloaded_file_name_res, "rb") as fd:
-            m_list = fd.readlines()
+    if (
+        message.reply_to_message and
+        message.reply_to_message.document and
+        "text/" in message.reply_to_message.document.mime_type
+    ):
+        file_obj = io.BytesIO()
         downloaded_file_name = ""
-        for m in m_list:
-            downloaded_file_name += m.decode("UTF-8")
-        os.remove(downloaded_file_name_res)
+        async for chunk in client.stream_media(message.reply_to_message):
+            file_obj.write(chunk)
+        downloaded_file_name = file_obj.getvalue().decode("UTF-8")
     elif message.reply_to_message:
         downloaded_file_name = message.reply_to_message.text.html
     # elif len(message.command) > 1:

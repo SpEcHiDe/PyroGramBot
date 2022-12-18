@@ -1,3 +1,5 @@
+# outdated code :( don't bother reading this shit
+
 from pyrogram.types import Message
 from pyrogram.types.messages_and_media import message
 

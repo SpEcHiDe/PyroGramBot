@@ -2,6 +2,7 @@
 Syntax: .id"""
 
 from pyrogram import Client, filters
+from pyrogram.enums import ChatType
 from pyrobot import COMMAND_HAND_LER
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 from pyrobot.helper_functions.get_file_id import get_file_id
@@ -11,11 +12,11 @@ from pyrobot.helper_functions.get_file_id import get_file_id
 async def showid(client, message):
     chat_type = message.chat.type
 
-    if chat_type == "private":
+    if chat_type == ChatType.PRIVATE:
         user_id = message.chat.id
         await message.reply_text(f"<code>{user_id}</code>", quote=True)
 
-    elif chat_type in ["group", "supergroup"]:
+    elif chat_type in [ChatType.SUPERGROUP, ChatType.CHANNEL]:
         _id = ""
         _id += "<b>Chat ID</b>: " f"<code>{message.chat.id}</code>\n"
         if message.reply_to_message:

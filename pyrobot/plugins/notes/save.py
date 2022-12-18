@@ -19,7 +19,7 @@ async def save_note(client, message):
         )
         chat_id = message.chat.id
         note_name = " ".join(message.command[1:])
-        note_message_id = fwded_mesg.message_id
+        note_message_id = fwded_mesg.id
         sql.add_note_to_db(chat_id, note_name, note_message_id)
         await status_message.edit_text(
             f"note <u>{note_name}</u> added"
@@ -47,7 +47,6 @@ async def save_note(client, message):
             fwded_mesg = await client.send_message(
                 chat_id=TG_URI,
                 text=text,
-                parse_mode="md",
                 disable_web_page_preview=True,
                 disable_notification=True,
                 reply_to_message_id=1,
@@ -58,7 +57,6 @@ async def save_note(client, message):
                 chat_id=TG_URI,
                 file_id=content,
                 caption=text,
-                parse_mode="md",
                 disable_notification=True,
                 reply_to_message_id=1,
                 reply_markup=reply_markup,
@@ -67,7 +65,7 @@ async def save_note(client, message):
         # save to db 🤔
         if fwded_mesg is not None:
             chat_id = message.chat.id
-            note_message_id = fwded_mesg.message_id
+            note_message_id = fwded_mesg.id
             sql.add_note_to_db(chat_id, note_name, note_message_id)
             await status_message.edit_text(
                 f"note <u>{note_name}</u> added"

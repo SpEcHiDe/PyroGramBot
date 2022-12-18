@@ -6,7 +6,7 @@ from pyrobot.pyrobot import PyroBot
 
 @PyroBot.on_message(filters.service)
 async def on_new_pin_message(client: PyroBot, message: Message):
-    if message.pinned_message and message.pinned_message.message_id != A_PIN_MESSAGE_ID:
+    if message.pinned_message and message.pinned_message.id != A_PIN_MESSAGE_ID:
         original_pinned_message = await client.get_messages(
             chat_id=message.chat.id, message_ids=A_PIN_MESSAGE_ID
         )

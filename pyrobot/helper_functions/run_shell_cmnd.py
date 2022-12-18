@@ -3,10 +3,10 @@
 # (c) Shrimadhav U K
 
 import asyncio
-from typing import List
+from typing import List, Tuple
 
 
-async def run_command(shell_command: List) -> (str, str):
+async def run_command(shell_command: List) -> Tuple[str, str]:
     """executes a shell_command,
     and returns the stdout and stderr"""
     process = await asyncio.create_subprocess_exec(

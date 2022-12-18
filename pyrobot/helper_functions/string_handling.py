@@ -1,9 +1,9 @@
 import re
 import time
-from typing import List
+from typing import List, Tuple
 from pyrogram.types import Message, InlineKeyboardButton
 from pyrobot import COMMAND_HAND_LER
-
+from datetime import datetime, timedelta
 
 # NOTE: the url \ escape may cause double escapes
 # match * (bold) (don't escape if in url)
@@ -24,7 +24,7 @@ LINK_REGEX = re.compile(r"(?<!\\)\[.+?\]\((.*?)\)")
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\(buttonurl:(?:/{0,2})(.+?)(:same)?\))")
 
 
-def button_markdown_parser(msg: Message) -> (str, List):
+def button_markdown_parser(msg: Message) -> Tuple[str, List]:
     # offset = len(args[2]) - len(raw_text)
     # set correct offset relative to command + notename
     markdown_note = None
@@ -82,13 +82,13 @@ def extract_time(time_val):
             return None
 
         if unit == "s":
-            bantime = int(time.time() + int(time_num))
+            bantime = datetime.now() + timedelta(seconds=int(time_num))
         elif unit == "m":
-            bantime = int(time.time() + int(time_num) * 60)
+            bantime = datetime.now() + timedelta(minutes=int(time_num))
         elif unit == "h":
-            bantime = int(time.time() + int(time_num) * 60 * 60)
+            bantime = datetime.now() + timedelta(hours=int(time_num))
         elif unit == "d":
-            bantime = int(time.time() + int(time_num) * 24 * 60 * 60)
+            bantime = datetime.now() + timedelta(days=int(time_num))
         else:
             # how even...?
             return None

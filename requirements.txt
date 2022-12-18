@@ -1,5 +1,5 @@
 # Pyrogram
-Pyrogram==1.4.7
+Pyrogram==2.0.57
 TgCrypto==1.2.3
 
 # GET / POST network requests
@@ -13,7 +13,9 @@ beautifulsoup4==4.9.1
 hachoir==3.1.1
 
 # process(, and resize) images
+
 Pillow==9.3.0
+
 
 # SQL DataBase ReQuirements
 psycopg2-binary==2.8.6
@@ -29,7 +31,7 @@ google-auth-oauthlib==0.4.6
 oauth2client==4.1.3
 
 # for reading .env files
-python-dotenv>=0.10
+python-dotenv==0.10
 
 # for interacting with te.legra.ph
 telegraph==1.4.1

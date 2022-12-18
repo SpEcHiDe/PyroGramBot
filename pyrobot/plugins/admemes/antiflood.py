@@ -14,7 +14,7 @@ if DB_URI is not None:
 
 
 @Client.on_message(
-    (filters.incoming & ~filters.service & ~filters.edited & ~admin_fliter), group=1
+    (filters.incoming & ~filters.service & ~admin_fliter), group=1
 )
 async def check_flood(client, message):
     """ check all messages """
@@ -58,7 +58,7 @@ async def check_flood(client, message):
                 "because he reached the defined flood limit. \n\n"
                 "#FLOOD".format(message.from_user.id, message.from_user.first_name)
             ),
-            reply_to_message_id=message.message_id,
+            reply_to_message_id=message.id,
         )
 
 

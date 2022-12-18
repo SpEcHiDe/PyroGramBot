@@ -36,7 +36,6 @@ async def get_note_with_command(message):
             n_m = await n_m.reply_cached_media(
                 file_id=file_id,
                 caption=caption,
-                parse_mode="html",
                 reply_markup=note_message.reply_markup,
             )
         else:
@@ -49,11 +48,10 @@ async def get_note_with_command(message):
             n_m = await n_m.reply_text(
                 text=caption,
                 disable_web_page_preview=disable_web_page_preview,
-                parse_mode="html",
                 reply_markup=note_message.reply_markup,
             )
         #
-        sql.update_previous_welcome(message.chat.id, n_m.message_id)
+        sql.update_previous_welcome(message.chat.id, n_m.id)
 
 
 @PyroBot.on_message(filters.new_chat_members)

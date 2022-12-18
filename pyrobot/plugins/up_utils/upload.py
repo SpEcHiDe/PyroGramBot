@@ -25,9 +25,8 @@ async def upload_as_document(client, message):
                 document=local_file_name,
                 thumb=thumb_image_path,
                 caption=doc_caption,
-                parse_mode="html",
                 disable_notification=True,
-                reply_to_message_id=message.message_id,
+                reply_to_message_id=message.id,
                 progress=progress_for_pyrogram,
                 progress_args=("trying to upload", status_message, c_time),
             )
@@ -55,14 +54,13 @@ async def upload_as_video(client, message):
             await message.reply_video(
                 video=local_file_name,
                 caption=doc_caption,
-                parse_mode="html",
                 # duration=,
                 # width=,
                 # height=,
                 thumb=thumb_image_path,
                 supports_streaming=True,
                 disable_notification=True,
-                reply_to_message_id=message.message_id,
+                reply_to_message_id=message.id,
                 progress=progress_for_pyrogram,
                 progress_args=("trying to upload", status_message, c_time),
             )
@@ -90,10 +88,9 @@ async def upload_as_photo(client, message):
             await message.reply_photo(
                 photo=local_file_name,
                 caption=doc_caption,
-                parse_mode="html",
                 # ttl_seconds=,
                 disable_notification=True,
-                reply_to_message_id=message.message_id,
+                reply_to_message_id=message.id,
                 progress=progress_for_pyrogram,
                 progress_args=("trying to upload", status_message, c_time),
             )
