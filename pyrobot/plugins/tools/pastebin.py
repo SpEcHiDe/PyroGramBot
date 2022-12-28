@@ -35,7 +35,10 @@ async def paste_bin(client: Client, message: Message):
         async for chunk in client.stream_media(message.reply_to_message):
             file_obj.write(chunk)
         downloaded_file_name = file_obj.getvalue().decode("UTF-8")
-    elif message.reply_to_message:
+    elif (
+        message.reply_to_message and
+        not message.reply_to_message.media
+    ):
         downloaded_file_name = message.reply_to_message.text.html
     # elif len(message.command) > 1:
     #     downloaded_file_name = " ".join(message.command[1:])
