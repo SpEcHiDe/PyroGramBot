@@ -1,6 +1,6 @@
 # Pyrogram
-Pyrogram==2.0.57
-TgCrypto==1.2.3
+Pyrogram==2.0.87
+TgCrypto==1.2.5
 
 # GET / POST network requests
 asyncio==3.4.3
