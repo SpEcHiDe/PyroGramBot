@@ -29,10 +29,12 @@ async def del_pasty_ao(client: PyroBot, c_q: CallbackQuery):
     async with aiohttp.ClientSession() as requests:
         AlbertEinsteinTG_url = f"{pasty.get('URL')}/{pasty_id}"
         AlbertEinsteinTG_headers = pasty.get("HEADERS")
+        AlbertEinsteinTG_headers.update({
+            "Authorization": f"Bearer {AlbertEinsteinTG_dt}"
+        })
         await requests.request(
             method="DELETE",
             url=AlbertEinsteinTG_url,
-            data=dumps({"deletionToken": AlbertEinsteinTG_dt}),
             headers=AlbertEinsteinTG_headers,
         )
     await c_q.message.edit_text(

@@ -75,7 +75,7 @@ paste_bin_store_s = {
         },
         "RAV": "id",
         "GAS": "https://github.com/lus/pasty",
-        "AVDTS": "deletionToken",
+        "AVDTS": "modificationToken",
     },
     "pasting": {
         "URL": "https://pasting.codes/api",
