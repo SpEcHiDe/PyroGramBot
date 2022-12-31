@@ -1,5 +1,5 @@
 # Pyrogram
-Pyrogram==2.0.87
+Pyrogram==2.0.92
 TgCrypto==1.2.5
 
 # GET / POST network requests
