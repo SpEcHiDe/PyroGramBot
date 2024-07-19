@@ -6,3 +6,6 @@ __pycache__
 /DLS
 # File used to manually test new changes, contains sensitive data
 /example/**.py
+
+OwneRoBot
+pyrobot/plugins/assistant
