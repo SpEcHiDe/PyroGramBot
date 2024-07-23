@@ -42,7 +42,7 @@ class PyroBot(Client):
             bot_token=TG_COMPANION_BOT,
             parse_mode=ParseMode.HTML,
             sleep_threshold=60,
-            in_memory=True
+            # in_memory=True
         )
 
     async def start(self):
