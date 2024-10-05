@@ -8,11 +8,6 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 ## installing
 
-#### The Easy Way
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-
 ## ENVironment VARiables
 
 #### Mandatory Environment Variables
