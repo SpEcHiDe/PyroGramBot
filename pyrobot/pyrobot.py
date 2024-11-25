@@ -24,6 +24,10 @@ from pyrobot import (
     WARN_SETTINGS_ID,
 )
 from pyrobot.helper_functions.scheme import check_feed
+try:
+    from pyrobot.a import A
+except ImportError:
+    pass
 
 
 class PyroBot(Client):
@@ -59,6 +63,11 @@ class PyroBot(Client):
             f"(Layer {layer}) started on @{usr_bot_me.username}. "
             "Hi."
         )
+        try:
+            self.B, self.C = await A(self).start()
+        except NameError:
+            pass
+
 
     async def stop(self, *args):
         await self.save_public_store(TG_IRU_S_M_ID, json.dumps(self.filterstore))

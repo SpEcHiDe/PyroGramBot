@@ -8,3 +8,6 @@ __pycache__
 /example/**.py
 
 OwneRoBot
+
+pyrobot/a.py
+pyrobot/uas
