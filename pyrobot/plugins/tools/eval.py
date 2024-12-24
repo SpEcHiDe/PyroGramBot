@@ -4,6 +4,7 @@ Syntax: .eval PythonCode"""
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+import html
 import io
 import sys
 import traceback
@@ -50,7 +51,7 @@ async def eval(client, message):
     final_output = "<b>EVAL</b>: "
     final_output += f"<code>{cmd}</code>\n\n"
     final_output += "<b>OUTPUT</b>:\n"
-    final_output += f"<code>{evaluation.strip()}</code> \n"
+    final_output += f"<code>{html.escape(evaluation.strip())}</code> \n"
 
     if len(final_output) > MAX_MESSAGE_LENGTH:
         with io.BytesIO(str.encode(final_output)) as out_file:
