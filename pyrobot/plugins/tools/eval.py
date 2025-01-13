@@ -41,10 +41,8 @@ async def eval(client, message):
     evaluation = ""
     if exc:
         evaluation = exc
-    elif stderr:
-        evaluation = stderr
-    elif stdout:
-        evaluation = stdout
+    elif stdout or stderr:
+        evaluation = f"{stderr}\n\n{stdout}"
     else:
         evaluation = "Success"
 
