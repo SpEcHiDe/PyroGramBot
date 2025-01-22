@@ -49,7 +49,7 @@ async def eval(client, message):
     final_output = "<b>EVAL</b>: "
     final_output += f"<code>{cmd}</code>\n\n"
     final_output += "<b>OUTPUT</b>:\n"
-    final_output += f"<code>{html.escape(evaluation.strip())}</code> \n"
+    final_output += f'<code>{evaluation.strip().replace("<", "&lt;").replace(">", "&rt;").replace("&", "&amp;")}</code> \n'
 
     if len(final_output) > MAX_MESSAGE_LENGTH:
         with io.BytesIO(str.encode(final_output)) as out_file:
