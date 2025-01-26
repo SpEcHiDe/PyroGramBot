@@ -13,6 +13,7 @@ from pyrobot.helper_functions.extract_user import extract_user
 from pyrobot.helper_functions.cust_p_filters import f_onw_fliter
 from pyrogram.raw.functions.users import GetFullUser
 from pyrogram.raw.functions.channels import GetFullChannel
+from pyrogram.raw.types import PhotoEmpty
 from pyrogram.file_id import FileId, FileType, ThumbnailSource
 from pyrogram.errors import (
     PeerIdInvalid,
@@ -202,14 +203,14 @@ async def who_is(client: Client, message: Message):
                 None
             )
         )
-        if tUpo:
+        profile_vid = None
+        if tUpo and not isinstance(tUpo, PhotoEmpty):
             profile_vid = tUpo.video_sizes[0] if tUpo.video_sizes else None
             p_p_u_t = datetime.fromtimestamp(
                 tUpo.date
             ).strftime(
                 "%Y.%m.%d %H:%M:%S"
             )
-        if p_p_u_t:
             message_out_str += f"<b>Upload Date</b>: <u>{p_p_u_t}</u>\n"
         if profile_vid:
             file_obj = BytesIO()
@@ -236,6 +237,11 @@ async def who_is(client: Client, message: Message):
                 disable_notification=True,
             )
         else:
+            if isinstance(tUpo, PhotoEmpty):
+                return await status_message.edit_text(
+                    text=message_out_str
+                )
+
             file_obj = BytesIO()
             async for chunk in client.stream_media(
                 message=chat_photo.big_file_id,
