@@ -351,7 +351,13 @@ DEFAULT_RESULTS = [
                 [
                     InlineKeyboardButton(f"{emoji.CARD_INDEX_DIVIDERS} GitHub", url="https://github.com/TelegramPlayground/pyrogram"),
                     InlineKeyboardButton(f"{emoji.OPEN_BOOK} Docs", url="https://telegramplayground.github.io/pyrogram/releases/changes-in-this-fork.html")
-                ]
+                ],
+                # [
+                #     InlineKeyboardButton(
+                #         text="DO NOT CLIECK HREE",
+                #         callback_data="thisistestbutton"
+                #     )
+                # ],
             ]
         ),
         description="Pyrogram is an elegant, easy-to-use Telegram client library and framework.",
