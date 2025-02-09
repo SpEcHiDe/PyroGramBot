@@ -346,7 +346,7 @@ DEFAULT_RESULTS = [
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(f"{emoji.BUSTS_IN_SILHOUETTE} Community", url="https://t.me/pyrogram")
+                    InlineKeyboardButton(f"{emoji.BUSTS_IN_SILHOUETTE} Community", url="https://PyroTGFork.t.me/2")
                 ],
                 [
                     InlineKeyboardButton(f"{emoji.CARD_INDEX_DIVIDERS} GitHub", url="https://github.com/TelegramPlayground/pyrogram"),
