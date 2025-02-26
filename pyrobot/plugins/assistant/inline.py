@@ -22,8 +22,29 @@
 #  SOFTWARE.
 
 from pyrogram import Client, emoji, __version__
-from pyrogram.types import (InlineQuery, InlineQueryResultArticle, InlineQueryResultPhoto, InputTextMessageContent,
-                            InlineKeyboardButton, InlineKeyboardMarkup)
+from pyrogram.types import (
+    InlineQuery,
+    InlineQueryResultCachedAudio,
+    InlineQueryResultCachedDocument,
+    InlineQueryResultCachedAnimation,
+    InlineQueryResultCachedPhoto,
+    InlineQueryResultCachedSticker,
+    InlineQueryResultCachedVideo,
+    InlineQueryResultCachedVoice,
+    InlineQueryResultArticle,
+    InlineQueryResultAudio,
+    InlineQueryResultContact,
+    InlineQueryResultDocument,
+    InlineQueryResultAnimation,
+    InlineQueryResultLocation,
+    InlineQueryResultPhoto,
+    InlineQueryResultVenue,
+    InlineQueryResultVideo,
+    InlineQueryResultVoice,
+    InputTextMessageContent,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup
+)
 
 from . import docs
 
@@ -264,6 +285,88 @@ async def inline(_, query: InlineQuery):
                 )
             )
 
+    elif string == "test":
+        switch_pm_text = ""
+        results.append(
+            InlineQueryResultCachedAudio(
+                audio_file_id="CQACAgEAAx0CSMbgUAABFS1BZ78vrjihY3Fqo0gq04o30pLTTIUAAloFAAL3BulEXnVG7aXUwAweBA",
+                caption="",
+                # reply_markup
+            )
+        )
+        results.append(
+            InlineQueryResultCachedDocument(
+                document_file_id="BQACAgIAAx0CSMbgUAABFS1CZ78v1U6mIyqrxwABgcWRAZ9B9AKtAAJNKgACqMjQSK83dhim_yj2HgQ",
+                title="DC 2 TITLE",
+                description="DC 2 Description",
+                caption="",
+                # reply_markup
+            )
+        )
+        results.append(
+            InlineQueryResultCachedAnimation(
+                animation_file_id="CgACAgIAAx0CSMbgUAABFS1JZ782CvfH3IGM3P2cw9BhwSgiraAAAmc-AAKSPeFLG1Q-Hv3Yh9QeBA",
+                title="GiF Title",
+                caption="Animation CAPTION",
+                show_caption_above_media=True,
+                # reply_markup
+            )
+        )
+        results.append(
+            InlineQueryResultCachedPhoto(
+                photo_file_id="AgACAgQAAx0CSMbgUAABFS09Z78mkXAYFqulZ9ovqpnnOchh-OoAAr-wMRvLhiVR3f1_D3NvnioACAEAAwIAA3gABx4E",
+                title="photo title",
+                description="photo description",
+                caption="",
+                show_caption_above_media=False,
+                # reply_markup
+            )
+        )
+        results.append(
+            InlineQueryResultCachedSticker(
+                sticker_file_id="CAACAgIAAx0CSMbgUAABFS1QZ782TNe7eWlxF8nr9gzkB8PzaTAAAqQMAAKqFMhKAW7uprJ8jhweBA",
+                # reply_markup
+            )
+        )
+        results.append(
+            InlineQueryResultCachedVideo(
+                video_file_id="BAACAgIAAx0CSMbgUAABFS1UZ782Y1VNuUNyp6ufAULIPQZabr0AAiA_AAL8QeBLNgYzcdW3aTseBA",
+                title="video title",
+                description="video description",
+                caption="",
+                show_caption_above_media=False,
+                # reply_markup
+            )
+        )
+        results.append(
+            InlineQueryResultCachedVoice(
+                voice_file_id="AwACAgQAAx0CSMbgUAABFS1YZ782fTRtgt8SDaOlhpJf4i1dw7gAArAXAALox-lTDpW4lZCI-8YeBA",
+                title="voice title",
+                caption="",
+                # reply_markup
+            )
+        )
+        results.append(
+            InlineQueryResultContact(
+                phone_number="424314159",
+                first_name="BoT ",
+                last_name="SUPPort",
+                # vcard="",
+                # reply_markup=
+                thumb_url="https://mediaflare.adasin.workers.dev/dl/CDVlj6R"
+            )
+        )
+        # results.append(
+        #     InlineQueryResultLocation(
+
+        #     )
+        # )
+        # results.append(
+        #     InlineQueryResultVenue(
+
+        #     )
+        # )
+
     if results:
         await query.answer(
             results=results,
@@ -340,3 +443,8 @@ async def inline(_, query: InlineQuery):
                 switch_pm_text=f'{emoji.CROSS_MARK} No results for "{string}"',
                 switch_pm_parameter="okay",
             )
+
+
+@Client.on_chosen_inline_result()
+async def chosen_inline_result_handler(client, chosen_inline_result):
+    print(chosen_inline_result)
