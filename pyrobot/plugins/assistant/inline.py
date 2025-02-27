@@ -445,6 +445,13 @@ async def inline(_, query: InlineQuery):
             )
 
 
-@Client.on_chosen_inline_result()
-async def chosen_inline_result_handler(client, chosen_inline_result):
-    print(chosen_inline_result)
+# @Client.on_chosen_inline_result()
+# async def chosen_inline_result_handler(client, chosen_inline_result):
+#     # print(chosen_inline_result)
+#     from pyrogram.types import InputMediaAudio
+#     print(await chosen_inline_result.edit_message_media(
+#         InputMediaAudio(
+#             "/downloads/Oru_Poo_Maathram_Chodhichu_Swapnakoodu_Sreenivas_Sujatha_Mohan_Mohan.mp3",
+#             caption="testing edit message"
+#         )
+#     ))
