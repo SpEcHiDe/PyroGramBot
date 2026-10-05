@@ -267,7 +267,7 @@ async def inline(_, query: InlineQuery):
                     input_message_content=InputTextMessageContent(
                         docs.rules,
                         link_preview_options=LinkPreviewOptions(
-                            url="https://telegramplayground.github.io/pyrogram/releases/changes-in-this-fork.html",
+                            url="https://telegramplayground.github.io/pyrogram/releases/",
                             show_above_text=True,
                             manual=True,
                         )

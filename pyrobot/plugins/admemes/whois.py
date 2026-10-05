@@ -273,3 +273,11 @@ async def who_is(client: Client, message: Message):
         )
 
     await status_message.delete()
+
+
+# @Bot.on_inline_query()
+# async def on_whois_iq(client, inline_query):
+
+# @Client.on_message(filters.guest_message_query_id())
+# async def guest_message_echo(client, message):
+#     print(message)
